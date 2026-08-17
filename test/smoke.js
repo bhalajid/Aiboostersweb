@@ -16,7 +16,7 @@ function check(page,name,cond,detail=''){
   else{fail++;failures.push(`${page} :: ${name}${detail?'  ('+detail+')':''}`);}
 }
 
-async function load(file){
+async function load(file,reduceMotion=false){
   const html=fs.readFileSync(path.join(DIR,file),'utf8');
   const vc=new VirtualConsole();
   const errors=[];
@@ -27,7 +27,8 @@ async function load(file){
     resources:undefined, url:'https://aiboosters.guru/'+file,
     beforeParse(w){
       // stubs jsdom lacks — must exist BEFORE page scripts run
-      w.matchMedia=q=>({matches:false,media:q,addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}});
+      w.matchMedia=q=>({matches:reduceMotion&&/reduced-motion/.test(q),media:q,
+        addEventListener(){},removeEventListener(){},addListener(){},removeListener(){}});
       w.IntersectionObserver=class{
         constructor(cb){this.cb=cb;}
         observe(el){setTimeout(()=>this.cb([{isIntersecting:true,target:el}],this),0);}
@@ -37,8 +38,23 @@ async function load(file){
       w.cancelAnimationFrame=id=>clearTimeout(id);
       w.scrollTo=()=>{};
       Object.defineProperty(w,'devicePixelRatio',{value:1});
-      // no WebGL in jsdom: the page's capability gate should catch this
-      w.HTMLCanvasElement.prototype.getContext=function(){return null;};
+      // Realistic corporate browser: 2D canvas works, WebGL is blocked.
+      // (Returning null for BOTH was hiding real behaviour in the tests.)
+      const noop=()=>{};
+      const ctx2d={setTransform:noop,clearRect:noop,beginPath:noop,moveTo:noop,lineTo:noop,
+        stroke:noop,fill:noop,arc:noop,fillText:noop,save:noop,restore:noop,closePath:noop,
+        createLinearGradient:()=>({addColorStop:noop}),
+        createRadialGradient:()=>({addColorStop:noop}),
+        measureText:()=>({width:10}),
+        set fillStyle(v){},get fillStyle(){return '';},
+        set strokeStyle(v){},get strokeStyle(){return '';},
+        set lineWidth(v){},get lineWidth(){return 1;},
+        set font(v){},get font(){return '';},
+        set globalAlpha(v){},get globalAlpha(){return 1;},
+        set textAlign(v){},get textAlign(){return 'left';}};
+      w.HTMLCanvasElement.prototype.getContext=function(type){
+        return type==='2d' ? ctx2d : null;   // no WebGL, like managed Edge
+      };
     }
   });
   const w=dom.window;
@@ -136,6 +152,11 @@ for(const page of PAGES){
           svg?svg.querySelectorAll('.sm').length+' circles':'no svg');
     check(page,'SVG circles carry their value name',
           svg?[...svg.querySelectorAll('.sm')].every(c=>c.dataset.v&&c.dataset.v.length>2):false);
+    check(page,'spheres have depth (gradient body + rim + core)',
+          svg?[...svg.querySelectorAll('.sm')].every(g=>
+             g.querySelector('.body')&&g.querySelector('.rim')&&g.querySelector('.core')):false);
+    check(page,'gradient defs present',
+          !!svg&&!!svg.querySelector('#sphereFill')&&!!svg.querySelector('#rimLight'));
     check(page,'SVG circles keyboard-focusable',
           svg?[...svg.querySelectorAll('.sm')].every(c=>c.hasAttribute('tabindex')):false);
     check(page,'SVG circles labelled for screen readers',
@@ -166,6 +187,41 @@ for(const page of PAGES){
     check(page,'email has autocomplete',d.getElementById('f-email')?.hasAttribute('autocomplete'));
   }
 
+  w.close();
+}
+
+// ---- corporate/VDI case: OS animation effects disabled ----
+{
+  const page='index.html (reduced-motion)';
+  const {w,d,errors}=await load('index.html',true);
+  check(page,'no JS runtime errors',errors.length===0,errors[0]);
+  const t=d.getElementById('flowToggle');
+  check(page,'motion control present',!!t);
+  check(page,'defaults to paused, honouring the OS setting',
+        t&&t.textContent==='Play animation'&&t.getAttribute('aria-pressed')==='false',
+        t?t.textContent+'/'+t.getAttribute('aria-pressed'):'missing');
+  if(t){
+    t.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));
+    check(page,'user can opt in to animation',
+          t.textContent==='Pause animation'&&t.getAttribute('aria-pressed')==='true',
+          t.textContent);
+    t.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));
+    check(page,'user can pause again',t.getAttribute('aria-pressed')==='false');
+  }
+  // content must still be visible when motion is off
+  check(page,'scroll-reveal content not stuck hidden',
+        [...d.querySelectorAll('.rv')].length>0);
+  check(page,'nine principles still render',d.querySelectorAll('.nine-row').length===9);
+  w.close();
+}
+
+// ---- default case: motion allowed ----
+{
+  const page='index.html (motion allowed)';
+  const {w,d}=await load('index.html',false);
+  const t=d.getElementById('flowToggle');
+  check(page,'defaults to playing',
+        t&&t.getAttribute('aria-pressed')==='true',t?t.getAttribute('aria-pressed'):'missing');
   w.close();
 }
 

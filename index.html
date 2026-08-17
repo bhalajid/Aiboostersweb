@@ -235,24 +235,30 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
    with JS disabled. This is what most corporate/managed browsers will see,
    so it is designed as a first-class hero rather than a degraded one. ---- */
 .hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
-#svgMark{width:min(34vw,430px);height:auto;overflow:visible;
-  animation:markFloat 8s ease-in-out infinite}
-#svgMark .arc{stroke:var(--copper);stroke-width:.7;opacity:.30;
-  stroke-dasharray:420;stroke-dashoffset:420;
-  animation:arcDraw 1.9s cubic-bezier(.16,1,.3,1) .25s forwards}
-#svgMark .sm{fill:var(--copper);transform-box:fill-box;transform-origin:center;
+#svgMark{width:min(36vw,460px);height:auto;overflow:visible;
+  animation:markFloat 9s ease-in-out infinite}
+#svgMark .arc{stroke:var(--copper);stroke-width:.6;opacity:.26;
+  stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;
+  animation:arcDraw 2.1s cubic-bezier(.16,1,.3,1) .3s forwards}
+#svgMark .sm{transform-box:fill-box;transform-origin:center;
   transform:scale(0);opacity:0;cursor:pointer;outline:none;
-  animation:smIn .85s cubic-bezier(.34,1.56,.64,1) forwards,
-            smGlow 5s ease-in-out infinite;
-  animation-delay:calc(.28s + var(--i)*.11s), calc(1.2s + var(--i)*.16s);
-  transition:filter .3s ease}
-#svgMark .sm:hover,#svgMark .sm:focus-visible{
-  filter:drop-shadow(0 0 12px var(--copper-lt)) brightness(1.35)}
-#svgMark:hover .sm:not(:hover){opacity:.42;transition:opacity .3s ease}
+  animation:smIn .9s cubic-bezier(.34,1.56,.64,1) forwards;
+  animation-delay:calc(.3s + var(--i)*.11s);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s ease}
+#svgMark .body{fill:url(#sphereFill)}
+#svgMark .rim{fill:none;stroke:url(#rimLight);stroke-width:.9}
+#svgMark .core{fill:#FFE2C4;opacity:.9;
+  animation:coreGlow 4.5s ease-in-out infinite;
+  animation-delay:calc(var(--i)*.28s)}
+/* hovered lifts; the rest recede only slightly, so nothing looks switched off */
+#svgMark .sm:hover,#svgMark .sm:focus-visible{transform:scale(1.09)}
+#svgMark .sm:hover .body,#svgMark .sm:focus-visible .body{
+  filter:drop-shadow(0 0 9px rgba(233,160,99,.85))}
+#svgMark .sm:hover .core,#svgMark .sm:focus-visible .core{opacity:1}
+#svgMark:hover .sm:not(:hover){opacity:.78}
 @keyframes arcDraw{to{stroke-dashoffset:0}}
 @keyframes smIn{to{transform:scale(1);opacity:1}}
-@keyframes smGlow{0%,100%{filter:drop-shadow(0 0 3px rgba(201,122,60,.35))}
-                  50%{filter:drop-shadow(0 0 11px rgba(201,122,60,.7))}}
+@keyframes coreGlow{0%,100%{opacity:.62}50%{opacity:1}}
 @keyframes markFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 /* once WebGL takes over, retire the SVG */
 .webgl .hero-visual{opacity:0;pointer-events:none;transition:opacity .6s ease}
@@ -333,6 +339,15 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   border-top:1px solid var(--line-2);font-family:var(--mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;color:var(--grey-d)}
 .flow-legend div{display:flex;align-items:center;gap:9px}
+.flow-toggle{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grey);background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:20px;padding:8px 15px;cursor:pointer;
+  transition:.22s;display:inline-flex;align-items:center;gap:8px}
+.flow-toggle::before{content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--grey-d);transition:.22s}
+.flow-toggle.is-on::before{background:var(--copper);box-shadow:0 0 8px var(--copper)}
+.flow-toggle:hover{border-color:var(--copper);color:var(--white)}
+@media(max-width:760px){.flow-toggle{margin-left:0;margin-top:4px}}
 .flow-legend b{width:7px;height:7px;border-radius:50%;display:block}
 
 .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;
@@ -495,18 +510,30 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         </div>
       </div>
       <div class="hero-visual">
-        <svg id="svgMark" viewBox="-30 -20 250 215" preserveAspectRatio="xMidYMid meet"
+        <svg id="svgMark" viewBox="-34 -24 256 222" preserveAspectRatio="xMidYMid meet"
              aria-label="The AIBoosters mark: nine circles growing ninefold along a 90 degree arc">
+          <defs>
+            <radialGradient id="sphereFill" cx="34%" cy="30%" r="72%">
+              <stop offset="0%"   stop-color="#F3B075"/>
+              <stop offset="42%"  stop-color="#C97A3C"/>
+              <stop offset="100%" stop-color="#6E3D18"/>
+            </radialGradient>
+            <linearGradient id="rimLight" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%"   stop-color="#F3B075" stop-opacity=".85"/>
+              <stop offset="55%"  stop-color="#C97A3C" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#F3B075" stop-opacity=".45"/>
+            </linearGradient>
+          </defs>
           <polyline class="arc" points="12.0,161.71 21.64,161.34 33.39,159.88 47.73,156.52 65.05,149.97 85.34,138.1 107.49,117.76 127.81,84.89 151.71,36.0" fill="none"/>
-        <circle class="sm" style="--i:0" cx="12.0" cy="161.71" r="3.0" data-v="Trustworthy" tabindex="0" role="img" aria-label="Trustworthy"><title>Trustworthy</title></circle>
-        <circle class="sm" style="--i:1" cx="21.64" cy="161.34" r="3.95" data-v="Human" tabindex="0" role="img" aria-label="Human"><title>Human</title></circle>
-        <circle class="sm" style="--i:2" cx="33.39" cy="159.88" r="5.2" data-v="Confident" tabindex="0" role="img" aria-label="Confident"><title>Confident</title></circle>
-        <circle class="sm" style="--i:3" cx="47.73" cy="156.52" r="6.84" data-v="Elegant" tabindex="0" role="img" aria-label="Elegant"><title>Elegant</title></circle>
-        <circle class="sm" style="--i:4" cx="65.05" cy="149.97" r="9.0" data-v="Timeless" tabindex="0" role="img" aria-label="Timeless"><title>Timeless</title></circle>
-        <circle class="sm" style="--i:5" cx="85.34" cy="138.1" r="11.84" data-v="Enterprise" tabindex="0" role="img" aria-label="Enterprise"><title>Enterprise</title></circle>
-        <circle class="sm" style="--i:6" cx="107.49" cy="117.76" r="15.59" data-v="Premium" tabindex="0" role="img" aria-label="Premium"><title>Premium</title></circle>
-        <circle class="sm" style="--i:7" cx="127.81" cy="84.89" r="20.52" data-v="Innovative" tabindex="0" role="img" aria-label="Innovative"><title>Innovative</title></circle>
-        <circle class="sm" style="--i:8" cx="151.71" cy="36.0" r="27.0" data-v="Intelligent" tabindex="0" role="img" aria-label="Intelligent"><title>Intelligent</title></circle>
+        <g class="sm" style="--i:0" data-v="Trustworthy" tabindex="0" role="img" aria-label="Trustworthy"><title>Trustworthy</title><circle class="body" cx="12.0" cy="161.71" r="3.0"/><circle class="rim"  cx="12.0" cy="161.71" r="3.0"/><circle class="core" cx="11.10" cy="160.75" r="0.90"/></g>
+        <g class="sm" style="--i:1" data-v="Human" tabindex="0" role="img" aria-label="Human"><title>Human</title><circle class="body" cx="21.64" cy="161.34" r="3.95"/><circle class="rim"  cx="21.64" cy="161.34" r="3.95"/><circle class="core" cx="20.46" cy="160.08" r="0.90"/></g>
+        <g class="sm" style="--i:2" data-v="Confident" tabindex="0" role="img" aria-label="Confident"><title>Confident</title><circle class="body" cx="33.39" cy="159.88" r="5.2"/><circle class="rim"  cx="33.39" cy="159.88" r="5.2"/><circle class="core" cx="31.83" cy="158.22" r="1.04"/></g>
+        <g class="sm" style="--i:3" data-v="Elegant" tabindex="0" role="img" aria-label="Elegant"><title>Elegant</title><circle class="body" cx="47.73" cy="156.52" r="6.84"/><circle class="rim"  cx="47.73" cy="156.52" r="6.84"/><circle class="core" cx="45.68" cy="154.33" r="1.37"/></g>
+        <g class="sm" style="--i:4" data-v="Timeless" tabindex="0" role="img" aria-label="Timeless"><title>Timeless</title><circle class="body" cx="65.05" cy="149.97" r="9.0"/><circle class="rim"  cx="65.05" cy="149.97" r="9.0"/><circle class="core" cx="62.35" cy="147.09" r="1.80"/></g>
+        <g class="sm" style="--i:5" data-v="Enterprise" tabindex="0" role="img" aria-label="Enterprise"><title>Enterprise</title><circle class="body" cx="85.34" cy="138.1" r="11.84"/><circle class="rim"  cx="85.34" cy="138.1" r="11.84"/><circle class="core" cx="81.79" cy="134.31" r="2.37"/></g>
+        <g class="sm" style="--i:6" data-v="Premium" tabindex="0" role="img" aria-label="Premium"><title>Premium</title><circle class="body" cx="107.49" cy="117.76" r="15.59"/><circle class="rim"  cx="107.49" cy="117.76" r="15.59"/><circle class="core" cx="102.81" cy="112.77" r="3.12"/></g>
+        <g class="sm" style="--i:7" data-v="Innovative" tabindex="0" role="img" aria-label="Innovative"><title>Innovative</title><circle class="body" cx="127.81" cy="84.89" r="20.52"/><circle class="rim"  cx="127.81" cy="84.89" r="20.52"/><circle class="core" cx="121.65" cy="78.32" r="4.10"/></g>
+        <g class="sm" style="--i:8" data-v="Intelligent" tabindex="0" role="img" aria-label="Intelligent"><title>Intelligent</title><circle class="body" cx="151.71" cy="36.0" r="27.0"/><circle class="rim"  cx="151.71" cy="36.0" r="27.0"/><circle class="core" cx="143.61" cy="27.36" r="5.40"/></g>
         </svg>
       </div>
     </div>
@@ -574,6 +601,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <div><b style="background:#C97A3C"></b> Platform layer</div>
         <div><b style="background:#E9A063"></b> Reasoning</div>
         <div><b style="background:#F8FAFC"></b> Action returned</div>
+        <button id="flowToggle" class="flow-toggle" aria-pressed="true">Pause animation</button>
       </div>
     </div>
   </div>
@@ -1025,8 +1053,16 @@ load('invoice');
 (function(){
   const cvs=document.getElementById('flowCanvas'); if(!cvs)return;
   const ctx=cvs.getContext('2d');
-  if(!ctx){ cvs.style.display='none'; return; }   // canvas unsupported/blocked
+  if(!ctx){                                   // canvas unsupported/blocked
+    cvs.style.display='none';
+    const tg=document.getElementById('flowToggle'); if(tg)tg.style.display='none';
+    return;
+  }
+  // Managed Windows / VDI images very often ship with "Animation effects" off,
+  // which sets prefers-reduced-motion. That is a performance policy, not always
+  // a vestibular need — so we honour it by DEFAULT but give an explicit control.
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let motionOn=!reduce;
   let W=0,H=0,DPR=Math.min(devicePixelRatio,2);
 
   // four layers: sources -> platform -> reasoning -> action
@@ -1090,7 +1126,7 @@ load('invoice');
       ctx.strokeStyle='rgba(255,255,255,.055)';ctx.lineWidth=1;ctx.stroke();
     });
 
-    if(!reduce){
+    if(motionOn){
       // advance signals
       signals.forEach(s=>{
         s.t+=s.sp;
@@ -1125,7 +1161,7 @@ load('invoice');
     const t=ts/1000;
     nodes.forEach(n=>{
       n.pulse*=0.94;
-      const breathe=reduce?0:Math.sin(t*1.2+n.seed)*0.12;
+      const breathe=motionOn?Math.sin(t*1.2+n.seed)*0.12:0;
       const r=n.r*(1+breathe*0.3+n.pulse*0.55);
       if(n.pulse>0.02){
         ctx.beginPath();ctx.arc(n.x,n.y,r+n.pulse*17,0,6.2832);
@@ -1142,13 +1178,32 @@ load('invoice');
     });
   }
 
-  let spawner=null;
+  let spawner=null, inView=false;
+  function startSpawner(){ if(!spawner&&motionOn&&inView) spawner=setInterval(spawn,420); }
+  function stopSpawner(){ clearInterval(spawner); spawner=null; }
+
   const io=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){
-      if(!spawner&&!reduce)spawner=setInterval(spawn,420);
-    } else { clearInterval(spawner);spawner=null; }
+    inView=e.isIntersecting;
+    if(inView) startSpawner(); else stopSpawner();
   }),{threshold:.2});
   io.observe(cvs);
+
+  // explicit motion control — lets anyone on a locked-down machine opt in
+  const toggle=document.getElementById('flowToggle');
+  if(toggle){
+    function sync(){
+      toggle.textContent = motionOn ? 'Pause animation' : 'Play animation';
+      toggle.setAttribute('aria-pressed', String(motionOn));
+      toggle.classList.toggle('is-on', motionOn);
+    }
+    sync();
+    toggle.addEventListener('click',()=>{
+      motionOn=!motionOn;
+      if(motionOn){ startSpawner(); }
+      else { stopSpawner(); signals.length=0; }
+      sync();
+    });
+  }
 
   addEventListener('resize',resize);
   resize(); requestAnimationFrame(frame);
@@ -1196,7 +1251,7 @@ load('invoice');
       const r=el.getBoundingClientRect();
       lab.textContent=el.dataset.v;
       lab.style.left=(r.left+r.width/2)+'px';
-      lab.style.top=(r.top-10)+'px';
+      lab.style.top=(r.top-14)+'px';
       lab.classList.add('on');
       clearTimeout(t);
     }
