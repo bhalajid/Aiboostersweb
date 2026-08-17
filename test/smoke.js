@@ -148,7 +148,12 @@ for(const page of PAGES){
     check(page,'headline does not open on a negative',
           !/^(we (don'?t|do not|never))/i.test(h1),h1.slice(0,50));
     check(page,'headline is short enough to scan',h1.split(/\s+/).length<=9,h1);
-    check(page,'hero has a supporting beat line',!!d.querySelector('.hero .beat'));
+    // hero must stay uncluttered: headline + one short lead, nothing more
+    const heroText=d.querySelectorAll('.hero .wrap > div > p');
+    check(page,'hero has at most one paragraph',heroText.length<=1,heroText.length+' paragraphs');
+    const lead=d.querySelector('.hero .lead');
+    check(page,'lead is short',lead&&lead.textContent.trim().split(/\s+/).length<=32,
+          lead?lead.textContent.trim().split(/\s+/).length+' words':'none');
     // ---- corporate / no-WebGL path (jsdom has no WebGL, so this is the
     //      default here — the same experience a managed Edge browser gets) ----
     const svg=d.getElementById('svgMark');
