@@ -121,14 +121,12 @@ for(const page of PAGES){
           d.querySelectorAll('.nine-row').length+' rows');
     // sphere label element exists
     check(page,'sphere label element exists',!!d.getElementById('sphereLabel'));
-    // hero advertises all nine capabilities, not a subset
-    const pills=[...d.querySelectorAll('.hero-pills .pill')];
-    check(page,'hero lists all nine capabilities',pills.length===9,pills.length+' pills');
-    check(page,'three pillars marked as core',
-          d.querySelectorAll('.hero-pills .pill.core').length===3);
-    check(page,'pills numbered 01-09',
-          pills.map(p=>p.querySelector('b')?.textContent.trim()).join(',')==='01,02,03,04,05,06,07,08,09');
-    check(page,'pills link through to services',!!d.querySelector('.pills-note a[href="services.html"]'));
+    // hero stays uncluttered: a single capability line, not a pill inventory
+    check(page,'hero has no pill inventory',d.querySelectorAll('.hero-pills .pill').length===0);
+    const caps=d.querySelector('.hero-caps');
+    check(page,'hero capability line present',!!caps);
+    check(page,'capability line mentions nine',/nine/i.test(caps?caps.textContent:''));
+    check(page,'capability line links to services',!!d.querySelector('.hero-caps a[href="services.html"]'));
   }
 
   // ---- contact form ----
