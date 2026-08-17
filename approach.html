@@ -8,6 +8,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://aiboosters.guru/approach.html">
+<meta name="theme-color" content="#05070F">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AIBoosters Consulting">
+<meta property="og:title" content="AIBoosters Consulting — Approach">
+<meta property="og:description" content="A six-phase engagement method designed to end with your team running the system.">
+<meta property="og:url" content="https://aiboosters.guru/approach.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIBoosters Consulting — Approach">
+<meta name="twitter:description" content="A six-phase engagement method designed to end with your team running the system.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
@@ -80,6 +91,21 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:30px}
   .navlinks.open{max-height:340px;margin-top:14px}
   .navlinks a{padding:13px 2px;border-bottom:1px solid var(--line-2);font-size:15px}
   .navlinks a::after{display:none}
+}
+
+/* ---------- accessibility ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:600;background:var(--copper);
+  color:var(--ink);padding:12px 20px;border-radius:0 0 8px 0;font-weight:600;font-size:14px}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:4px}
+.btn:focus-visible,.chip:focus-visible,.demo-tab:focus-visible{outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1!important;transform:none!important}
+  .nine-row{opacity:1!important;transform:none!important}
+  .nine-row .nc{transform:scale(1)!important}
+  .divider::after{width:100%!important}
 }
 
 /* ---------- scroll progress bar ---------- */
@@ -303,6 +329,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     <circle cx="151.71" cy="36.0" r="27.0" fill="#C97A3C"/>
   </symbol>
 </svg>
+<a href="#main" class="skip">Skip to content</a>
 <div class="progress" id="progressBar"></div>
 <header id="siteHeader">
   <div class="wrap">
@@ -319,8 +346,8 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     </nav>
   </div>
 </header>
-<section class="phero">
-  <canvas id="pCanvas"></canvas>
+<main id="main"><section class="phero">
+  <canvas id="pCanvas" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="kicker">How we work</div>
     <h1 class="scramble">A method built to end, not to renew itself.</h1>
@@ -401,6 +428,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     </div>
   </div>
 </section>
+</main>
 <footer>
   <div class="wrap">
     <div class="foot-row">
@@ -438,19 +466,19 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     </div>
   </div>
 </footer>
-<button class="ai-fab" id="aiFab" aria-label="Open assistant">
+<button class="ai-fab" id="aiFab" aria-label="Open assistant" aria-expanded="false" aria-controls="aiPanel">
   <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="#05070F" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" fill="#05070F"/></svg>
 </button>
-<div class="ai-panel" id="aiPanel">
+<div class="ai-panel" id="aiPanel" role="dialog" aria-label="Preview assistant" aria-modal="false">
   <div class="ai-head"><div class="ai-dot"></div>
     <div><b>Ask about AIBoosters</b><span>Preview assistant &mdash; illustrative answers</span></div>
   </div>
-  <div class="ai-body" id="aiBody"></div>
+  <div class="ai-body" id="aiBody" role="log" aria-live="polite"></div>
   <div class="ai-suggest" id="aiSuggest">
-    <div class="chip" data-q="What do you actually do?">What do you actually do?</div>
-    <div class="chip" data-q="How are you different?">How are you different?</div>
-    <div class="chip" data-q="How long does an engagement take?">How long does it take?</div>
-    <div class="chip" data-q="What does it cost?">What does it cost?</div>
+    <div class="chip" role="button" tabindex="0" data-q="What do you actually do?">What do you actually do?</div>
+    <div class="chip" role="button" tabindex="0" data-q="How are you different?">How are you different?</div>
+    <div class="chip" role="button" tabindex="0" data-q="How long does an engagement take?">How long does it take?</div>
+    <div class="chip" role="button" tabindex="0" data-q="What does it cost?">What does it cost?</div>
   </div>
   <div class="ai-foot">This preview shows how a live assistant would work on this site.</div>
 </div>
@@ -580,16 +608,43 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
   function ask(q){add(q,'user');const k=q.toLowerCase();let m=null;
     for(const [keys,ans] of A){if(keys.some(x=>k.includes(x))){m=ans;break;}}
     bot(m||"Good question for a real conversation — book a briefing and we'll answer it with specifics for your systems rather than a generic line.");}
-  fab.addEventListener('click',()=>{panel.classList.toggle('open');
+  fab.addEventListener('click',()=>{
+    const open=panel.classList.toggle('open');
+    fab.setAttribute('aria-expanded',open);
     if(!opened){opened=true;setTimeout(()=>bot("Hi — I can give you a quick sense of what AIBoosters does. Ask a question, or pick one below."),280);}});
-  document.getElementById('aiSuggest').addEventListener('click',e=>{
-    const c=e.target.closest('.chip');if(c)ask(c.dataset.q);});
+  const sug=document.getElementById('aiSuggest');
+  sug.addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)ask(c.dataset.q);});
+  sug.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      const c=e.target.closest('.chip');
+      if(c){e.preventDefault();ask(c.dataset.q);}
+    }});
+  // Escape closes the panel and returns focus to the button
+  addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&panel.classList.contains('open')){
+      panel.classList.remove('open');fab.setAttribute('aria-expanded','false');fab.focus();
+    }});
 })();
 
 
 (function(){
-  if(typeof THREE==='undefined')return;
   const cvs=document.getElementById('pCanvas'); if(!cvs)return;
+  function webglOK(){
+    try{
+      const c=document.createElement('canvas');
+      const gl=c.getContext('webgl')||c.getContext('experimental-webgl');
+      if(!gl)return false;
+      const dbg=gl.getExtension('WEBGL_debug_renderer_info');
+      if(dbg){
+        const r=(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)||'').toLowerCase();
+        if(r.includes('swiftshader')||r.includes('llvmpipe')||r.includes('software'))return false;
+      }
+      return true;
+    }catch(e){return false;}
+  }
+  const weak=(navigator.deviceMemory&&navigator.deviceMemory<4)
+           ||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<4);
+  if(typeof THREE==='undefined'||!webglOK()||weak){cvs.style.display='none';return;}
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sc=new THREE.Scene(); sc.fog=new THREE.FogExp2(0x05070F,.035);
   const cam=new THREE.PerspectiveCamera(50,innerWidth/cvs.offsetHeight,0.1,200);
@@ -598,10 +653,13 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
     else if(innerWidth<1000){cam.position.set(0,0,38);g.scale.setScalar(.95);}
     else {cam.position.set(0,0,30);g.scale.setScalar(1);}
   }
-  const rnd=new THREE.WebGLRenderer({canvas:cvs,alpha:true,antialias:true});
+  let rnd;
+  try{ rnd=new THREE.WebGLRenderer({canvas:cvs,alpha:true,antialias:true}); }
+  catch(e){ cvs.style.display='none'; return; }
+  cvs.addEventListener('webglcontextlost',e=>{e.preventDefault();cvs.style.display='none';});
   function size(){const h=cvs.parentElement.offsetHeight;rnd.setSize(innerWidth,h);
     frameCam();cam.aspect=innerWidth/h;cam.updateProjectionMatrix();}
-  rnd.setPixelRatio(Math.min(devicePixelRatio,2)); size();
+  rnd.setPixelRatio(Math.min(devicePixelRatio,1.75)); size();
   const g=new THREE.Group(); sc.add(g);
   const orbs=[],pathPts=[];
   for(let i=0;i<9;i++){
