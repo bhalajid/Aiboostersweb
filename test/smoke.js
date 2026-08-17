@@ -127,21 +127,35 @@ for(const page of PAGES){
     check(page,'hero capability line present',!!caps);
     check(page,'capability line mentions nine',/nine/i.test(caps?caps.textContent:''));
     check(page,'capability line links to services',!!d.querySelector('.hero-caps a[href="services.html"]'));
-    // jsdom has no WebGL, so this exercises the corporate/no-GPU path
-    const fb=d.getElementById('heroFallback');
-    check(page,'static mark renders when WebGL unavailable',!!fb);
-    check(page,'fallback sits in the hero grid, not a new row',
-          !!fb && fb.parentElement && fb.parentElement.parentElement &&
-          fb.parentElement.parentElement.classList.contains('hero-grid'));
-    check(page,'fallback does not add a 3rd grid column',
-          d.querySelectorAll('.hero-grid > div').length===2,
-          d.querySelectorAll('.hero-grid > div').length+' columns');
-    check(page,'fallback mark is labelled for screen readers',
-          !!fb && !!fb.querySelector('svg[aria-label]'));
-    check(page,'no-webgl class set on <html>',
-          d.documentElement.classList.contains('no-webgl'));
-    check(page,'hero canvas hidden in fallback',
+    // ---- corporate / no-WebGL path (jsdom has no WebGL, so this is the
+    //      default here — the same experience a managed Edge browser gets) ----
+    const svg=d.getElementById('svgMark');
+    check(page,'SVG hero present in HTML (no JS required)',!!svg);
+    check(page,'SVG hero has all nine circles',
+          svg?svg.querySelectorAll('.sm').length===9:false,
+          svg?svg.querySelectorAll('.sm').length+' circles':'no svg');
+    check(page,'SVG circles carry their value name',
+          svg?[...svg.querySelectorAll('.sm')].every(c=>c.dataset.v&&c.dataset.v.length>2):false);
+    check(page,'SVG circles keyboard-focusable',
+          svg?[...svg.querySelectorAll('.sm')].every(c=>c.hasAttribute('tabindex')):false);
+    check(page,'SVG circles labelled for screen readers',
+          svg?[...svg.querySelectorAll('.sm')].every(c=>c.hasAttribute('aria-label')):false);
+    check(page,'connecting arc drawn',!!svg&&!!svg.querySelector('.arc'));
+    check(page,'no webgl class when unsupported',
+          !d.documentElement.classList.contains('webgl'));
+    check(page,'canvas hidden without WebGL',
           d.getElementById('heroCanvas').style.display==='none');
+    // hovering an SVG circle reveals its value
+    if(svg){
+      const c=svg.querySelector('.sm');
+      c.dispatchEvent(new w.MouseEvent('mouseenter',{bubbles:true}));
+      const lab=d.getElementById('sphereLabel');
+      check(page,'SVG hover reveals the value label',
+            lab&&lab.classList.contains('on')&&lab.textContent==='Trustworthy',
+            lab?lab.textContent:'no label');
+      c.dispatchEvent(new w.MouseEvent('mouseleave',{bubbles:true}));
+      check(page,'label clears on mouseleave',!lab.classList.contains('on'));
+    }
   }
 
   // ---- contact form ----

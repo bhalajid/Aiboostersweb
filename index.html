@@ -227,7 +227,44 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
   padding:140px 0 90px}
-#heroCanvas{position:absolute;inset:0;z-index:0;pointer-events:none}
+#heroCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+  transition:opacity .8s ease}
+.webgl #heroCanvas{opacity:1}
+
+/* ---------- SVG hero: shipped in the HTML, works with no WebGL and even
+   with JS disabled. This is what most corporate/managed browsers will see,
+   so it is designed as a first-class hero rather than a degraded one. ---- */
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+#svgMark{width:min(34vw,430px);height:auto;overflow:visible;
+  animation:markFloat 8s ease-in-out infinite}
+#svgMark .arc{stroke:var(--copper);stroke-width:.7;opacity:.30;
+  stroke-dasharray:420;stroke-dashoffset:420;
+  animation:arcDraw 1.9s cubic-bezier(.16,1,.3,1) .25s forwards}
+#svgMark .sm{fill:var(--copper);transform-box:fill-box;transform-origin:center;
+  transform:scale(0);opacity:0;cursor:pointer;outline:none;
+  animation:smIn .85s cubic-bezier(.34,1.56,.64,1) forwards,
+            smGlow 5s ease-in-out infinite;
+  animation-delay:calc(.28s + var(--i)*.11s), calc(1.2s + var(--i)*.16s);
+  transition:filter .3s ease}
+#svgMark .sm:hover,#svgMark .sm:focus-visible{
+  filter:drop-shadow(0 0 12px var(--copper-lt)) brightness(1.35)}
+#svgMark:hover .sm:not(:hover){opacity:.42;transition:opacity .3s ease}
+@keyframes arcDraw{to{stroke-dashoffset:0}}
+@keyframes smIn{to{transform:scale(1);opacity:1}}
+@keyframes smGlow{0%,100%{filter:drop-shadow(0 0 3px rgba(201,122,60,.35))}
+                  50%{filter:drop-shadow(0 0 11px rgba(201,122,60,.7))}}
+@keyframes markFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* once WebGL takes over, retire the SVG */
+.webgl .hero-visual{opacity:0;pointer-events:none;transition:opacity .6s ease}
+@media(max-width:1000px){
+  #svgMark{width:min(62vw,300px)}
+  .hero-visual{padding:36px 0 4px}
+}
+@media(prefers-reduced-motion:reduce){
+  #svgMark,#svgMark .sm{animation:none!important}
+  #svgMark .sm{transform:scale(1);opacity:1}
+  #svgMark .arc{stroke-dashoffset:0;animation:none}
+}
 .hero .wrap{position:relative;z-index:3}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
 @media(max-width:1000px){
@@ -297,37 +334,6 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   letter-spacing:.12em;text-transform:uppercase;color:var(--grey-d)}
 .flow-legend div{display:flex;align-items:center;gap:9px}
 .flow-legend b{width:7px;height:7px;border-radius:50%;display:block}
-
-/* Static mark shown when WebGL is unavailable (corporate policy, software
-   renderer, weak GPU). Sized and animated so it reads as intentional design
-   rather than a broken 3D scene. */
-#heroFallback{display:flex;align-items:center;justify-content:center;width:100%}
-#heroFallback svg{width:min(30vw,360px);height:auto;
-  filter:drop-shadow(0 0 46px rgba(201,122,60,.32));
-  animation:markFloat 7s ease-in-out infinite}
-#heroFallback svg circle{transform-box:fill-box;transform-origin:center;
-  animation:markPulse 4.5s ease-in-out infinite}
-#heroFallback svg circle:nth-child(1){animation-delay:0s}
-#heroFallback svg circle:nth-child(2){animation-delay:.18s}
-#heroFallback svg circle:nth-child(3){animation-delay:.36s}
-#heroFallback svg circle:nth-child(4){animation-delay:.54s}
-#heroFallback svg circle:nth-child(5){animation-delay:.72s}
-#heroFallback svg circle:nth-child(6){animation-delay:.9s}
-#heroFallback svg circle:nth-child(7){animation-delay:1.08s}
-#heroFallback svg circle:nth-child(8){animation-delay:1.26s}
-#heroFallback svg circle:nth-child(9){animation-delay:1.44s}
-@keyframes markFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes markPulse{0%,100%{opacity:.82}50%{opacity:1}}
-@media(max-width:1000px){
-  #heroFallback{padding:34px 0 6px}
-  #heroFallback svg{width:min(52vw,260px)}
-}
-@media(prefers-reduced-motion:reduce){
-  #heroFallback svg,#heroFallback svg circle{animation:none}
-}
-/* without WebGL the hero doesn't need a full viewport of empty space */
-.no-webgl .hero{min-height:auto;padding-bottom:70px}
-.no-webgl .scroll-hint{display:none}
 
 .scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;
   font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-d);
@@ -488,7 +494,21 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
           <a href="services.html">See what we do <span>&rarr;</span></a>
         </div>
       </div>
-      <div></div>
+      <div class="hero-visual">
+        <svg id="svgMark" viewBox="-30 -20 250 215" preserveAspectRatio="xMidYMid meet"
+             aria-label="The AIBoosters mark: nine circles growing ninefold along a 90 degree arc">
+          <polyline class="arc" points="12.0,161.71 21.64,161.34 33.39,159.88 47.73,156.52 65.05,149.97 85.34,138.1 107.49,117.76 127.81,84.89 151.71,36.0" fill="none"/>
+        <circle class="sm" style="--i:0" cx="12.0" cy="161.71" r="3.0" data-v="Trustworthy" tabindex="0" role="img" aria-label="Trustworthy"><title>Trustworthy</title></circle>
+        <circle class="sm" style="--i:1" cx="21.64" cy="161.34" r="3.95" data-v="Human" tabindex="0" role="img" aria-label="Human"><title>Human</title></circle>
+        <circle class="sm" style="--i:2" cx="33.39" cy="159.88" r="5.2" data-v="Confident" tabindex="0" role="img" aria-label="Confident"><title>Confident</title></circle>
+        <circle class="sm" style="--i:3" cx="47.73" cy="156.52" r="6.84" data-v="Elegant" tabindex="0" role="img" aria-label="Elegant"><title>Elegant</title></circle>
+        <circle class="sm" style="--i:4" cx="65.05" cy="149.97" r="9.0" data-v="Timeless" tabindex="0" role="img" aria-label="Timeless"><title>Timeless</title></circle>
+        <circle class="sm" style="--i:5" cx="85.34" cy="138.1" r="11.84" data-v="Enterprise" tabindex="0" role="img" aria-label="Enterprise"><title>Enterprise</title></circle>
+        <circle class="sm" style="--i:6" cx="107.49" cy="117.76" r="15.59" data-v="Premium" tabindex="0" role="img" aria-label="Premium"><title>Premium</title></circle>
+        <circle class="sm" style="--i:7" cx="127.81" cy="84.89" r="20.52" data-v="Innovative" tabindex="0" role="img" aria-label="Innovative"><title>Innovative</title></circle>
+        <circle class="sm" style="--i:8" cx="151.71" cy="36.0" r="27.0" data-v="Intelligent" tabindex="0" role="img" aria-label="Intelligent"><title>Intelligent</title></circle>
+        </svg>
+      </div>
     </div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><i></i></div>
@@ -1160,24 +1180,40 @@ load('invoice');
             || (navigator.hardwareConcurrency && navigator.hardwareConcurrency<4);
 
   function staticFallback(){
+    // SVG hero is already in the DOM and styled — nothing to build.
+    // Just make sure the canvas never shows and the 3D-only hint is hidden.
     cvs.style.display='none';
-    if(document.getElementById('heroFallback'))return;
-    // the hero grid's second column is intentionally empty and reserved for
-    // the 3D scene — put the static mark THERE, not appended to the grid
-    // (appending made it a 3rd child, which wrapped to a full-width new row)
-    const cols=document.querySelectorAll('.hero .hero-grid > div');
-    const host=cols.length>1 ? cols[cols.length-1] : document.querySelector('.hero .wrap');
-    if(!host)return;
-    const d=document.createElement('div');
-    d.id='heroFallback';
-    d.innerHTML='<svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet" '+
-                'role="img" aria-label="AIBoosters mark"><use href="#mark9"/></svg>';
-    host.appendChild(d);
     const hint=document.querySelector('.hero-hint'); if(hint)hint.style.display='none';
-    document.documentElement.classList.add('no-webgl');
   }
 
+  // ---- value reveal on the SVG mark (works everywhere, incl. no-WebGL) ----
+  (function svgLabels(){
+    const svg=document.getElementById('svgMark');
+    const lab=document.getElementById('sphereLabel');
+    if(!svg||!lab)return;
+    let t=null;
+    function show(el){
+      const r=el.getBoundingClientRect();
+      lab.textContent=el.dataset.v;
+      lab.style.left=(r.left+r.width/2)+'px';
+      lab.style.top=(r.top-10)+'px';
+      lab.classList.add('on');
+      clearTimeout(t);
+    }
+    function hide(){ lab.classList.remove('on'); }
+    svg.querySelectorAll('.sm').forEach(el=>{
+      el.addEventListener('mouseenter',()=>show(el));
+      el.addEventListener('mouseleave',hide);
+      el.addEventListener('focus',()=>show(el));
+      el.addEventListener('blur',hide);
+      el.addEventListener('touchstart',e=>{show(el);clearTimeout(t);t=setTimeout(hide,2400);},{passive:true});
+    });
+    addEventListener('scroll',hide,{passive:true});
+  })();
+
   if(typeof THREE==='undefined'||!webglOK()||weak){ staticFallback(); return; }
+  // WebGL confirmed — flag the upgrade so CSS retires the SVG and fades the canvas in
+  document.documentElement.classList.add('webgl');
 
   // Respect reduced-motion for looping idle motion, but still play the one-shot
   // build-in so the mark is never a blank canvas.
@@ -1197,10 +1233,11 @@ load('invoice');
   try{
     rnd=new THREE.WebGLRenderer({canvas:cvs,alpha:true,antialias:true,
       powerPreference:'high-performance',failIfMajorPerformanceCaveat:true});
-  }catch(err){ staticFallback(); return; }
+  }catch(err){ document.documentElement.classList.remove('webgl'); staticFallback(); return; }
   rnd.setSize(innerWidth,innerHeight);
   rnd.setPixelRatio(Math.min(devicePixelRatio,1.75));
-  cvs.addEventListener('webglcontextlost',e=>{e.preventDefault();staticFallback();});
+  cvs.addEventListener('webglcontextlost',e=>{e.preventDefault();
+    document.documentElement.classList.remove('webgl');staticFallback();});
 
   // exact mark geometry, normalised into 3D space
   const RAW=[[12.0,161.71,3.0],[21.64,161.34,3.95],[33.39,159.88,5.2],[47.73,156.52,6.84],
