@@ -127,6 +127,21 @@ for(const page of PAGES){
     check(page,'hero capability line present',!!caps);
     check(page,'capability line mentions nine',/nine/i.test(caps?caps.textContent:''));
     check(page,'capability line links to services',!!d.querySelector('.hero-caps a[href="services.html"]'));
+    // jsdom has no WebGL, so this exercises the corporate/no-GPU path
+    const fb=d.getElementById('heroFallback');
+    check(page,'static mark renders when WebGL unavailable',!!fb);
+    check(page,'fallback sits in the hero grid, not a new row',
+          !!fb && fb.parentElement && fb.parentElement.parentElement &&
+          fb.parentElement.parentElement.classList.contains('hero-grid'));
+    check(page,'fallback does not add a 3rd grid column',
+          d.querySelectorAll('.hero-grid > div').length===2,
+          d.querySelectorAll('.hero-grid > div').length+' columns');
+    check(page,'fallback mark is labelled for screen readers',
+          !!fb && !!fb.querySelector('svg[aria-label]'));
+    check(page,'no-webgl class set on <html>',
+          d.documentElement.classList.contains('no-webgl'));
+    check(page,'hero canvas hidden in fallback',
+          d.getElementById('heroCanvas').style.display==='none');
   }
 
   // ---- contact form ----
