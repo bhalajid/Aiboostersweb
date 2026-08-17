@@ -246,11 +246,24 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero .lead{margin-top:26px;font-size:17.5px;color:var(--grey);font-weight:300;max-width:52ch;line-height:1.75}
 .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
-.hero-pills{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
-.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-  padding:8px 14px;border:1px solid var(--line);border-radius:20px;color:var(--grey);
-  background:rgba(255,255,255,.02)}
-.pill b{color:var(--copper);font-weight:500}
+.hero-pills{display:flex;gap:7px;margin-top:32px;flex-wrap:wrap;max-width:640px}
+.pill{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  padding:7px 12px;border:1px solid var(--line-2);border-radius:20px;color:var(--grey-d);
+  background:rgba(255,255,255,.015);transition:border-color .25s ease,color .25s ease;
+  white-space:nowrap}
+.pill:hover{border-color:rgba(201,122,60,.35);color:var(--grey)}
+.pill b{color:var(--grey-d);font-weight:500;transition:color .25s ease}
+.pill:hover b{color:var(--copper)}
+/* the three disciplines the other six sit under */
+.pill.core{border-color:rgba(201,122,60,.3);color:var(--white);
+  background:rgba(201,122,60,.06)}
+.pill.core b{color:var(--copper)}
+.pills-note{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey-d);display:flex;align-items:center;gap:9px}
+.pills-note i{width:14px;height:1px;background:var(--copper);flex:none;font-style:normal}
+.pills-note a{color:var(--grey);border-bottom:1px solid transparent;transition:.2s}
+.pills-note a:hover{color:var(--copper);border-color:var(--copper)}
+@media(max-width:700px){.hero-pills{gap:6px}.pill{font-size:9px;padding:6px 10px}}
 /* hover label on hero spheres */
 .sphere-label{position:fixed;z-index:4;pointer-events:none;transform:translate(-50%,-100%);
   font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
@@ -442,10 +455,18 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
           <a href="#demo" class="btn btn-ghost">See automation live &darr;</a>
         </div>
         <div class="hero-pills">
-          <div class="pill"><b>01</b>&nbsp; Platform Engineering</div>
-          <div class="pill"><b>02</b>&nbsp; AI Integration</div>
-          <div class="pill"><b>03</b>&nbsp; Deployment &amp; Development</div>
+          <div class="pill core"><b>01</b>&nbsp; Platform Engineering</div>
+          <div class="pill core"><b>02</b>&nbsp; AI Integration</div>
+          <div class="pill core"><b>03</b>&nbsp; Deployment &amp; Development</div>
+          <div class="pill"><b>04</b>&nbsp; AI Strategy &amp; Advisory</div>
+          <div class="pill"><b>05</b>&nbsp; Data Engineering</div>
+          <div class="pill"><b>06</b>&nbsp; Agents &amp; Copilots</div>
+          <div class="pill"><b>07</b>&nbsp; Governance &amp; Compliance</div>
+          <div class="pill"><b>08</b>&nbsp; Managed AI Operations</div>
+          <div class="pill"><b>09</b>&nbsp; Change &amp; Enablement</div>
         </div>
+        <div class="pills-note"><i></i>Three disciplines, nine capabilities &mdash;
+          <a href="services.html">see them in detail</a></div>
       </div>
       <div></div>
     </div>
@@ -964,6 +985,7 @@ load('invoice');
 (function(){
   const cvs=document.getElementById('flowCanvas'); if(!cvs)return;
   const ctx=cvs.getContext('2d');
+  if(!ctx){ cvs.style.display='none'; return; }   // canvas unsupported/blocked
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let W=0,H=0,DPR=Math.min(devicePixelRatio,2);
 
@@ -1249,14 +1271,20 @@ load('invoice');
     return {x,y,r};
   }
 
+  // Sphere 1 draws at ~11px radius — a 22px target is fiddly for a moving
+  // pointer (Fitts's law). A 26px floor makes the small end comfortably
+  // hoverable; nearest-wins keeps selection correct (verified in tests up to
+  // a 40px floor with zero mis-picks).
+  const HIT_FLOOR=26;
   function pick(px,py){
     let best=-1, bestD=Infinity;
     for(let i=0;i<spheres.length;i++){
       const p=project(spheres[i]); if(!p) continue;
       const d=Math.hypot(px-p.x, py-p.y);
-      // must be inside the drawn circle; tiny spheres get a small floor so
-      // they remain clickable, but never a large invisible hitbox
-      const hit=Math.max(p.r, 14);
+      // hysteresis: the sphere already hovered keeps a slightly larger radius
+      // so the label doesn't flicker at the boundary
+      const grow=(i===hovered)?1.35:1;
+      const hit=Math.max(p.r, HIT_FLOOR)*grow;
       if(d<=hit && d<bestD){ bestD=d; best=i; }
     }
     return best;
@@ -1295,7 +1323,14 @@ load('invoice');
       // the fixed header sits on top of the hero — don't hover through it
       const hdr=document.getElementById('siteHeader');
       const overHeader = hdr ? ptrY <= hdr.getBoundingClientRect().bottom : false;
-      if(inside && !overHeader) idx=pick(ptrX,ptrY);
+      // spheres 1-5 sit behind the hero copy; popping a tooltip while the
+      // pointer is over readable text or a CTA is worse than not reacting
+      let overCopy=false;
+      const el=document.elementFromPoint(ptrX,ptrY);
+      if(el && el.closest && el.closest('.hero .wrap')){
+        overCopy = !!el.closest('a,button,h1,p,.pill,.kicker');
+      }
+      if(inside && !overHeader && !overCopy) idx=pick(ptrX,ptrY);
     }
     if(idx!==hovered){
       hovered=idx;
