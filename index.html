@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIBoosters Consulting — Enterprise AI Transformation</title>
-<meta name="description" content="Enterprise AI transformation across platform engineering, AI integration, and deployment. We don't do it for you. We clear the way.">
+<title>AIBoosters Consulting — Enterprise AI, Shipped Into Production</title>
+<meta name="description" content="From demo to Monday morning. AIBoosters Consulting engineers enterprise AI into production across nine capabilities, then hands it to your team.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -13,12 +13,12 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AIBoosters Consulting">
-<meta property="og:title" content="AIBoosters Consulting — Enterprise AI Transformation">
-<meta property="og:description" content="Enterprise AI transformation across platform engineering, AI integration, and deployment. We don't do it for you. We clear the way.">
+<meta property="og:title" content="AIBoosters Consulting — Enterprise AI, Shipped Into Production">
+<meta property="og:description" content="From demo to Monday morning. AIBoosters Consulting engineers enterprise AI into production across nine capabilities, then hands it to your team.">
 <meta property="og:url" content="https://aiboosters.guru/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AIBoosters Consulting — Enterprise AI Transformation">
-<meta name="twitter:description" content="Enterprise AI transformation across platform engineering, AI integration, and deployment. We don't do it for you. We clear the way.">
+<meta name="twitter:title" content="AIBoosters Consulting — Enterprise AI, Shipped Into Production">
+<meta name="twitter:description" content="From demo to Monday morning. AIBoosters Consulting engineers enterprise AI into production across nine capabilities, then hands it to your team.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
@@ -287,7 +287,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 }
 .hero h1 span{background:linear-gradient(102deg,#F8FAFC 30%,var(--copper-lt) 62%,var(--copper) 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero .lead{margin-top:26px;font-size:17.5px;color:var(--grey);font-weight:300;max-width:52ch;line-height:1.75}
+.hero .beat{margin-top:20px;font-size:clamp(19px,2.1vw,26px);font-weight:500;
+  color:var(--white);letter-spacing:-.015em;line-height:1.3}
+.hero .beat::after{content:"";display:block;width:44px;height:2px;background:var(--copper);
+  margin-top:18px;border-radius:2px}
+.hero .lead{margin-top:22px;font-size:17.5px;color:var(--grey);font-weight:300;max-width:52ch;line-height:1.75}
 .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
 /* One line instead of nine pills. The hero states the idea; the capability
    inventory belongs on the Services page, where a buyer goes to evaluate. */
@@ -311,6 +315,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   border:1px solid rgba(201,122,60,.4);border-radius:20px;padding:8px 15px;white-space:nowrap;
   opacity:0;transition:opacity .22s ease;box-shadow:0 0 26px -6px var(--copper-glow)}
 .sphere-label.on{opacity:1}
+.sphere-label.below{transform:translate(-50%,0)}
+@media(max-width:760px){
+  .sphere-label{font-size:10px;padding:6px 12px;letter-spacing:.12em;max-width:70vw;
+    white-space:normal;text-align:center}
+}
 @media(max-width:700px){
   .sphere-label{font-size:10px;padding:6px 12px}
   .flow-legend{gap:14px;padding:16px 20px;font-size:9.5px}
@@ -478,7 +487,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
         <b>ai<em>:</em>boosters</b>
       </a>
-      <div class="navlinks" id="navLinks"><a href="index.html" class="on">Home</a><a href="services.html">Services</a><a href="products.html">Products</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
+      <div class="navlinks" id="navLinks"><a href="index.html" class="on">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
       <a href="contact.html" class="btn btn-primary navcta">Book a briefing</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
         <i></i><i></i><i></i>
@@ -494,18 +503,20 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     <div class="hero-grid">
       <div>
         <div class="kicker">Enterprise AI Transformation</div>
-        <h1>We don't do it for you.<br><span>We clear the way.</span></h1>
-        <p class="lead">AIBoosters Consulting engineers AI into the systems enterprises already
-        depend on &mdash; from platform foundations through integration to production. Nine
-        capabilities, one team, no handoffs between the people who scope the work and the
-        people who ship it.</p>
+        <h1>From demo<br>to <span>Monday morning.</span></h1>
+        <p class="beat">Then we hand you the keys.</p>
+        <p class="lead">Most enterprise AI dies between the boardroom and the operations
+        floor. AIBoosters Consulting engineers it into the systems your business already
+        runs on, ships it into production, and leaves your team able to run it without
+        us &mdash; nine capabilities, one team, no handoffs between the people who scope
+        the work and the people who build it.</p>
         <div class="hero-cta">
           <a href="contact.html" class="btn btn-primary">Book a briefing</a>
           <a href="#demo" class="btn btn-ghost">See automation live &darr;</a>
         </div>
         <div class="hero-caps">
           <i class="rule"></i>
-          <span class="txt">Three disciplines &middot; <b>Nine capabilities</b></span>
+          <span class="txt"><b>Nine capabilities</b> &middot; Three of them core</span>
           <a href="services.html">See what we do <span>&rarr;</span></a>
         </div>
       </div>
@@ -546,10 +557,10 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 <div class="marquee">
   <div class="marquee-track">
     <span>Platform Engineering</span><span>AI Integration</span><span>Data Architecture</span>
-    <span>Custom AI Agents</span><span>Process Automation</span><span>Legacy Modernization</span>
+    <span>Custom AI Agents</span><span>Process Automation</span><span>Legacy Modernisation</span>
     <span>AI Governance</span><span>Managed AI Operations</span><span>Predictive Models</span>
     <span>Platform Engineering</span><span>AI Integration</span><span>Data Architecture</span>
-    <span>Custom AI Agents</span><span>Process Automation</span><span>Legacy Modernization</span>
+    <span>Custom AI Agents</span><span>Process Automation</span><span>Legacy Modernisation</span>
     <span>AI Governance</span><span>Managed AI Operations</span><span>Predictive Models</span>
   </div>
 </div>
@@ -558,10 +569,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   <div class="wrap">
     <div class="section-head rv">
       <div class="kicker">What we do</div>
-      <h2 class="scramble">One continuous capability, not three service lines</h2>
-      <p>Most engagements fail at the seams &mdash; between strategy and engineering, between
-      engineering and delivery. We don't have seams. The same team carries the work from
-      architecture through to a system you actually own.</p>
+      <h2 class="scramble">Three core capabilities, carried by one team</h2>
+      <p>Almost every engagement runs through these three. Most programmes fail at the seams
+      between them &mdash; strategy handed to engineering, engineering handed to delivery. We
+      don't have seams: the same team carries the work from architecture through to a system
+      you own. Six further capabilities join when the work calls for them.</p>
     </div>
     <div class="grid-3 rv">
       <div class="card"><div class="num">01</div><h3>Platform Engineering</h3>
@@ -578,7 +590,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         invoice does.</p></div>
     </div>
     <div style="margin-top:34px" class="rv">
-      <a href="services.html" class="btn btn-ghost">All nine capabilities &rarr;</a>
+      <a href="services.html" class="btn btn-ghost">See all nine capabilities &rarr;</a>
     </div>
   </div>
 </section>
@@ -651,11 +663,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 <section class="section-pad" id="approach">
   <div class="wrap">
     <div class="section-head rv">
-      <div class="kicker">The nine</div>
-      <h2 class="scramble">Every principle the firm was built on</h2>
-      <p>Nine circles, one arc, ninefold growth from the first to the last. Not decoration
-      &mdash; the same nine words that defined this firm before a single line of the brand
-      was drawn.</p>
+      <div class="kicker">What we stand for</div>
+      <h2 class="scramble">The principles behind the mark</h2>
+      <p>Our mark is nine circles on a single arc, each one growing ninefold from the first
+      to the last. Every circle carries a principle this firm was built on &mdash; written
+      down before a line of the brand was drawn, and the standard we hold the work to.</p>
     </div>
     <div id="nineList"></div>
   </div>
@@ -665,11 +677,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   <div class="wrap">
     <div class="grid-3 rv">
       <div class="card stat" style="min-height:auto">
-        <b data-count="9">0</b><span>Founding principles, engineered not decorated</span></div>
+        <b data-count="9">0</b><span>Founding principles, one per circle in the mark</span></div>
       <div class="card stat" style="min-height:auto">
-        <b data-count="3">0</b><span>Disciplines, one team, no handoffs</span></div>
+        <b data-count="3">0</b><span>Core capabilities, one team, no handoffs</span></div>
       <div class="card stat" style="min-height:auto">
-        <b data-count="90" data-suffix="&deg;">0</b><span>The construction the identity is built on</span></div>
+        <b data-count="90" data-suffix="&deg;">0</b><span>The arc the whole identity is constructed on</span></div>
     </div>
   </div>
 </section>
@@ -690,7 +702,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 
 <section class="section-pad" style="text-align:center;padding:130px 0">
   <div class="wrap rv">
-    <h2 style="max-width:17ch;margin:0 auto">Ready to see where the leverage actually is?</h2>
+    <h2 style="max-width:17ch;margin:0 auto">Ready to find out what AI can actually remove?</h2>
     <p style="margin-top:18px;color:var(--grey);font-size:16.5px;font-weight:300">
       One conversation. No deck required from you.</p>
     <div style="display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap">
@@ -713,11 +725,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         engineering, integration, and deployment. Europe and global remote.</p>
       </div>
       <div class="foot-col">
-        <h5>Capabilities</h5>
+        <h5>Core capabilities</h5>
         <a href="services.html">Platform Engineering</a>
         <a href="services.html">AI Integration</a>
         <a href="services.html">Deployment &amp; Development</a>
-        <a href="services.html">All nine services</a>
+        <a href="services.html">All nine capabilities</a>
         <a href="products.html">Products &amp; frameworks</a>
       </div>
       <div class="foot-col">
@@ -869,7 +881,7 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
     body.appendChild(w);body.scrollTop=body.scrollHeight;
     setTimeout(()=>{w.remove();add(t,'bot');},650+Math.random()*450);}
   const A=[
-    [['what do you','services','offer','do you do'],"Three connected disciplines: platform engineering, AI integration, and deployment. Nine capabilities sit underneath them — from data engineering to AI governance. Most firms hand you a strategy deck; we ship something your team can run without us."],
+    [['what do you','services','offer','do you do'],"Nine capabilities in total. Three are core — platform engineering, AI integration, and deployment — because almost every engagement runs through them. The other six, from data engineering to AI governance, come in when the work needs them. Most firms hand you a strategy deck; we ship something your team can run without us."],
     [['different','why you','compare','competitor'],"We attach to what's already working and multiply it, rather than proposing a rebuild. And the same team carries the work from architecture through to production — no handoff between the people who sold it and the people who build it."],
     [['long','time','timeline','how fast','duration'],"Scope-dependent, but most engagements move from first conversation to a working pilot in 6 to 10 weeks. We'll tell you honestly if a timeline is unrealistic before we start, not after."],
     [['cost','price','pricing','budget','how much'],"Engagements are scoped to outcomes rather than day rates, so the honest answer is that it depends on what we're removing. A briefing gives you a real number — not a range designed to get a second meeting."],
@@ -1250,9 +1262,16 @@ load('invoice');
     function show(el){
       const r=el.getBoundingClientRect();
       lab.textContent=el.dataset.v;
-      lab.style.left=(r.left+r.width/2)+'px';
-      lab.style.top=(r.top-14)+'px';
-      lab.classList.add('on');
+      lab.classList.add('on');          // measure with it laid out
+      const lw=lab.offsetWidth||120, lh=lab.offsetHeight||30, pad=10;
+      let x=r.left+r.width/2;
+      // keep the label fully on screen — small viewports pushed it off the edge
+      x=Math.min(Math.max(x, lw/2+pad), innerWidth-lw/2-pad);
+      let y=r.top-14, below=false;
+      if(y-lh < pad){ y=r.bottom+lh+14; below=true; }   // no room above: go under
+      lab.classList.toggle('below',below);
+      lab.style.left=x+'px';
+      lab.style.top=y+'px';
       clearTimeout(t);
     }
     function hide(){ lab.classList.remove('on'); }
@@ -1410,9 +1429,14 @@ load('invoice');
     if(!labelEl) return;
     const p=project(spheres[idx]); if(!p) return;
     labelEl.textContent=VALUES[spheres[idx].i];
-    labelEl.style.left=p.x+'px';
-    labelEl.style.top=(p.y - p.r - 14)+'px';   // sits just above the ball
     labelEl.classList.add('on');
+    const lw=labelEl.offsetWidth||120, lh=labelEl.offsetHeight||30, pad=10;
+    let x=Math.min(Math.max(p.x, lw/2+pad), innerWidth-lw/2-pad);
+    let y=p.y-p.r-14, below=false;
+    if(y-lh<pad){ y=p.y+p.r+lh+14; below=true; }
+    labelEl.classList.toggle('below',below);
+    labelEl.style.left=x+'px';
+    labelEl.style.top=y+'px';
   }
   function clearLabel(){
     hovered=-1;

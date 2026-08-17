@@ -143,6 +143,12 @@ for(const page of PAGES){
     check(page,'hero capability line present',!!caps);
     check(page,'capability line mentions nine',/nine/i.test(caps?caps.textContent:''));
     check(page,'capability line links to services',!!d.querySelector('.hero-caps a[href="services.html"]'));
+    // headline must lead with value, not with a negative
+    const h1=d.querySelector('h1').textContent.replace(/\s+/g,' ').trim();
+    check(page,'headline does not open on a negative',
+          !/^(we (don'?t|do not|never))/i.test(h1),h1.slice(0,50));
+    check(page,'headline is short enough to scan',h1.split(/\s+/).length<=9,h1);
+    check(page,'hero has a supporting beat line',!!d.querySelector('.hero .beat'));
     // ---- corporate / no-WebGL path (jsdom has no WebGL, so this is the
     //      default here — the same experience a managed Edge browser gets) ----
     const svg=d.getElementById('svgMark');
@@ -223,6 +229,37 @@ for(const page of PAGES){
   check(page,'defaults to playing',
         t&&t.getAttribute('aria-pressed')==='true',t?t.getAttribute('aria-pressed'):'missing');
   w.close();
+}
+
+// ---- terminology consistency across the whole site ----
+{
+  const fsx=require('fs'), px=require('path');
+  const BANNED=[
+    [/\bthree disciplines\b/i,'"three disciplines" (undefined term)'],
+    [/\bservice lines?\b/i,'"service line(s)" — use "capabilities"'],
+    [/\ball nine services\b/i,'"all nine services" — use "capabilities"'],
+    [/\bour offerings\b/i,'"offerings" — use "capabilities"'],
+    [/\bpillars?\b/i,'"pillar(s)" — use "core capabilities"']
+  ];
+  for(const f of PAGES){
+    const raw=fsx.readFileSync(px.join(DIR,f),'utf8');
+    const body=raw.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/g,'');
+    const txt=body.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ');
+    for(const [re,label] of BANNED){
+      check(f,'terminology: no '+label,!re.test(txt),
+            re.test(txt)?(txt.match(re)||[''])[0]:'');
+    }
+    // British English throughout — the firm sells into Europe
+    const am=(txt.match(/\b[A-Za-z]+(?:ization|ized|izing)\b/g)||[])
+             .filter(w=>!/^(size|sized|sizing|resize|resized|resizing)$/i.test(w));
+    check(f,'British spelling in prose',am.length===0,am.join(','));
+
+    // nav label must match the page it points at
+    if(/href="services\.html"/.test(body)){
+      check(f,'nav calls it Capabilities, not Services',
+            !/>\s*Services\s*</.test(body));
+    }
+  }
 }
 
 console.log('='.repeat(64));
