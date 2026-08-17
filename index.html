@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://aiboosters.guru/">
-<meta name="theme-color" content="#14141A">
+<meta name="theme-color" content="#0A0A0B">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AIBoosters Consulting">
@@ -26,11 +26,11 @@
      +10 to +31 more blue than red in every dark tone, which compounded with
      the blue backlight bleed of cheap/uncalibrated laptop panels and made the
      whole site read as navy/purple rather than near-black. */
-  --ink:#14141A; --ink-2:#1A1A20; --surface:#212127; --surface-2:#2A2A31;
+  --ink:#0A0A0B; --ink-2:#0E0E10; --surface:#16161A; --surface-2:#1F1F24;
   --copper:#C97A3C; --copper-lt:#E9A063; --copper-dk:#8A4E20;
   --copper-dim:rgba(201,122,60,.13); --copper-glow:rgba(201,122,60,.45);
-  --white:#F8FAFC; --grey:#B4B4BC; --grey-d:#8A8A94;
-  --line:rgba(255,255,255,.11); --line-2:rgba(255,255,255,.06);
+  --white:#F8FAFC; --grey:#A9A9B2; --grey-d:#7E7E88;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.055);
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
   --radius:14px; --maxw:1240px;
@@ -55,7 +55,7 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opa
 header{position:fixed;top:0;left:0;right:0;z-index:300;padding:20px 0;
   transition:background .35s ease,border-color .35s ease,padding .35s ease;
   border-bottom:1px solid transparent}
-header.solid{background:rgba(20,20,26,.88);backdrop-filter:blur(16px) saturate(140%);
+header.solid{background:rgba(10,10,11,.85);backdrop-filter:blur(16px) saturate(140%);
   border-color:var(--line);padding:13px 0}
 nav{display:flex;align-items:center;justify-content:space-between;gap:30px}
 .brand{display:flex;align-items:center;gap:12px;flex:none}
@@ -195,7 +195,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   border:1px solid var(--copper);opacity:.5;animation:pulse 2.6s ease-out infinite}
 @keyframes pulse{0%{transform:scale(.9);opacity:.6}100%{transform:scale(1.35);opacity:0}}
 .ai-panel{position:fixed;bottom:100px;right:28px;z-index:400;width:356px;max-width:calc(100vw - 40px);
-  background:rgba(33,33,39,.96);backdrop-filter:blur(20px);border:1px solid var(--line);
+  background:rgba(22,22,26,.96);backdrop-filter:blur(20px);border:1px solid var(--line);
   border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -12px rgba(0,0,0,.75);
   opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;transition:.28s cubic-bezier(.16,1,.3,1)}
 .ai-panel.open{opacity:1;transform:none;pointer-events:auto}
@@ -254,7 +254,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 /* hover label on hero spheres */
 .sphere-label{position:fixed;z-index:4;pointer-events:none;transform:translate(-50%,-100%);
   font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--white);background:rgba(20,20,26,.88);backdrop-filter:blur(8px);
+  color:var(--white);background:rgba(10,10,11,.85);backdrop-filter:blur(8px);
   border:1px solid rgba(201,122,60,.4);border-radius:20px;padding:8px 15px;white-space:nowrap;
   opacity:0;transition:opacity .22s ease;box-shadow:0 0 26px -6px var(--copper-glow)}
 .sphere-label.on{opacity:1}
@@ -650,7 +650,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   </div>
 </footer>
 <button class="ai-fab" id="aiFab" aria-label="Open assistant" aria-expanded="false" aria-controls="aiPanel">
-  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="#14141A" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" fill="#14141A"/></svg>
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="#0A0A0B" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.2" fill="#0A0A0B"/></svg>
 </button>
 <div class="ai-panel" id="aiPanel" role="dialog" aria-label="Preview assistant" aria-modal="false">
   <div class="ai-head"><div class="ai-dot"></div>
@@ -1137,7 +1137,7 @@ load('invoice');
   // build-in so the mark is never a blank canvas.
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const scene=new THREE.Scene();
-  scene.fog=new THREE.FogExp2(0x14141A,0.028);
+  scene.fog=new THREE.FogExp2(0x0A0A0B,0.028);
   const cam=new THREE.PerspectiveCamera(46,innerWidth/innerHeight,0.1,220);
   // frame the mark for the viewport: pull back and centre on narrow screens
   function frameCamera(){
@@ -1230,6 +1230,7 @@ load('invoice');
   // and the label appeared over empty space. Instead we project each sphere
   // centre to screen space and test the pointer against its *drawn* radius,
   // which is exactly what the user perceives as "on the sphere".
+  const heroEl=document.querySelector('.hero');
   const VALUES=["Trustworthy","Human","Confident","Elegant","Timeless",
                 "Enterprise","Premium","Innovative","Intelligent"];
   const labelEl=document.getElementById('sphereLabel');
@@ -1275,16 +1276,33 @@ load('invoice');
     cvs.style.cursor='default';
   }
 
+  // Pointer position is only RECORDED by the event; the actual hover decision
+  // is made every frame in the render loop. Event-driven hover got stuck
+  // whenever the pointer left the hero without firing mouseleave (over the
+  // fixed nav, out the top of the window, into devtools), and a stuck hover
+  // dimmed every other sphere to 18% — which read as "the animation stopped".
+  let ptrX=-1, ptrY=-1, ptrIn=false;
   function onMove(e){
     tx=(e.clientX/innerWidth-.5); ty=(e.clientY/innerHeight-.5);
-    if(scrollY>innerHeight*0.9){ if(hovered!==-1) clearLabel(); return; }
-    const idx=pick(e.clientX,e.clientY);
+    ptrX=e.clientX; ptrY=e.clientY; ptrIn=true;
+  }
+
+  function updateHover(){
+    let idx=-1;
+    if(ptrIn && scrollY<=innerHeight*0.9 && heroEl){
+      const r=heroEl.getBoundingClientRect();
+      const inside = ptrX>=r.left && ptrX<=r.right && ptrY>=r.top && ptrY<=r.bottom;
+      // the fixed header sits on top of the hero — don't hover through it
+      const hdr=document.getElementById('siteHeader');
+      const overHeader = hdr ? ptrY <= hdr.getBoundingClientRect().bottom : false;
+      if(inside && !overHeader) idx=pick(ptrX,ptrY);
+    }
     if(idx!==hovered){
       hovered=idx;
       if(idx>=0){ showLabel(idx); cvs.style.cursor='pointer'; }
       else clearLabel();
     } else if(idx>=0){
-      showLabel(idx);   // keep it glued while the sphere drifts
+      showLabel(idx);           // keep the label glued while the sphere drifts
     }
   }
 
@@ -1298,13 +1316,14 @@ load('invoice');
     } else clearLabel();
   }
 
-  const heroEl=document.querySelector('.hero');
   if(heroEl){
     heroEl.addEventListener('touchstart',onTouch,{passive:true});
     heroEl.addEventListener('mouseleave',clearLabel);
   }
   addEventListener('scroll',()=>{ if(hovered!==-1) clearLabel(); },{passive:true});
-  addEventListener('blur',clearLabel);
+  addEventListener('blur',()=>{ptrIn=false;clearLabel();});
+  document.addEventListener('mouseleave',()=>{ptrIn=false;});
+  document.addEventListener('mouseenter',()=>{ptrIn=true;});
 
   let mx=0,my=0,tx=0,ty=0;
   addEventListener('mousemove',onMove);
@@ -1323,6 +1342,7 @@ load('invoice');
     requestAnimationFrame(loop);
     if(!heroVisible)return;          // stop rendering once scrolled past
     const el=(t-t0)/1000;
+    updateHover();
     mx+=(tx-mx)*.045; my+=(ty-my)*.045;
     group.rotation.y=mx*.42+(reduce?0:Math.sin(el*.16)*.09);
     group.rotation.x=my*.24;
@@ -1333,17 +1353,17 @@ load('invoice');
       const sc=e2*(1+Math.sin(p*Math.PI)*0.10);
       s.shell.scale.setScalar(sc);s.core.scale.setScalar(sc);s.wire.scale.setScalar(sc);
       if(!reduce&&p>=1){
-        const b=Math.sin(el*.9+s.phase)*.055*s.r;
+        const b=Math.sin(el*.75+s.phase)*.085*s.r;
         s.shell.position.y=s.base.y+b;s.core.position.y=s.base.y+b;s.wire.position.y=s.base.y+b;
         s.wire.rotation.y+=.0022+s.i*.0003;
-        s.core.material.opacity=.72+Math.sin(el*1.5+s.phase)*.2;
+        s.core.material.opacity=.70+Math.sin(el*1.35+s.phase)*.26;
       }
       // hover response: lift the hovered sphere, dim the rest
       const isH = hovered>=0;
       const me  = spheres[hovered]===s;
-      const tOp = !isH ? .55 : (me ? .92 : .18);
-      const tEm = !isH ? .16 : (me ? .75 : .05);
-      const tWi = !isH ? .10 : (me ? .34 : .03);
+      const tOp = !isH ? .55 : (me ? .95 : .34);
+      const tEm = !isH ? .16 : (me ? .80 : .11);
+      const tWi = !isH ? .10 : (me ? .36 : .06);
       s.shell.material.opacity += (tOp-s.shell.material.opacity)*.14;
       s.shell.material.emissiveIntensity += (tEm-s.shell.material.emissiveIntensity)*.14;
       s.wire.material.opacity += (tWi-s.wire.material.opacity)*.14;
