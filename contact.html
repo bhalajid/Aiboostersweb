@@ -82,6 +82,27 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:30px}
   .navlinks a::after{display:none}
 }
 
+/* ---------- scroll progress bar ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0%;z-index:500;
+  background:linear-gradient(90deg,var(--copper-dk),var(--copper),var(--copper-lt));
+  box-shadow:0 0 12px var(--copper-glow);transition:width .08s linear}
+
+/* ---------- animated section divider ---------- */
+.divider{position:relative;height:1px;background:var(--line-2);overflow:visible}
+.divider::after{content:"";position:absolute;left:50%;top:0;height:1px;width:0;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);
+  transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.divider.in::after{width:100%}
+.divider i{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;
+  background:var(--copper);transform:translate(-50%,-50%) scale(0);
+  box-shadow:0 0 14px var(--copper);transition:transform .6s cubic-bezier(.34,1.56,.64,1) .5s}
+.divider.in i{transform:translate(-50%,-50%) scale(1)}
+
+/* ---------- text scramble ---------- */
+.scramble{font-variant-ligatures:none}
+.scramble .sc-ghost{color:var(--copper);opacity:.85}
+
 /* ---------- typography ---------- */
 .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--copper);margin-bottom:16px;display:flex;align-items:center;gap:11px}
@@ -268,6 +289,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
     <circle cx="151.71" cy="36.0" r="27.0" fill="#C97A3C"/>
   </symbol>
 </svg>
+<div class="progress" id="progressBar"></div>
 <header id="siteHeader">
   <div class="wrap">
     <nav>
@@ -275,7 +297,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
         <b>ai<em>:</em>boosters</b>
       </a>
-      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Services</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html" class="on">Contact</a></div>
+      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Services</a><a href="products.html">Products</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html" class="on">Contact</a></div>
       <a href="contact.html" class="btn btn-primary navcta">Book a briefing</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
         <i></i><i></i><i></i>
@@ -287,7 +309,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
   <canvas id="pCanvas"></canvas>
   <div class="wrap">
     <div class="kicker">Contact</div>
-    <h1>One conversation. No deck required from you.</h1>
+    <h1 class="scramble">One conversation. No deck required from you.</h1>
     <p>Tell us roughly what the problem looks like. If we are not the right firm for it, we will say so and point you somewhere better — that costs us nothing and saves you a quarter.</p>
   </div>
 </section>
@@ -358,6 +380,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <a href="services.html">AI Integration</a>
         <a href="services.html">Deployment &amp; Development</a>
         <a href="services.html">All nine services</a>
+        <a href="products.html">Products &amp; frameworks</a>
       </div>
       <div class="foot-col">
         <h5>Firm</h5>
@@ -408,6 +431,62 @@ addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>40));
     b.setAttribute('aria-expanded',open);
     if(open)hdr.classList.add('solid');
   });
+})();
+
+// scroll progress bar
+(function(){
+  const bar=document.getElementById('progressBar');if(!bar)return;
+  let tick=false;
+  function upd(){
+    const h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(h>0?(scrollY/h)*100:0)+'%';tick=false;
+  }
+  addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(upd);tick=true;}});
+  upd();
+})();
+
+// animated dividers
+(function(){
+  const ds=document.querySelectorAll('.divider');if(!ds.length)return;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}
+  }),{threshold:.5});
+  ds.forEach(d=>o.observe(d));
+})();
+
+// text scramble on headings
+(function(){
+  const CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=<>/\\';
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els=document.querySelectorAll('.scramble');if(!els.length)return;
+  function run(el){
+    const txt=el.dataset.txt;
+    if(reduce){el.textContent=txt;return;}
+    const len=txt.length;let frame=0;
+    const queue=[...txt].map((c,i)=>({
+      c,start:Math.floor(i*1.6),end:Math.floor(i*1.6)+8+Math.floor(Math.random()*12)
+    }));
+    (function tick(){
+      let out='',done=0;
+      queue.forEach(q=>{
+        if(frame>=q.end){done++;out+=q.c;}
+        else if(frame>=q.start){
+          out+='<span class="sc-ghost">'+
+            (q.c===' '?' ':CH[Math.floor(Math.random()*CH.length)])+'</span>';
+        } else out+=q.c===' '?' ':'<span style="opacity:0">'+q.c+'</span>';
+      });
+      el.innerHTML=out;frame++;
+      if(done<len)requestAnimationFrame(tick);else el.textContent=txt;
+    })();
+  }
+  els.forEach(el=>{
+    el.dataset.txt=el.textContent.trim();
+    el.innerHTML='<span style="opacity:0">'+el.dataset.txt+'</span>';
+  });
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){run(e.target);o.unobserve(e.target);}
+  }),{threshold:.6});
+  els.forEach(el=>o.observe(el));
 })();
 
 // scroll reveal
@@ -482,7 +561,7 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
     cam.aspect=innerWidth/h;cam.updateProjectionMatrix();}
   rnd.setPixelRatio(Math.min(devicePixelRatio,2)); size();
   const g=new THREE.Group(); sc.add(g);
-  const orbs=[];
+  const orbs=[],pathPts=[];
   for(let i=0;i<9;i++){
     const r=.55+i*.42, ang=i*.55-1.1, rad=7+i*1.5;
     const x=Math.cos(ang)*rad*1.35, y=Math.sin(ang)*rad*.5+2, z=-i*1.3;
@@ -494,9 +573,18 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
     const c=new THREE.Mesh(new THREE.SphereGeometry(r*.35,18,18),
       new THREE.MeshBasicMaterial({color:0xE9A063,transparent:true,opacity:.85}));
     c.position.set(x,y,z);
-    g.add(m,c); orbs.push({m,c,ph:i*.8,by:y});
+    const w=new THREE.Mesh(new THREE.SphereGeometry(r*1.02,14,10),
+      new THREE.MeshBasicMaterial({color:0xE9A063,wireframe:true,transparent:true,opacity:.09}));
+    w.position.set(x,y,z);
+    g.add(m,c,w); orbs.push({m,c,w,ph:i*.8,by:y,i});
+    pathPts.push(new THREE.Vector3(x,y,z));
   }
-  const PC=200,pg=new THREE.BufferGeometry(),pp=new Float32Array(PC*3);
+  // connecting arc through the orbs, matching the homepage hero
+  const curve=new THREE.CatmullRomCurve3(pathPts);
+  g.add(new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(curve.getPoints(140)),
+    new THREE.LineBasicMaterial({color:0xC97A3C,transparent:true,opacity:.22})));
+  const PC=300,pg=new THREE.BufferGeometry(),pp=new Float32Array(PC*3);
   for(let i=0;i<PC;i++){pp[i*3]=(Math.random()-.5)*60;pp[i*3+1]=(Math.random()-.5)*26;
     pp[i*3+2]=(Math.random()-.5)*30;}
   pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
@@ -511,7 +599,8 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
   (function loop(t){requestAnimationFrame(loop);const el=(t-t0)/1000;
     mx+=(tx-mx)*.04; g.rotation.y=mx*.3+(reduce?0:Math.sin(el*.12)*.07);
     if(!reduce){orbs.forEach(o=>{const b=Math.sin(el*.8+o.ph)*.22;
-      o.m.position.y=o.by+b;o.c.position.y=o.by+b;
+      o.m.position.y=o.by+b;o.c.position.y=o.by+b;o.w.position.y=o.by+b;
+      o.w.rotation.y+=.0025+o.i*.0004;
       o.c.material.opacity=.65+Math.sin(el*1.4+o.ph)*.2;});
       pts.rotation.y+=.0007;}
     rnd.render(sc,cam);})(t0);

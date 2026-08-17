@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIBoosters Consulting — Approach</title>
-<meta name="description" content="A six-phase engagement method designed to end with your team running the system.">
+<title>AIBoosters Consulting — Products & Frameworks</title>
+<meta name="description" content="AI accelerators, agent frameworks and governance toolkits from AIBoosters Consulting — deployed into your environment and owned by your team.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -273,6 +273,36 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 .qr-mini img{width:92px;height:92px;background:#fff;padding:7px;border-radius:9px;flex:none}
 .qr-mini p{font-size:12.5px;color:var(--grey-d);font-weight:300;line-height:1.65}
 .form-note{margin-top:16px;font-size:12.5px;color:var(--grey-d)}
+
+.prod{background:linear-gradient(150deg,var(--surface),var(--ink-2));border:1px solid var(--line);
+  border-radius:var(--radius);padding:38px;margin-bottom:22px;position:relative;overflow:hidden;
+  transition:border-color .3s ease}
+.prod:hover{border-color:rgba(201,122,60,.28)}
+.prod::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);opacity:.45}
+.prod-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+  flex-wrap:wrap;margin-bottom:16px}
+.prod-name{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:10px}
+.prod h3{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 13px;border-radius:20px;white-space:nowrap;flex:none;border:1px solid}
+.badge.live{color:#6EE7A8;border-color:rgba(110,231,168,.32);background:rgba(110,231,168,.07)}
+.badge.dev{color:var(--copper-lt);border-color:rgba(233,160,99,.32);background:rgba(233,160,99,.07)}
+.badge.plan{color:var(--grey);border-color:var(--line);background:rgba(255,255,255,.02)}
+.prod p{color:var(--grey);font-size:14.5px;font-weight:300;line-height:1.78;max-width:72ch}
+.prod .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 30px;margin-top:24px;
+  padding-top:22px;border-top:1px solid var(--line-2)}
+@media(max-width:700px){.prod .feat{grid-template-columns:1fr}}
+.prod .feat div{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--grey);
+  font-weight:300}
+.prod .feat i{color:var(--copper);font-style:normal;flex:none;font-size:12px;padding-top:2px}
+.prod .meta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.prod .meta span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 13px;border:1px solid var(--line);border-radius:20px;color:var(--grey-d)}
+.legend{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:44px;padding:22px 26px;
+  background:rgba(255,255,255,.02);border:1px solid var(--line-2);border-radius:var(--radius)}
+.legend div{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--grey);font-weight:300}
 </style>
 </head>
 <body>
@@ -297,7 +327,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
         <b>ai<em>:</em>boosters</b>
       </a>
-      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Services</a><a href="products.html">Products</a><a href="approach.html" class="on">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
+      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Services</a><a href="products.html" class="on">Products</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
       <a href="contact.html" class="btn btn-primary navcta">Book a briefing</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
         <i></i><i></i><i></i>
@@ -308,44 +338,87 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 <section class="phero">
   <canvas id="pCanvas"></canvas>
   <div class="wrap">
-    <div class="kicker">How we work</div>
-    <h1 class="scramble">A method built to end, not to renew itself.</h1>
-    <p>Most consultancies are structured to extend the engagement. This one is structured to finish it — and the process below is designed around that, from the first diagnosis to the deliberate handover.</p>
+    <div class="kicker">Products &amp; frameworks</div>
+    <h1 class="scramble">What we've built, so you don't rebuild it.</h1>
+    <p>Consulting that starts from zero every time is expensive for you and slow for us. These are the frameworks and accelerators we're productising out of repeated engagement work &mdash; each one designed to be deployed into your environment and owned by your team.</p>
   </div>
 </section>
 <section class="section-pad">
   <div class="wrap">
-    <div class="section-head rv">
-      <div class="kicker">The engagement</div>
-      <h2 class="scramble">Six phases, twelve weeks, one handover</h2>
-      <p>Timelines shift with scope — these are indicative, not promises. What does not shift is
-      the shape: diagnose before scoping, demonstrate before integrating, transfer before leaving.</p>
+    <div class="legend rv">
+      <div><span class="badge live">Available now</span> Ready to engage on today</div>
+      <div><span class="badge dev">In development</span> Being built out of live engagement work</div>
+      <div><span class="badge plan">Planned</span> On the roadmap, not yet started</div>
     </div>
     
-  <div class="step rv">
-    <div class="ph">Phase 01</div>
-    <div><h3>Diagnose</h3><p>We spend the first weeks understanding what actually happens, not what the process documentation says happens. That means sitting with the people doing the work. Almost every engagement uncovers a constraint that was not in the original brief.</p><span class="wk">Weeks 1–2</span></div>
+  <div class="prod rv">
+    <div class="prod-top">
+      <div>
+        <div class="prod-name">AB/01</div>
+        <h3>Automation Accelerator</h3>
+      </div>
+      <div class="badge dev">In development</div>
+    </div>
+    <p>A pre-built library of the automation patterns that recur across almost every engagement — document intake, ticket classification, system reconciliation, approval routing. Rather than rebuilding these from scratch each time, an engagement starts from a working pattern and adapts it to your systems. This is the productised form of the demo on our homepage.</p>
+    <div class="feat"><div><i>&#9679;</i><span>Pre-built connectors for common ERP and CRM systems</span></div><div><i>&#9679;</i><span>Human-in-the-loop approval gates as standard</span></div><div><i>&#9679;</i><span>Full audit logging on every automated action</span></div><div><i>&#9679;</i><span>Deployed into your infrastructure, not ours</span></div></div>
+    <div class="meta"><span>Reduces build time</span><span>Client-owned</span><span>On-premise or cloud</span></div>
   </div>
-  <div class="step rv">
-    <div class="ph">Phase 02</div>
-    <div><h3>Scope</h3><p>A written scope with a defined outcome, a fixed set of deliverables, and an explicit list of what we are not doing. If we think the timeline is unrealistic, you hear it here — before the contract, not during the retrospective.</p><span class="wk">Weeks 2–3</span></div>
+  <div class="prod rv">
+    <div class="prod-top">
+      <div>
+        <div class="prod-name">AB/02</div>
+        <h3>Enterprise Agent Framework</h3>
+      </div>
+      <div class="badge dev">In development</div>
+    </div>
+    <p>An opinionated framework for building AI agents that behave predictably inside an enterprise — with defined scope boundaries, tool permissions, escalation paths to humans, and complete traceability of what the agent did and why. Most agent failures in production are governance failures rather than model failures, and this is built around that observation.</p>
+    <div class="feat"><div><i>&#9679;</i><span>Scoped tool access with per-action permissions</span></div><div><i>&#9679;</i><span>Automatic escalation when confidence drops</span></div><div><i>&#9679;</i><span>Full decision trace for every agent action</span></div><div><i>&#9679;</i><span>Model-agnostic — swap providers without a rewrite</span></div></div>
+    <div class="meta"><span>Model-agnostic</span><span>Audit-ready</span><span>EU AI Act aligned</span></div>
   </div>
-  <div class="step rv">
-    <div class="ph">Phase 03</div>
-    <div><h3>Build</h3><p>Engineering in short cycles with something demonstrable at the end of each. You see working software, not status decks. The team that scoped the work is the team building it.</p><span class="wk">Weeks 3–8</span></div>
+  <div class="prod rv">
+    <div class="prod-top">
+      <div>
+        <div class="prod-name">AB/03</div>
+        <h3>AI Readiness Assessment</h3>
+      </div>
+      <div class="badge live">Available now</div>
+    </div>
+    <p>A structured two-week diagnostic that produces an honest map of where your organisation actually stands — data maturity, platform gaps, governance posture, and a prioritised list of what to fix before any model gets built. Delivered as a written assessment you own outright, with no obligation to engage us for the work that follows.</p>
+    <div class="feat"><div><i>&#9679;</i><span>Two-week fixed scope and fixed price</span></div><div><i>&#9679;</i><span>Written assessment you keep regardless of next steps</span></div><div><i>&#9679;</i><span>Prioritised remediation roadmap</span></div><div><i>&#9679;</i><span>Includes governance and compliance gap analysis</span></div></div>
+    <div class="meta"><span>Fixed price</span><span>2 weeks</span><span>No lock-in</span></div>
   </div>
-  <div class="step rv">
-    <div class="ph">Phase 04</div>
-    <div><h3>Integrate</h3><p>Connection into your live systems, with rollback paths and a staged rollout. This is where most AI projects stall, so we plan for it from day one rather than treating it as a final step.</p><span class="wk">Weeks 6–10</span></div>
+  <div class="prod rv">
+    <div class="prod-top">
+      <div>
+        <div class="prod-name">AB/04</div>
+        <h3>Governance Toolkit</h3>
+      </div>
+      <div class="badge plan">Planned</div>
+    </div>
+    <p>Templates, controls, and monitoring patterns for organisations that need to demonstrate AI governance to a regulator, a board, or an enterprise customer's procurement team. Built around EU AI Act obligations and GDPR rather than retrofitted to them, because in European enterprise sales this is increasingly the gate you have to pass before a technical conversation happens.</p>
+    <div class="feat"><div><i>&#9679;</i><span>EU AI Act risk classification templates</span></div><div><i>&#9679;</i><span>Model cards and data lineage documentation</span></div><div><i>&#9679;</i><span>Drift and bias monitoring patterns</span></div><div><i>&#9679;</i><span>Board and regulator reporting formats</span></div></div>
+    <div class="meta"><span>EU AI Act</span><span>GDPR</span><span>Board-ready</span></div>
   </div>
-  <div class="step rv">
-    <div class="ph">Phase 05</div>
-    <div><h3>Transfer</h3><p>Documentation, training, and a defined period where your team runs the system with us on call. The engagement is not finished until they can run it without us.</p><span class="wk">Weeks 9–12</span></div>
+  <div class="prod rv">
+    <div class="prod-top">
+      <div>
+        <div class="prod-name">AB/05</div>
+        <h3>Platform Blueprint</h3>
+      </div>
+      <div class="badge plan">Planned</div>
+    </div>
+    <p>Reference architectures for the platform layer that AI sits on — data pipelines, model serving, observability, and the internal developer tooling that lets a team ship AI repeatedly. Infrastructure-as-code rather than a slide deck, so the blueprint is something your engineers deploy rather than something they read.</p>
+    <div class="feat"><div><i>&#9679;</i><span>Infrastructure-as-code, not documentation</span></div><div><i>&#9679;</i><span>Cloud-agnostic with provider-specific variants</span></div><div><i>&#9679;</i><span>Observability and cost controls built in</span></div><div><i>&#9679;</i><span>Designed for teams without a platform team</span></div></div>
+    <div class="meta"><span>IaC</span><span>Cloud-agnostic</span><span>Self-deployable</span></div>
   </div>
-  <div class="step rv">
-    <div class="ph">Phase 06</div>
-    <div><h3>Sustain</h3><p>Optional ongoing operations while your team builds capability — with an agreed runway toward you taking it over entirely. Permanent dependency is not the business model.</p><span class="wk">Ongoing</span></div>
-  </div>
+    <div class="placeholder-note rv">
+      <h4>Why the status labels are on this page</h4>
+      <p>Most consultancy product pages present a roadmap as if it already exists. We would rather
+      you know exactly what you can buy today, what is being actively built, and what is still an
+      intention &mdash; because if you engage us on the strength of something that turns out to be
+      a slide, that is a problem for both of us on day one. If a planned item is the reason you are
+      interested, tell us in a briefing; client demand is what moves things up this list.</p>
+    </div>
   </div>
 </section>
 
@@ -354,24 +427,19 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 <section class="section-pad" style="background:var(--ink-2);border-block:1px solid var(--line)">
   <div class="wrap">
     <div class="section-head rv">
-      <div class="kicker">What we believe</div>
-      <h2 class="scramble">Four positions we will not negotiate</h2>
+      <div class="kicker">How these work commercially</div>
+      <h2 class="scramble">Frameworks you own, not licences you rent</h2>
     </div>
-    <div class="grid-2 rv">
-      <div class="card"><div class="num">01</div><h4>A booster never replaces the thing</h4>
-        <p>A rocket booster does not fly alone. A signal booster generates no signal. We attach to
-        the mass you already have — your people, data, processes, market position — and make it go
-        further than it could by itself.</p></div>
-      <div class="card"><div class="num">02</div><h4>No handoff between sellers and builders</h4>
-        <p>The people in the room during scoping are the people writing the code. The industry
-        standard of senior partners selling and junior staff delivering is where most of the
-        disappointment in this sector comes from.</p></div>
-      <div class="card"><div class="num">03</div><h4>Honest timelines, stated early</h4>
-        <p>If your deadline is not achievable we say so before the contract is signed. It costs us
-        work in the short term and saves both sides a failed programme in the long term.</p></div>
-      <div class="card"><div class="num">04</div><h4>The engagement is designed to end</h4>
-        <p>Success is your team running the system without us. We would rather be recommended than
-        retained indefinitely, and the commercial model is built that way on purpose.</p></div>
+    <div class="grid-3 rv">
+      <div class="card"><div class="num">01</div><h4>Deployed into your environment</h4>
+        <p>These run on your infrastructure, under your control, with your data staying inside your
+        boundary. Nothing here is a hosted service you become dependent on.</p></div>
+      <div class="card"><div class="num">02</div><h4>Delivered with the source</h4>
+        <p>Your team gets the code and the documentation. If you part ways with us, the system keeps
+        running and your engineers can extend it.</p></div>
+      <div class="card"><div class="num">03</div><h4>Priced into the engagement</h4>
+        <p>These accelerate delivery rather than adding a line item. The benefit shows up as a
+        shorter timeline, not a licence fee attached to it.</p></div>
     </div>
   </div>
 </section>
@@ -380,7 +448,10 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
 
 <section class="section-pad" style="text-align:center">
   <div class="wrap rv">
-    <h2 style="max-width:18ch;margin:0 auto">Want to test this against your actual problem?</h2>
+    <h2 style="max-width:20ch;margin:0 auto">Want to know which of these fits your situation?</h2>
+    <p style="margin-top:18px;color:var(--grey);font-size:16.5px;font-weight:300;max-width:50ch;margin-inline:auto">
+      The readiness assessment is usually the honest starting point &mdash; it tells you what you
+      need before it tells you what to buy.</p>
     <div style="display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap">
       <a href="contact.html" class="btn btn-primary">Book a briefing</a>
       <a href="services.html" class="btn btn-ghost">See capabilities &rarr;</a>
