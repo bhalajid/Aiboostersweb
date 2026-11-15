@@ -5,9 +5,40 @@ founder & principal consultant. Domain: aiboosters.guru. Market: Europe + global
 
 ## Positioning
 
-Enterprise AI transformation consultancy. Three pillars:
-Platform Engineering → AI Integration → Deployment & Development.
-Core line: **"We don't do it for you. We clear the way."**
+Enterprise AI transformation consultancy. Nine capabilities; three are core —
+Platform Engineering, AI Integration, Deployment & Development — because almost
+every engagement runs through them. See `CONTENT-STYLE.md` for the canonical
+vocabulary; the release gate enforces it.
+
+Philosophy line: **"We don't do it for you. We clear the way."** — this now lives
+on the Approach page as non-negotiable 01, not as the hero headline.
+
+## OPEN: the hero headline
+
+Currently **"We build it. We ship it. You own it."** — placeholder. The owner
+finds it accurate but not catchy enough. Do not treat it as settled.
+
+What the headline must do:
+- Land in under a second, with spontaneous recognition
+- Claim the **whole** arc — we build AND ship. Anything implying we only finish
+  someone else's work reads as subcontractor positioning
+- Not open on a negative ("We don't…") — that spends the first words on refusal
+- Under ~9 words; the H1 wraps to 3 lines past that and the hero gets cluttered
+
+Tried and rejected, with the reason:
+
+| Headline | Rejected because |
+|---|---|
+| We don't do it for you. We clear the way. | Opens on a negative; philosophy, not proposition |
+| From demo to Monday morning. | Liked the direction, wanted more impact |
+| The demo worked. That was the easy part. | Implies someone *else* built the demo — sounds like we only do production |
+| We build it. We ship it. You own it. | Accurate, claims the arc, but not memorable enough |
+| From proof of concept to proof of value | Not chosen |
+| Most AI never leaves the demo | Not chosen |
+
+Untried directions worth exploring: the *cost of not shipping*; the operations
+team as hero rather than the CIO; something that uses the booster metaphor
+directly; a claim only a firm designed to end an engagement could make.
 
 Philosophy: a booster never replaces the thing — it attaches to what is already
 moving and multiplies it. Engagements are designed to END, with the client's team
