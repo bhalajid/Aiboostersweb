@@ -7,7 +7,7 @@
 <meta name="description" content="AI Draw by ai:boosters analyses every official Eurojackpot result since 2012, gives one reproducible line per draw, avoids over-picked numbers and caps spending. It does not predict draws.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
-<meta property="og:title" content="AI Draw — the draw is random. AI Draw proves it.">
+<meta property="og:title" content="AI Draw for Eurojackpot — the draw is random. AI Draw proves it.">
 <meta property="og:description" content="Statistics for Eurojackpot results, tested walk-forward on every draw since 2012. No predictions, no ticket sales, a fixed spending cap.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@ header nav{display:flex;align-items:center;justify-content:space-between;gap:16p
 .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-lt);
   display:flex;align-items:center;gap:11px;margin-bottom:16px}
 .kicker::before{content:"";width:22px;height:1px;background:var(--copper)}
-h1{font-size:clamp(36px,5vw,66px);font-weight:600;letter-spacing:-.035em;line-height:1.04;max-width:16ch}
+h1{font-size:clamp(34px,4.4vw,60px);font-weight:600;letter-spacing:-.035em;line-height:1.06}
 h1 em,h2 em{font-style:normal;color:var(--copper-lt)}
 h2{font-size:clamp(28px,3.2vw,42px);font-weight:600;letter-spacing:-.028em;line-height:1.12;max-width:22ch}
 h3{font-size:18px;font-weight:600;letter-spacing:-.015em;line-height:1.3}
@@ -74,6 +74,10 @@ p.body{color:var(--grey);font-size:15px;font-weight:300;line-height:1.78;max-wid
   white-space:nowrap;border:1px solid;display:inline-flex}
 .badge.dev{color:var(--copper-lt);border-color:rgba(233,160,99,.32);background:rgba(233,160,99,.07)}
 .badge.age{color:var(--grey);border-color:var(--line);background:rgba(255,255,255,.02)}
+.badge.game{color:var(--white);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.05)}
+.game-facts{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);
+  color:var(--grey);font-size:14px;line-height:1.65;max-width:60ch}
+.game-facts .gf-label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper-lt);margin-bottom:4px}
 
 /* hero */
 .hero{padding:76px 0 56px}
@@ -202,6 +206,56 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
   .ball{width:42px;height:42px;font-size:15px}.ball::after{top:6px;left:10px;width:11px;height:7px}
   .drawcard,.panel{padding:22px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* ---- app ---- */
+section.app{border-top:1px solid var(--line-2)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.tabs [role=tab]{min-height:56px;padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);
+  color:var(--grey);font-family:var(--font);font-size:16px;font-weight:600;cursor:pointer;text-align:left;transition:all .2s ease}
+.tabs [role=tab] span{display:block;font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-top:3px}
+.tabs [role=tab]:hover{border-color:var(--copper)}
+.tabs [role=tab][aria-selected=true]{color:var(--white);border-color:var(--copper);background:var(--copper-dim)}
+.app-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:20px;align-items:start}
+.panel.check{margin-top:20px}
+.check-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;margin-top:6px}
+.row-between{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+fieldset.field{border:0;padding:0;margin:22px 0 0}
+fieldset.field legend{font-size:14px;color:var(--grey);margin-bottom:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip-toggle{min-height:44px;padding:8px 16px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--grey);
+  font-family:var(--font);font-size:14px;cursor:pointer}
+.chip-toggle[aria-pressed=true]{border-color:var(--copper);background:var(--copper-dim);color:var(--white)}
+.field small{font-size:12px;color:var(--grey);margin-left:6px}
+input[type=number],select{width:100%;min-height:44px;border-radius:8px;border:1px solid var(--line);background:var(--ink-2);color:var(--white);
+  font-family:var(--font);font-size:15px;padding:8px 12px}
+select{appearance:auto}
+.fit{margin-top:18px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.55;border:1px solid var(--line);color:var(--grey)}
+.fit.ok{border-color:rgba(110,231,168,.32);background:rgba(110,231,168,.06)}
+.fit.warn{border-color:rgba(233,160,99,.42);background:rgba(233,160,99,.08)}
+.fit b{color:var(--white)}
+.plan .outs{margin-top:16px}
+.out b{font-size:20px}
+.linelist{list-style:none;margin:18px 0 0;display:grid;gap:12px;counter-reset:ln}
+.line{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.02);counter-increment:ln}
+.line .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.line .top::before{content:counter(ln);font-family:var(--mono);font-size:11px;color:var(--grey);width:16px}
+.line .ball{width:40px;height:40px;font-size:15px}.line .ball::after{top:6px;left:9px;width:11px;height:7px}
+.line .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.crowd-chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:5px 10px;border-radius:20px;border:1px solid var(--line);color:var(--grey)}
+.crowd-chip.good{color:#6EE7A8;border-color:rgba(110,231,168,.32)}
+.crowd-chip.bad{color:var(--copper-lt);border-color:rgba(233,160,99,.4)}
+.mini{min-height:44px;padding:6px 14px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--white);
+  font-family:var(--font);font-size:13px;cursor:pointer}
+.mini:hover{border-color:var(--copper);background:var(--copper-dim)}
+.reasons{list-style:none;margin:10px 0 0;display:grid;gap:5px}
+.reasons li{font-size:13.5px;color:var(--grey);line-height:1.55;padding-left:20px;position:relative}
+.reasons li::before{content:"";position:absolute;left:4px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--copper)}
+.reasons li.warn::before{background:var(--copper-lt);box-shadow:0 0 0 2px rgba(233,160,99,.3)}
+.reasons li.warn{color:var(--white)}
+.play{margin-top:20px;padding-top:18px;border-top:1px solid var(--line-2)}
+.play-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:8px}
+.ball[title]{cursor:help}
+@media (max-width:1000px){.app-grid,.check-grid{grid-template-columns:1fr}}
+@media (max-width:600px){.play-row{grid-template-columns:1fr}.tabs [role=tab]{flex:1 1 100%}}
 </style>
 </head>
 <body>
@@ -240,30 +294,33 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="tags"><span class="badge dev">In development</span><span class="badge age">18+ only</span></div>
-        <div class="kicker">APP/02 · AI Draw</div>
-        <h1>The draw is random. <em>AI Draw proves it.</em></h1>
+        <div class="tags"><span class="badge game">Eurojackpot</span><span class="badge game">Lotto 6aus49</span><span class="badge dev">In development</span><span class="badge age">18+ only</span></div>
+        <div class="kicker">APP/02 · AI Draw for Eurojackpot and Lotto 6aus49</div>
+        <h1>Eurojackpot is random.<br><em>AI Draw proves it.</em></h1>
         <p class="lede">AI Draw analyses <b data-k="archive.draws">the full archive of</b> official Eurojackpot results since 2012, gives you
           one reproducible line per draw, steers you away from numbers other players over-pick, and holds your spending to
           a fixed cap. <b>It does not predict draws. Nothing can.</b></p>
+        <p class="game-facts"><span class="gf-label">The games</span><b>Eurojackpot:</b> 5 numbers from 1&ndash;50 and 2 Euro numbers
+          from 1&ndash;12, drawn every Tuesday and Friday<span id="countries-note">, played across Europe</span>.<br>
+          <b>Lotto 6aus49:</b> 6 numbers from 1&ndash;49 plus a Superzahl from your ticket, drawn every Wednesday and Saturday in Germany.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="#build">Try the line builder</a>
+          <a class="btn btn-primary" href="#app">Pick my numbers</a>
           <a class="btn btn-ghost" href="#evidence">See the evidence</a>
         </div>
       </div>
       <div class="drawcard" aria-labelledby="latest-h">
-        <div class="label" id="latest-h">Latest official result</div>
+        <div class="label" id="latest-h">Latest official Eurojackpot result</div>
         <div class="date" id="latest-date"></div>
         <div class="balls" id="latest-balls" role="list" aria-label="Winning numbers"></div>
         <div class="rows">
-          <div class="row"><span>Next draw</span><b id="next-draw"></b></div>
+          <div class="row"><span>Next Eurojackpot draw</span><b id="next-draw"></b></div>
           <div class="row"><span>Jackpot chance, any line</span><b>1 in <span id="combos"></span></b></div>
           <div class="row"><span>Chance of any prize</span><b>1 in <span id="anyprize"></span></b></div>
         </div>
       </div>
     </div>
     <div class="strip" role="list">
-      <div role="listitem"><b id="s-draws"></b><span>official draws analysed</span></div>
+      <div role="listitem"><b id="s-draws"></b><span>Eurojackpot draws analysed</span></div>
       <div role="listitem"><b id="s-test"></b><span>draws in the walk-forward test</span></div>
       <div role="listitem"><b>None</b><span>predictive edge found</span></div>
       <div role="listitem"><b id="s-cap"></b><span>default monthly cap</span></div>
@@ -271,11 +328,110 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
   </div>
 </section>
 
+<section class="band app" id="app" aria-labelledby="app-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">The app</div>
+      <h2 id="app-h">Pick your numbers <em>for a reason</em>.</h2>
+      <p class="body">Choose a game, set what you want to spend, and AI Draw picks your lines. Every line is equally likely
+        to win, so the picks are chosen for what can be changed: how many people share a prize with you, and how well
+        your lines cover different numbers. Each pick shows its reasons.</p></div>
+
+    <div class="tabs" role="tablist" aria-label="Game">
+      <button type="button" role="tab" id="tab-eurojackpot" data-game="eurojackpot" aria-selected="true" aria-controls="app-panel">Eurojackpot<span>5 of 50 + 2 of 12 · Tue &amp; Fri</span></button>
+      <button type="button" role="tab" id="tab-lotto649" data-game="lotto649" aria-selected="false" aria-controls="app-panel" tabindex="-1">Lotto 6aus49<span>6 of 49 + Superzahl · Wed &amp; Sat</span></button>
+    </div>
+
+    <div id="app-panel" role="tabpanel" aria-labelledby="tab-eurojackpot">
+      <div class="app-grid">
+        <div class="panel plan">
+          <div class="label">Your plan</div>
+          <h3>Budget</h3>
+          <div class="field"><label for="b-budget">Monthly budget <b id="v-budget"></b></label>
+            <input type="range" id="b-budget" min="5" max="100" step="1" value="20"></div>
+          <div class="field"><label for="b-lines">Lines per draw <b id="v-lines"></b></label>
+            <input type="range" id="b-lines" min="1" max="10" step="1" value="1"></div>
+          <fieldset class="field days"><legend>Draws you play</legend><div id="b-days" class="chips"></div></fieldset>
+          <div class="field"><label for="b-fee">Fee per line <small>varies by country and shop</small> <b id="v-price"></b></label>
+            <input type="number" id="b-fee" min="0" max="5" step="0.05" inputmode="decimal"></div>
+          <div class="fit" id="b-fit" role="status"></div>
+          <div class="outs">
+            <div class="out"><span class="label">Lines a month</span><b id="o-lines"></b></div>
+            <div class="out"><span class="label">Cost a month</span><b id="o-cost"></b></div>
+            <div class="out"><span class="label">Any prize this month</span><b id="o-any"></b></div>
+            <div class="out"><span class="label">Money back this month</span><b id="o-back-m"></b></div>
+            <div class="out"><span class="label">Money back over a year</span><b id="o-back-y"></b></div>
+            <div class="out"><span class="label">Expected loss a year</span><b id="o-loss"></b></div>
+          </div>
+          <p class="note" id="b-note"></p>
+        </div>
+
+        <div class="panel lines">
+          <div class="row-between">
+            <div><div class="label">Your lines for the next draw</div><h3 id="l-draw"></h3></div>
+            <span class="badge game" id="l-count"></span>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="l-pick">Pick my lines</button>
+            <button type="button" class="btn btn-ghost" id="l-again">Another suggestion</button>
+          </div>
+          <ol class="linelist" id="l-list" aria-live="polite"></ol>
+          <div class="play">
+            <label for="l-country" class="label">Play at the official lottery in</label>
+            <div class="play-row">
+              <select id="l-country"></select>
+              <a class="btn btn-ghost" id="l-go" target="_blank" rel="noopener">Open official site <span aria-hidden="true">&#8599;</span></a>
+            </div>
+            <div class="actions"><button type="button" class="btn btn-primary" id="l-copy">Copy all lines</button></div>
+            <p class="note" id="l-copied" role="status"></p>
+            <p class="note">Official sites have their own number grid: copy your lines, open the site, and tick the same
+              numbers there. AI Draw never buys tickets or takes payments.</p>
+          </div>
+          <p class="note"><b>Every line has the same chance.</b> <span id="l-odds"></span> These picks are chosen for
+            prize share and spread, not for a better chance of winning; nothing can give that.</p>
+        </div>
+      </div>
+
+      <div class="panel check" id="check">
+        <div class="row-between">
+          <div><div class="label">Check or adjust a line</div><h3>Tap numbers to see how a line is judged</h3></div>
+        </div>
+        <div class="check-grid">
+          <div>
+            <div class="label" id="pick-main-label"></div>
+            <div class="pick" id="pick-main" role="group" aria-labelledby="pick-main-label"></div>
+            <div id="extra-wrap">
+              <div class="label" style="margin-top:22px" id="pick-extra-label"></div>
+              <div class="pick euro" id="pick-euro" role="group" aria-labelledby="pick-extra-label"></div>
+            </div>
+            <p class="note" id="sz-note" hidden>The Superzahl (0&ndash;9) is the last digit of your ticket number. You do not choose it, so it plays no part in the picks.</p>
+            <div class="legend"><span><i style="background:var(--copper)"></i>over-picked by players</span>
+              <span><i style="background:var(--blue)"></i>under-picked</span><span>Hover or focus a number for its history</span></div>
+          </div>
+          <div aria-live="polite">
+            <div class="balls" id="my-balls" style="min-height:56px"></div>
+            <div class="label" style="margin-top:18px">Expected co-winners vs an average line</div>
+            <div class="big" id="crowd">&mdash;</div>
+            <div class="meter" aria-hidden="true"><span id="meter-bar"></span><i class="mid"></i></div>
+            <div class="scale"><span>fewer to share with</span><span>average</span><span>more</span></div>
+            <ul class="reasons" id="my-reasons"></ul>
+            <div class="actions">
+              <button type="button" class="btn btn-ghost" id="qp">Random quick pick</button>
+              <button type="button" class="btn btn-ghost" id="clear">Clear</button>
+              <button type="button" class="btn btn-primary" id="use-line" disabled>Add to my lines</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="band alt" aria-labelledby="what-h">
   <div class="wrap">
     <div class="head"><div class="kicker">What it does</div><h2 id="what-h">Four things, done <em>properly</em>.</h2></div>
     <div class="grid-4">
-      <div class="card"><div class="num">01</div><h3>Every official result</h3>
+      <div class="card"><div class="num">01</div><h3>Every Eurojackpot result</h3>
         <p>The complete archive, checked draw by draw for gaps, bad dates and impossible numbers, including the two times the game's rules changed.</p></div>
       <div class="card"><div class="num">02</div><h3>One line per draw</h3>
         <p>Each line comes from a recorded seed and data version, so you can regenerate it exactly. Stored lines can never be quietly changed.</p></div>
@@ -304,70 +460,6 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
         <h3>Prize money by how popular a line's numbers are</h3>
         <svg class="chart" id="dec-chart" role="img" aria-labelledby="dec-desc"></svg>
         <p class="note" id="dec-desc"></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band alt" id="build" aria-labelledby="build-h">
-  <div class="wrap">
-    <div class="head"><div class="kicker">Try it</div><h2 id="build-h">Build a line. See how <em>crowded</em> it is.</h2>
-      <p class="body">Pick five main numbers and two Euro numbers. The bar under each number shows how much players favour it,
-        measured from official winner counts. Every combination has the same chance of winning; what changes is how many
-        people you would share a prize with.</p></div>
-    <div class="builder">
-      <div class="panel">
-        <div class="label">Main numbers · pick 5</div>
-        <div class="pick" id="pick-main" role="group" aria-label="Main numbers 1 to 50"></div>
-        <div class="label" style="margin-top:24px">Euro numbers · pick 2</div>
-        <div class="pick euro" id="pick-euro" role="group" aria-label="Euro numbers 1 to 12"></div>
-        <div class="legend"><span><i style="background:var(--copper)"></i>over-picked by players</span>
-          <span><i style="background:var(--blue)"></i>under-picked</span></div>
-      </div>
-      <div class="panel" aria-live="polite">
-        <div class="label">Your line</div>
-        <div class="balls" id="my-balls" style="min-height:56px;margin-top:12px"></div>
-        <div class="label" style="margin-top:22px">Expected co-winners vs an average line</div>
-        <div class="big" id="crowd">—</div>
-        <div class="meter" aria-hidden="true"><span id="meter-bar"></span><i class="mid"></i></div>
-        <div class="scale"><span>fewer to share with</span><span>average</span><span>more</span></div>
-        <p class="result-line" id="crowd-text">Choose 5 + 2 numbers, or use a quick pick.</p>
-        <div class="actions">
-          <button class="btn btn-primary" id="qp" type="button">Quick pick</button>
-          <button class="btn btn-ghost" id="clear" type="button">Clear</button>
-        </div>
-        <p class="note">Estimate for the three-number and both-Euro prize classes, from official winner counts across Europe.
-          Quick pick is uniformly random. Jackpot chance for this line: 1 in 139,838,160, the same as every other line.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" aria-labelledby="calc-h">
-  <div class="wrap">
-    <div class="head"><div class="kicker">The odds</div><h2 id="calc-h">What playing actually <em>adds up to</em>.</h2></div>
-    <div class="calc">
-      <div class="panel">
-        <h3>Your habit</h3>
-        <div class="field"><label for="c-lines">Lines per draw <b id="v-lines">1</b></label>
-          <input type="range" id="c-lines" min="1" max="5" value="1"></div>
-        <div class="field"><label for="c-draws">Draws per week <b id="v-draws">2</b></label>
-          <input type="range" id="c-draws" min="1" max="2" value="2"></div>
-        <div class="field"><label for="c-years">Years <b id="v-years">1</b></label>
-          <input type="range" id="c-years" min="1" max="40" value="1"></div>
-        <p class="note">Exact combinatorics: P(at least one) = 1 − (1 − p)<sup>n</sup>. Cost uses <span id="c-price"></span> per line.
-          Expected return uses the average actually paid per prize class since March 2022.</p>
-      </div>
-      <div class="panel" aria-live="polite">
-        <div class="outs">
-          <div class="out"><span class="label">Lines played</span><b id="o-n"></b></div>
-          <div class="out"><span class="label">Spent</span><b id="o-cost"></b></div>
-          <div class="out"><span class="label">Chance of at least one jackpot</span><b id="o-jack"></b></div>
-          <div class="out"><span class="label">Chance of at least one prize</span><b id="o-any"></b></div>
-          <div class="out"><span class="label">Expected back, on average</span><b id="o-back"></b></div>
-          <div class="out"><span class="label">Expected loss, on average</span><b id="o-loss"></b></div>
-        </div>
-        <p class="result-line" id="o-text"></p>
       </div>
     </div>
   </div>
@@ -433,7 +525,7 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
 <script>
 (function () {
   "use strict";
-  var D = {"generated":"2026-11-15","algorithm_version":"2.1.0","dataset_version":"n1007-f82a567ef391","archive":{"draws":1007,"first":"2012-03-23","last":"2026-11-13","current_format_draws":485},"latest":{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},"next_draw":"2026-11-17","combinations":139838160,"any_prize_p":0.03141625290264117,"classes":[{"cls":1,"match":"5 + 2","one_in":139838160.0,"p":7.1511238420185165e-09,"min":5000000.0,"median":45691514.8,"max":120000000.0},{"cls":2,"match":"5 + 1","one_in":6991908.0,"p":1.4302247684037032e-07,"min":100735.2,"median":666047.9,"max":21177159.2},{"cls":3,"match":"5 + 0","one_in":3107514.67,"p":3.218005728908332e-07,"min":43237.6,"median":157629.05,"max":1058678.0},{"cls":4,"match":"4 + 2","one_in":621502.93,"p":1.6090028644541661e-06,"min":1725.3,"median":5385.7,"max":22144.8},{"cls":5,"match":"4 + 1","one_in":31075.15,"p":3.218005728908332e-05,"min":106.4,"median":320.9,"max":530.1},{"cls":6,"match":"3 + 2","one_in":14125.07,"p":7.079612603598332e-05,"min":57.4,"median":163.4,"max":337.9},{"cls":7,"match":"4 + 0","one_in":13811.18,"p":7.240512890043748e-05,"min":33.3,"median":114.5,"max":163.6},{"cls":8,"match":"2 + 2","one_in":985.47,"p":0.0010147444731824274,"min":12.7,"median":25.7,"max":52.7},{"cls":9,"match":"3 + 1","one_in":706.25,"p":0.0014159225207196662,"min":12.7,"median":20.3,"max":29.2},{"cls":10,"match":"3 + 0","one_in":313.89,"p":0.003185825671619249,"min":12.1,"median":17.2,"max":24.1},{"cls":11,"match":"1 + 2","one_in":187.71,"p":0.005327408484207744,"min":7.6,"median":12.9,"max":22.4},{"cls":12,"match":"2 + 1","one_in":49.27,"p":0.02029488946364855,"min":7.5,"median":9.9,"max":14.8}],"expected_return":{"per_line_cost":2.75,"lower":0.645,"jackpot":0.387,"total":1.032,"draws":485},"pricing":{"stake":2.0,"fee":0.75,"cost_per_line":2.75,"monthly_budget":20.0,"draws_per_month_min":8,"draws_per_month_max":9},"uniformity":{"main_p":0.89,"euro_p":0.194,"beyond_196":1,"expected_by_chance":2.5},"frequency":{"counts":[105,95,94,101,93,101,106,104,101,93,112,101,103,104,102,110,116,108,100,117,113,98,108,91,89,91,90,88,99,110,94,97,96,115,117,87,103,101,105,97,107,95,101,96,103,103,98,80,108,89],"expected":100.7},"popularity":{"main":[0.9648,1.0107,1.0597,1.0257,1.0541,1.0216,1.1159,1.0426,1.0487,1.0231,1.062,1.0805,1.0771,1.021,1.0009,1.0006,1.0632,1.0253,1.0592,0.9822,0.9979,1.0331,1.0612,1.028,1.0269,1.0168,1.0564,1.0259,1.0057,0.9535,0.9555,0.9735,1.0164,0.9805,0.9859,0.9619,0.9902,0.9826,0.9664,0.9097,0.9173,0.9514,0.9513,0.9614,0.9377,0.9308,0.9539,0.941,0.9451,0.903],"euro":[0.928,1.0413,1.1417,1.0668,1.0951,1.0351,1.1111,1.0826,1.0809,0.9461,0.8057,0.7564],"draws":1007,"euro_draws":485,"corr":0.85,"euro_corr":null,"split":"2021-01-01","train":458,"test":549,"least_vs_most":9.8,"deciles":[{"d":1,"vs":3.81,"se_pct":0.65,"prizes":17.22},{"d":2,"vs":2.46,"se_pct":0.65,"prizes":17.21},{"d":3,"vs":1.83,"se_pct":0.64,"prizes":17.2},{"d":4,"vs":0.64,"se_pct":0.61,"prizes":17.11},{"d":5,"vs":0.54,"se_pct":0.62,"prizes":17.17},{"d":6,"vs":1.01,"se_pct":0.61,"prizes":17.44},{"d":7,"vs":-0.58,"se_pct":0.65,"prizes":17.2},{"d":8,"vs":-1.24,"se_pct":0.63,"prizes":17.16},{"d":9,"vs":-2.99,"se_pct":0.6,"prizes":17.09},{"d":10,"vs":-5.48,"se_pct":0.62,"prizes":16.88}]},"backtest":{"test_draws":955,"first":"2013-03-22","last":"2026-11-13","seeds":20,"expected":0.8746,"strategies":[{"key":"hybrid","label":"Hybrid (walk-forward, out-of-sample)","kind":"out-of-sample (walk-forward)","mean":0.881,"lo":0.8492,"hi":0.9128,"lines":19100},{"key":"random","label":"Pure random","kind":"out-of-sample (walk-forward)","mean":0.8752,"lo":0.8627,"hi":0.8877,"lines":19100},{"key":"balanced","label":"Distribution-balanced random","kind":"out-of-sample (walk-forward)","mean":0.8719,"lo":0.86,"hi":0.8839,"lines":19100},{"key":"hybrid_in_sample","label":"Hybrid IN-SAMPLE (look-ahead, not achievable)","kind":"in-sample (look-ahead)","mean":0.9234,"lo":0.8906,"hi":0.9562,"lines":19100}],"hybrid_vs_random":{"diff":0.0058,"lo":-0.0285,"hi":0.04,"p":0.74}}};
+  var D = {"generated":"2026-11-15","algorithm_version":"2.1.0","dataset_version":"n1007-f82a567ef391","archive":{"draws":1007,"first":"2012-03-23","last":"2026-11-13","current_format_draws":485},"latest":{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},"next_draw":"2026-11-17","countries":19,"combinations":139838160,"any_prize_p":0.03141625290264117,"classes":[{"cls":1,"match":"5 + 2","one_in":139838160.0,"q":[5000000.0,10000000.0,10000000.0,11831507.15,16811926.4,18462633.95,21208281.0,24163628.55,35268799.2,38420246.85,45691514.8,54259969.0,60000000.0,69943977.5,74104783.6,80710152.15,92511126.9,113044058.95,120000000.0,120000000.0,120000000.0],"p":7.1511238420185165e-09,"min":5000000.0,"median":45691514.8,"max":120000000.0},{"cls":2,"match":"5 + 1","one_in":6991908.0,"q":[100735.2,256846.89,318204.44,366441.84,394884.88,434274.65,472796.1,522253.33,566725.08,623153.61,666047.9,726896.46,844733.66,890404.83,950371.24,1095171.9,1305268.24,1566126.75,1836654.44,3059252.49,21177159.2],"p":1.4302247684037032e-07,"min":100735.2,"median":666047.9,"max":21177159.2},{"cls":3,"match":"5 + 0","one_in":3107514.67,"q":[43237.6,70361.25,79718.35,92954.06,102377.52,113050.38,122261.29,130818.1,136840.8,143456.62,157629.05,171104.93,181967.4,200172.47,214898.65,238274.0,272804.88,308834.66,357543.05,481182.52,1058678.0],"p":3.218005728908332e-07,"min":43237.6,"median":157629.05,"max":1058678.0},{"cls":4,"match":"4 + 2","one_in":621502.93,"q":[1725.3,2858.22,3376.08,3708.84,3907.34,4204.8,4463.36,4755.92,4974.56,5209.62,5385.7,5608.6,5827.5,6113.96,6382.58,6593.4,7023.92,7797.42,8259.56,9135.04,22144.8],"p":1.6090028644541661e-06,"min":1725.3,"median":5385.7,"max":22144.8},{"cls":5,"match":"4 + 1","one_in":31075.15,"q":[106.4,222.98,242.6,257.78,269.7,281.5,289.84,299.04,307.58,313.1,320.9,329.94,339.88,347.72,354.5,361.8,374.06,384.42,408.68,423.18,530.1],"p":3.218005728908332e-05,"min":106.4,"median":320.9,"max":530.1},{"cls":6,"match":"3 + 2","one_in":14125.07,"q":[57.4,102.92,116.9,126.4,132.08,137.7,141.02,147.16,152.4,156.18,163.4,168.92,173.02,178.26,184.18,190.9,198.14,205.2,212.82,226.94,337.9],"p":7.079612603598332e-05,"min":57.4,"median":163.4,"max":337.9},{"cls":7,"match":"4 + 0","one_in":13811.18,"q":[33.3,77.86,84.46,91.4,94.7,98.1,101.32,104.7,108.96,112.06,114.5,116.9,119.74,123.98,126.48,129.2,133.0,135.92,141.72,146.1,163.6],"p":7.240512890043748e-05,"min":33.3,"median":114.5,"max":163.6},{"cls":8,"match":"2 + 2","one_in":985.47,"q":[12.7,17.9,19.3,20.36,21.5,22.3,23.2,23.84,24.4,25.08,25.7,26.5,27.2,28.1,29.2,30.2,31.42,32.6,33.7,36.9,52.7],"p":0.0010147444731824274,"min":12.7,"median":25.7,"max":52.7},{"cls":9,"match":"3 + 1","one_in":706.25,"q":[12.7,15.72,16.94,17.6,18.18,18.6,18.9,19.3,19.6,19.9,20.3,20.6,20.9,21.2,21.68,22.2,22.62,23.2,23.8,25.0,29.2],"p":0.0014159225207196662,"min":12.7,"median":20.3,"max":29.2},{"cls":10,"match":"3 + 0","one_in":313.89,"q":[12.1,14.4,14.9,15.26,15.7,16.0,16.3,16.5,16.7,17.0,17.2,17.4,17.6,18.0,18.3,18.6,19.0,19.44,19.9,20.6,24.1],"p":0.003185825671619249,"min":12.1,"median":17.2,"max":24.1},{"cls":11,"match":"1 + 2","one_in":187.71,"q":[7.6,9.3,9.7,10.16,10.7,11.1,11.6,11.9,12.3,12.6,12.9,13.22,13.6,13.9,14.4,14.9,15.5,15.9,16.26,17.4,22.4],"p":0.005327408484207744,"min":7.6,"median":12.9,"max":22.4},{"cls":12,"match":"2 + 1","one_in":49.27,"q":[7.5,8.52,8.9,9.1,9.18,9.3,9.4,9.6,9.7,9.8,9.9,10.0,10.2,10.4,10.5,10.6,10.8,11.0,11.3,11.88,14.8],"p":0.02029488946364855,"min":7.5,"median":9.9,"max":14.8}],"expected_return":{"per_line_cost":2.75,"lower":0.645,"jackpot":0.387,"total":1.032,"draws":485},"pricing":{"stake":2.0,"fee":0.75,"cost_per_line":2.75,"monthly_budget":20.0,"draws_per_month_min":8,"draws_per_month_max":9},"uniformity":{"main_p":0.89,"euro_p":0.194,"beyond_196":1,"expected_by_chance":2.5},"frequency":{"counts":[105,95,94,101,93,101,106,104,101,93,112,101,103,104,102,110,116,108,100,117,113,98,108,91,89,91,90,88,99,110,94,97,96,115,117,87,103,101,105,97,107,95,101,96,103,103,98,80,108,89],"expected":100.7},"euro_frequency":{"counts":[185,168,204,191,219,185,195,198,165,149,67,88],"expected":[191.9,191.9,191.9,191.9,191.9,191.9,191.9,191.9,158.6,158.6,80.8,80.8]},"operators":{"eurojackpot":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/eurojackpot","verified":true},{"cc":"CZ","country":"Czechia","name":"Allwyn","url":"https://www.allwyn.cz/loterie/eurojackpot","verified":true},{"cc":"DK","country":"Denmark","name":"Danske Spil","url":"https://danskespil.dk/eurojackpot","verified":true},{"cc":"EE","country":"Estonia","name":"Eesti Loto","url":"https://www.eestiloto.ee/eurojackpot","verified":false},{"cc":"FI","country":"Finland","name":"Veikkaus","url":"https://www.veikkaus.fi/fi/eurojackpot","verified":true},{"cc":"GR","country":"Greece","name":"OPAP","url":"https://www.opap.gr/","verified":false},{"cc":"HR","country":"Croatia","name":"Hrvatska Lutrija","url":"https://www.lutrija.hr/","verified":false},{"cc":"HU","country":"Hungary","name":"Szerencsej\u00e1t\u00e9k","url":"https://bet.szerencsejatek.hu/jatekok/eurojackpot","verified":true},{"cc":"IS","country":"Iceland","name":"\u00cdslensk getsp\u00e1","url":"https://games.lotto.is/","verified":true},{"cc":"IT","country":"Italy","name":"Sisal","url":"https://www.sisal.it/","verified":false},{"cc":"LT","country":"Lithuania","name":"Olif\u0117ja","url":"https://www.olifeja.lt/","verified":false},{"cc":"LV","country":"Latvia","name":"Latvijas Loto","url":"https://www.latloto.lv/","verified":false},{"cc":"NL","country":"Netherlands","name":"Nederlandse Loterij","url":"https://www.nederlandseloterij.nl/","verified":true},{"cc":"NO","country":"Norway","name":"Norsk Tipping","url":"https://www.norsk-tipping.no/lotteri/eurojackpot","verified":true},{"cc":"PL","country":"Poland","name":"Totalizator Sportowy (LOTTO)","url":"https://www.lotto.pl/","verified":false},{"cc":"SE","country":"Sweden","name":"Svenska Spel","url":"https://www.svenskaspel.se/eurojackpot","verified":true},{"cc":"SI","country":"Slovenia","name":"Loterija Slovenije","url":"https://www.loterija.si/","verified":true},{"cc":"SK","country":"Slovakia","name":"TIPOS","url":"https://www.tipos.sk/loterie/eurojackpot","verified":true},{"cc":"ES","country":"Spain","name":"ONCE (Juegos ONCE)","url":"https://www.juegosonce.es/eurojackpot","verified":true}],"lotto649":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/lotto-6aus49","verified":true}]},"lotto649":{"game":"lotto649","draws":1413,"first":"2013-05-04","last":"2026-11-14","latest":{"date":"2026-11-14","main":[11,15,17,32,39,49],"superzahl":3},"price":{"before":1.0,"after":1.2,"change":"2020-11-21"},"popularity":[0.9892,1.0025,1.0861,1.0434,1.0612,1.0599,1.1163,1.0015,1.1069,1.0574,1.0931,1.051,1.0207,0.932,0.9353,0.9915,1.076,1.0309,1.0795,0.9577,0.9623,0.9468,1.0119,1.0366,1.0368,1.0276,1.0211,0.9612,0.938,0.9879,1.0389,1.0342,1.0299,0.9601,0.9231,0.9137,0.9695,0.9984,0.9863,0.9764,0.9853,0.9522,0.9304,0.9373,0.9361,0.9471,0.9744,0.958,0.9932],"popularity_draws":1412,"validation":{"split":"2021-01-01","train":800,"test":612,"corr":0.91},"frequency":{"counts":[186,165,187,171,183,200,185,165,173,174,189,162,176,154,177,187,162,177,201,177,148,178,160,167,187,173,162,175,189,188,177,163,175,148,159,170,182,160,167,163,176,174,169,186,145,163,174,176,173],"expected":173.0},"classes":[{"cls":1,"match":"6 + SZ","p":7.1511238420185165e-09,"one_in":139838160.0,"min":1492711.7,"median":9863525.05,"max":50000000.0,"q":[1492711.7,2405405.17,3524991.86,4121375.89,4810422.62,5270366.08,6310296.76,7698819.87,8895150.28,9465412.19,9863525.05,10814250.12,12182450.58,14798895.91,15326398.07,17039855.25,19693326.74,23943550.97,28149544.65,43886698.65,50000000.0]},{"cls":2,"match":"6","p":6.436011457816664e-08,"one_in":15537573.33,"min":171461.2,"median":1165788.0,"max":22500000.0,"q":[171461.2,322712.11,398201.36,516055.74,585098.52,637933.45,735689.98,820058.92,937356.12,1114207.02,1165788.0,1206205.28,1266133.46,1341840.73,1485614.69,1766548.8,2203227.54,2431103.99,2757903.35,3653159.89,22500000.0]},{"cls":3,"match":"5 + SZ","p":1.8449899512407774e-06,"one_in":542008.37,"min":3071.8,"median":13346.95,"max":283811.9,"q":[3071.8,6618.26,7825.89,8454.1,9088.52,9946.73,10645.67,11224.05,11986.46,12657.62,13346.95,14058.31,14687.78,15272.64,16041.44,17140.85,18311.14,19674.29,21441.18,25404.6,283811.9]},{"cls":4,"match":"5","p":1.6604909561166994e-05,"one_in":60223.15,"min":933.5,"median":4383.1,"max":9145.5,"q":[933.5,2316.56,2671.09,2961.79,3146.76,3315.53,3517.4,3754.04,3961.9,4182.1,4383.1,4599.36,4744.96,4995.89,5147.07,5384.12,5645.72,5929.4,6278.56,6855.49,9145.5]},{"cls":5,"match":"4 + SZ","p":9.68619724401408e-05,"one_in":10323.97,"min":66.7,"median":193.35,"max":378.9,"q":[66.7,121.78,137.86,148.68,155.34,161.55,168.65,176.6,181.54,186.53,193.35,201.63,209.18,217.29,223.87,234.57,242.34,254.23,270.61,296.41,378.9]},{"cls":6,"match":"4","p":0.0008717577519612673,"one_in":1147.11,"min":23.0,"median":51.45,"max":84.4,"q":[23.0,34.1,37.9,40.0,41.56,43.1,44.4,46.6,48.02,49.84,51.45,53.17,54.88,56.49,57.8,59.7,61.1,63.3,66.67,70.77,84.4]},{"cls":7,"match":"3 + SZ","p":0.0017650403866870104,"one_in":566.56,"min":9.6,"median":21.4,"max":36.9,"q":[9.6,15.02,16.5,17.3,17.76,18.4,19.0,19.6,20.1,20.7,21.4,21.9,22.4,22.9,23.7,24.52,25.4,26.46,27.9,29.66,36.9]},{"cls":8,"match":"3","p":0.01588536348018309,"one_in":62.95,"min":6.6,"median":11.1,"max":15.7,"q":[6.6,8.7,9.2,9.5,9.76,10.0,10.2,10.4,10.6,10.9,11.1,11.4,11.5,11.8,11.91,12.2,12.5,12.9,13.4,13.9,15.7]},{"cls":9,"match":"2 + SZ","p":0.013237802900152577,"one_in":75.54,"min":6.0,"median":6.0,"max":6.0,"q":[6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0]}],"any_prize_p":0.031875347902174916,"total_combinations":139838160,"ev_lower_per_line":0.53},"popularity":{"main":[0.9648,1.0107,1.0597,1.0257,1.0541,1.0216,1.1159,1.0426,1.0487,1.0231,1.062,1.0805,1.0771,1.021,1.0009,1.0006,1.0632,1.0253,1.0592,0.9822,0.9979,1.0331,1.0612,1.028,1.0269,1.0168,1.0564,1.0259,1.0057,0.9535,0.9555,0.9735,1.0164,0.9805,0.9859,0.9619,0.9902,0.9826,0.9664,0.9097,0.9173,0.9514,0.9513,0.9614,0.9377,0.9308,0.9539,0.941,0.9451,0.903],"euro":[0.928,1.0413,1.1417,1.0668,1.0951,1.0351,1.1111,1.0826,1.0809,0.9461,0.8057,0.7564],"draws":1007,"euro_draws":485,"corr":0.85,"euro_corr":null,"split":"2021-01-01","train":458,"test":549,"least_vs_most":9.8,"deciles":[{"d":1,"vs":3.81,"se_pct":0.65,"prizes":17.22},{"d":2,"vs":2.46,"se_pct":0.65,"prizes":17.21},{"d":3,"vs":1.83,"se_pct":0.64,"prizes":17.2},{"d":4,"vs":0.64,"se_pct":0.61,"prizes":17.11},{"d":5,"vs":0.54,"se_pct":0.62,"prizes":17.17},{"d":6,"vs":1.01,"se_pct":0.61,"prizes":17.44},{"d":7,"vs":-0.58,"se_pct":0.65,"prizes":17.2},{"d":8,"vs":-1.24,"se_pct":0.63,"prizes":17.16},{"d":9,"vs":-2.99,"se_pct":0.6,"prizes":17.09},{"d":10,"vs":-5.48,"se_pct":0.62,"prizes":16.88}]},"backtest":{"test_draws":955,"first":"2013-03-22","last":"2026-11-13","seeds":20,"expected":0.8746,"strategies":[{"key":"hybrid","label":"Hybrid (walk-forward, out-of-sample)","kind":"out-of-sample (walk-forward)","mean":0.881,"lo":0.8492,"hi":0.9128,"lines":19100},{"key":"random","label":"Pure random","kind":"out-of-sample (walk-forward)","mean":0.8752,"lo":0.8627,"hi":0.8877,"lines":19100},{"key":"balanced","label":"Distribution-balanced random","kind":"out-of-sample (walk-forward)","mean":0.8719,"lo":0.86,"hi":0.8839,"lines":19100},{"key":"hybrid_in_sample","label":"Hybrid IN-SAMPLE (look-ahead, not achievable)","kind":"in-sample (look-ahead)","mean":0.9234,"lo":0.8906,"hi":0.9562,"lines":19100}],"hybrid_vs_random":{"diff":0.0058,"lo":-0.0285,"hi":0.04,"p":0.74}}};
   if (!D) { document.body.insertAdjacentHTML("afterbegin", "<p style='padding:20px;color:#F2777A'>Data missing: build with tools/export_web_data.py</p>"); return; }
   var C = {copper: "#C97A3C", copperLt: "#E9A063", blue: "#3987E5", aqua: "#199E70", violet: "#9085E9",
            grey: "#A9A9B2", greyD: "#7E7E88", line: "#26262B", white: "#F8FAFC"};
@@ -449,6 +541,7 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
   // ---- hero
   $("latest-date").textContent = day(D.latest.date);
   $("latest-balls").innerHTML = D.latest.main.map(function (n) { return ballHTML(n); }).join("") + "<span class='plus' aria-hidden='true'>+</span>" + D.latest.euro.map(function (n) { return ballHTML(n, true); }).join("");
+  if (D.countries) $("countries-note").textContent = ", played in " + D.countries + " European countries";
   $("next-draw").textContent = new Date(D.next_draw + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short"});
   $("combos").textContent = fmt(D.combinations);
   $("anyprize").textContent = fmt(1 / D.any_prize_p, 1);
@@ -521,74 +614,386 @@ footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
   drawBT(); drawDec();
   var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { drawBT(); drawDec(); }, 150); });
 
-  // ---- line builder
-  var popM = D.popularity.main, popE = D.popularity.euro, selM = [], selE = [];
-  function heat(v) { var a = Math.min(1, Math.abs(v - 1) / 0.12); return {col: v >= 1 ? C.copper : C.blue, op: 0.25 + 0.75 * a}; }
-  function grid(id, n, pop, sel, max) {
-    var host = $(id);
+  function atLeast(p, n) { return -Math.expm1(n * Math.log1p(-p)); }
+  // ================================================================ AI Draw app
+  // Picks are chosen for prize share and spread. Every line has the same chance to win.
+  var L = D.lotto649;
+  var GAMES = {
+    eurojackpot: {
+      key: "eurojackpot", name: "Eurojackpot", pick: 5, pool: 50, cols: 10, days: [2, 5],
+      pop: D.popularity.main, freq: D.frequency.counts, freqExp: D.frequency.expected, since: D.archive.first.slice(0, 4),
+      extra: {pick: 2, pool: 12, label: "Euro numbers · pick 2", pop: D.popularity.euro,
+              freq: D.euro_frequency.counts, freqExp: D.euro_frequency.expected},
+      latest: D.latest.main, latestExtra: D.latest.euro, latestDate: D.latest.date,
+      total: D.combinations, classes: D.classes, stake: D.pricing.stake, fee: D.pricing.fee,
+      operators: D.operators.eurojackpot, evYear: "March 2022"
+    },
+    lotto649: L ? {
+      key: "lotto649", name: "Lotto 6aus49", pick: 6, pool: 49, cols: 7, days: [3, 6],
+      pop: L.popularity, freq: L.frequency.counts, freqExp: L.frequency.expected, since: L.first.slice(0, 4),
+      extra: null, latest: L.latest.main, latestExtra: [], latestDate: L.latest.date,
+      total: L.total_combinations, classes: L.classes, stake: L.price.after, fee: 0,
+      operators: D.operators.lotto649, evYear: L.price.change.slice(0, 4)
+    } : null
+  };
+  var DAYN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  Object.keys(GAMES).forEach(function (k) {
+    var g = GAMES[k]; if (!g) return;
+    g.th = g.pop.map(Math.log);
+    if (g.extra) g.extra.th = g.extra.pop.map(Math.log);
+    g.top = g.pop.map(function (v, i) { return [v, i + 1]; }).sort(function (a, b) { return b[0] - a[0]; }).slice(0, 5).map(function (x) { return x[1]; });
+    g.pAny = g.classes.reduce(function (s, c) { return s + c.p; }, 0);
+    g.ev = g.classes.reduce(function (s, c) { return s + (c.q && c.q.length ? c.p * mean(c.q) : 0); }, 0);
+  });
+  function mean(a) { return a.reduce(function (s, x) { return s + x; }, 0) / a.length; }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+  // ---- seeded randomness (reproducible suggestions)
+  function hashStr(s) { var h = 2166136261 >>> 0; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h; }
+  function mulberry(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  function nextDraw(g) {
+    var d = new Date(); d.setHours(12, 0, 0, 0);
+    for (var i = 0; i < 8; i++) { if (g.days.indexOf(d.getDay()) >= 0) return d; d.setDate(d.getDate() + 1); }
+    return d;
+  }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function longDate(d) { return d.toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long", year: "numeric"}); }
+
+  // ---- what makes a line common among players (patterns people actually play)
+  function patterns(nums, g) {
+    var s = nums.slice().sort(function (a, b) { return a - b; }), k = s.length, i, j;
+    var p = {birthday: 0, consec: 0, run: 1, ap: 2, ending: 0, row: 0, col: 0, diag: 0, last: 0, spread: s[k - 1] - s[0], parity: false, multiple: 0};
+    var cur = 1, ends = {}, rows = {}, cols = {}, d1 = {}, d2 = {};
+    for (i = 0; i < k; i++) {
+      var n = s[i], r = Math.floor((n - 1) / g.cols), c = (n - 1) % g.cols;
+      if (n <= 31) p.birthday++;
+      if (i && n - s[i - 1] === 1) { p.consec++; cur++; p.run = Math.max(p.run, cur); } else cur = 1;
+      ends[n % 10] = (ends[n % 10] || 0) + 1; rows[r] = (rows[r] || 0) + 1; cols[c] = (cols[c] || 0) + 1;
+      d1[r - c] = (d1[r - c] || 0) + 1; d2[r + c] = (d2[r + c] || 0) + 1;
+      if (g.latest.indexOf(n) >= 0) p.last++;
+    }
+    function mx(o) { var m = 0; for (var x in o) m = Math.max(m, o[x]); return m; }
+    p.ending = mx(ends); p.row = mx(rows); p.col = mx(cols); p.diag = Math.max(mx(d1), mx(d2));
+    var odd = s.filter(function (x) { return x % 2; }).length; p.parity = odd === 0 || odd === k;
+    for (i = 0; i < k; i++) for (j = i + 1; j < k; j++) {           // longest arithmetic sequence
+      var step = s[j] - s[i], len = 2, nx = s[j] + step;
+      while (s.indexOf(nx) >= 0) { len++; nx += step; }
+      if (len > p.ap) p.ap = len;
+    }
+    for (var m = 3; m <= 10; m++) if (s.every(function (x) { return x % m === 0; })) p.multiple = m;
+    return p;
+  }
+  function penalty(p, g) {
+    var k = g.pick, pen = 0;
+    if (p.birthday >= k) pen += 0.45; else if (p.birthday === k - 1) pen += 0.2;
+    if (p.run >= 3) pen += 0.5; else if (p.consec >= 2) pen += 0.2;
+    if (p.ap >= 4) pen += 0.5;
+    if (p.ending >= 3) pen += 0.2;
+    if (p.row >= 3 || p.col >= 3) pen += 0.25;
+    if (p.diag >= 3) pen += 0.2;
+    if (p.last >= 3) pen += 0.8; else if (p.last === 2) pen += 0.3;
+    if (p.multiple) pen += 0.4;
+    if (p.spread < g.pool * 0.45) pen += 0.15;
+    if (p.parity) pen += 0.1;
+    return pen;
+  }
+  function crowdOf(nums, th) { return nums.reduce(function (s, n) { return s + th[n - 1]; }, 0); }
+  function overlap(a, b) { return a.filter(function (x) { return b.indexOf(x) >= 0; }).length; }
+
+  // ---- the picker: many candidates, scored, then spread so lines do not duplicate each other
+  function pickLines(g, n, variant) {
+    var rng = mulberry(hashStr(g.key + "|" + iso(nextDraw(g)) + "|" + variant)), seen = {}, cands = [];
+    for (var t = 0; t < 2500; t++) {
+      var keys = [];
+      for (var i = 0; i < g.pool; i++) keys.push([-12 * g.th[i] - Math.log(-Math.log(rng() * 0.999998 + 1e-6)), i + 1]);
+      keys.sort(function (a, b) { return b[0] - a[0]; });
+      var line = keys.slice(0, g.pick).map(function (x) { return x[1]; }).sort(function (a, b) { return a - b; });
+      var key = line.join("-"); if (seen[key]) continue; seen[key] = 1;
+      var p = patterns(line, g);
+      cands.push({main: line, p: p, score: crowdOf(line, g.th) + penalty(p, g)});
+    }
+    cands.sort(function (a, b) { return a.score - b.score; });
+    var out = [], maxOv = 1;
+    while (out.length < n && maxOv <= g.pick) {
+      var found = false;
+      for (var c = 0; c < cands.length && out.length < n; c++) {
+        var cd = cands[c];
+        if (out.indexOf(cd) >= 0) continue;
+        if (out.every(function (o) { return overlap(o.main, cd.main) <= maxOv; })) { out.push(cd); found = true; }
+      }
+      if (!found || out.length < n) maxOv++;
+    }
+    if (g.extra) {
+      var pairs = [], used = {};
+      for (var a = 1; a <= g.extra.pool; a++) for (var b = a + 1; b <= g.extra.pool; b++) {
+        var sc = g.extra.th[a - 1] + g.extra.th[b - 1] + rng() * 0.004;
+        if (g.latestExtra.indexOf(a) >= 0 && g.latestExtra.indexOf(b) >= 0) sc += 0.5;
+        pairs.push({pair: [a, b], score: sc});
+      }
+      pairs.sort(function (x, y) { return x.score - y.score; });
+      var cap = Math.ceil(2 * out.length / g.extra.pool) + 1;
+      out.forEach(function (o) {
+        for (var q = 0; q < pairs.length; q++) {
+          var pr = pairs[q].pair;
+          if (pairs[q].taken || (used[pr[0]] || 0) >= cap || (used[pr[1]] || 0) >= cap) continue;
+          pairs[q].taken = true; used[pr[0]] = (used[pr[0]] || 0) + 1; used[pr[1]] = (used[pr[1]] || 0) + 1;
+          o.extra = pr; return;
+        }
+        o.extra = pairs[0].pair;
+      });
+    }
+    return out.map(function (o) { return {main: o.main.slice(), extra: (o.extra || []).slice()}; });
+  }
+
+  // ---- reasons a person can check
+  function reasons(line, g, all) {
+    var out = [], p = patterns(line.main, g), cm = Math.exp(crowdOf(line.main, g.th)) - 1;
+    var sign = function (v) { return (v >= 0 ? "+" : "−") + Math.abs(Math.round(v * 100)) + "%"; };
+    var txt = "Expected co-winners " + sign(cm) + " vs an average line";
+    if (g.extra && line.extra.length === 2) txt += " (" + sign(Math.exp(crowdOf(line.extra, g.extra.th)) - 1) + " on the Euro numbers)";
+    out.push([cm > 0.05 ? "warn" : "", txt + (cm <= 0 ? ": fewer people to share a prize with." : ".")]);
+    var hot = g.top.filter(function (n) { return line.main.indexOf(n) >= 0; });
+    out.push(hot.length ? ["warn", "Includes " + hot.join(", ") + ", among the five numbers players pick most."]
+                        : ["", "Avoids the five most over-picked numbers (" + g.top.join(", ") + ")."]);
+    var avgB = (g.pick * 31 / g.pool).toFixed(1);
+    out.push([p.birthday >= g.pick - 1 ? "warn" : "", p.birthday + " of " + g.pick + " in the birthday range 1–31 (a random line has " + avgB + " on average; birthday lines are heavily shared)."]);
+    var bad = [];
+    if (p.run >= 3) bad.push("a run of " + p.run + " consecutive numbers"); else if (p.consec >= 2) bad.push(p.consec + " consecutive pairs");
+    if (p.ap >= 4) bad.push("a " + p.ap + "-number sequence");
+    if (p.ending >= 3) bad.push(p.ending + " numbers with the same last digit");
+    if (p.row >= 3 || p.col >= 3 || p.diag >= 3) bad.push("a line or diagonal on the play slip");
+    if (p.multiple) bad.push("only multiples of " + p.multiple);
+    if (p.parity) bad.push("all odd or all even");
+    out.push(bad.length ? ["warn", "Common pattern: " + bad.join(", ") + "."] : ["", "No runs, sequences, repeated endings or shapes on the play slip."]);
+    out.push([p.last >= 2 ? "warn" : "", p.last ? "Shares " + p.last + " number" + (p.last > 1 ? "s" : "") + " with the last draw (" + g.latestDate + "); replaying recent results is common." : "Shares no numbers with the last draw (" + g.latestDate + ")."]);
+    if (all && all.length > 1) {
+      var mo = 0, set = {};
+      all.forEach(function (o) { o.main.forEach(function (x) { set[x] = 1; }); if (o !== line) mo = Math.max(mo, overlap(o.main, line.main)); });
+      out.push(["", "Shares at most " + mo + " number" + (mo === 1 ? "" : "s") + " with your other lines; together they cover " + Object.keys(set).length + " different numbers."]);
+    }
+    return out;
+  }
+
+  // ---- number history tooltips (history only - not a forecast)
+  function tip(g, n, extra) {
+    var src = extra ? g.extra : g, cnt = src.freq[n - 1], exp = extra ? src.freqExp[n - 1] : src.freqExp, pop = src.pop[n - 1];
+    return (extra ? "Euro number " : "Number ") + n + ": drawn " + cnt + " times since " + g.since + " (expected about " + Math.round(exp) +
+      "). Players pick it " + Math.abs(Math.round((pop - 1) * 100)) + "% " + (pop >= 1 ? "more" : "less") + " than average. Past draws do not predict future ones.";
+  }
+  function ballsHTML(g, line) {
+    var b = function (n, ex) { return "<span class='ball" + (ex ? " euro" : "") + "' role='listitem' title='" + tip(g, n, ex) + "' aria-label='" + tip(g, n, ex) + "' tabindex='0'>" + n + "</span>"; };
+    return "<div class='balls' role='list'>" + line.main.map(function (n) { return b(n); }).join("") +
+      (line.extra && line.extra.length ? "<span class='plus' aria-hidden='true'>+</span>" + line.extra.map(function (n) { return b(n, true); }).join("") : "") + "</div>";
+  }
+
+  // ---- money-back simulation from the prizes actually paid (Poisson per class)
+  function poisson(l, rng) {
+    if (l > 40) return Math.max(0, Math.round(l + Math.sqrt(l) * Math.sqrt(-2 * Math.log(rng() + 1e-12)) * Math.cos(6.2832 * rng())));
+    var L0 = Math.exp(-l), k = 0, p = 1; do { k++; p *= rng(); } while (p > L0); return k - 1;
+  }
+  function sampleQ(q, rng) { var u = rng() * (q.length - 1), i = Math.floor(u); return q[i] + (q[Math.min(i + 1, q.length - 1)] - q[i]) * (u - i); }
+  function moneyBack(g, lines, cost, sims) {
+    if (lines <= 0) return 0;
+    var rng = mulberry(hashStr(g.key + "|mb|" + lines)), ok = 0;
+    for (var s = 0; s < sims; s++) {
+      var tot = 0;
+      for (var c = 0; c < g.classes.length && tot < cost; c++) {
+        var cl = g.classes[c]; if (!cl.q || !cl.q.length) continue;
+        var h = poisson(lines * cl.p, rng);
+        for (var j = 0; j < h; j++) tot += sampleQ(cl.q, rng);
+      }
+      if (tot >= cost) ok++;
+    }
+    return ok / sims;
+  }
+
+  // ---- state
+  var S = {game: "eurojackpot", variant: 0, lines: [], selM: [], selE: [], editing: -1,
+           budget: 20, perDraw: 1, days: {}, fee: {}, country: {}};
+  function store(k, v) { try { localStorage.setItem("aidraw." + k, JSON.stringify(v)); } catch (e) {} }
+  function load(k, d) { try { var v = localStorage.getItem("aidraw." + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+  S.budget = load("budget", 20); S.perDraw = load("perDraw", 1); S.country = load("country", {}); S.fee = load("fee", {});
+  function G() { return GAMES[S.game]; }
+  function price(g) { var f = S.fee[g.key]; return g.stake + (f == null ? g.fee : f); }
+
+  function renderPlan() {
+    var g = G(), pr = price(g), days = S.days[g.key] || g.days.slice(), perMonth = S.perDraw * days.length * 52 / 12;
+    $("v-budget").textContent = eur(S.budget); $("v-lines").textContent = S.perDraw;
+    $("b-budget").value = S.budget; $("b-lines").value = S.perDraw;
+    $("b-fee").value = (S.fee[g.key] == null ? g.fee : S.fee[g.key]).toFixed(2);
+    $("v-price").textContent = eur(pr) + " a line (" + eur(g.stake) + " stake)";
+    var host = $("b-days"); host.innerHTML = "";
+    g.days.forEach(function (d) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "chip-toggle"; b.textContent = DAYN[d];
+      b.setAttribute("aria-pressed", days.indexOf(d) >= 0 ? "true" : "false");
+      b.addEventListener("click", function () { var cur = (S.days[g.key] || g.days.slice()).slice(), at = cur.indexOf(d);
+        if (at >= 0) { if (cur.length > 1) cur.splice(at, 1); } else cur.push(d); S.days[g.key] = cur; renderPlan(); });
+      host.appendChild(b);
+    });
+    var cost = perMonth * pr, afford = Math.floor(S.budget / pr + 1e-9), n = Math.min(Math.round(perMonth), afford), fit = $("b-fit");
+    if (cost <= S.budget + 1e-9) {
+      fit.className = "fit ok"; fit.innerHTML = "<b>Fits your budget.</b> " + eur(cost) + " of " + eur(S.budget) + " a month, " + eur(S.budget - cost) + " left.";
+    } else {
+      var draws = Math.round(perMonth / S.perDraw), playable = Math.floor(afford / S.perDraw);
+      fit.className = "fit warn"; fit.innerHTML = "<b>Your " + eur(S.budget) + " covers " + afford + " of " + Math.round(perMonth) + " lines a month.</b> " +
+        (playable < draws ? "That is about " + playable + " of the " + draws + " draws; skip the rest, or play fewer lines per draw. " : "") +
+        "The figures below count only what fits.";
+    }
+    var y = n * 12;
+    $("o-lines").textContent = fmt(n); $("o-cost").textContent = eur(n * pr);
+    $("o-any").textContent = (100 * atLeast(g.pAny, n)).toFixed(1) + "%";
+    $("o-back-m").textContent = pctTxt(moneyBack(g, n, n * pr, 20000));
+    $("o-back-y").textContent = pctTxt(moneyBack(g, y, y * pr, 20000));
+    $("o-loss").textContent = eur(Math.max(0, y * (pr - g.ev)));
+    $("b-note").textContent = "Money back means total prizes at least equal to what you spent, simulated 20,000 times from the prizes actually paid since " +
+      g.evYear + ". No strategy can guarantee it: on average a line returns about " + Math.round(100 * g.ev / pr) + "% of its cost.";
+    store("budget", S.budget); store("perDraw", S.perDraw);
+  }
+  function pctTxt(p) { return p <= 0 ? "under 0.1%" : p < 0.001 ? "under 0.1%" : (100 * p).toFixed(1) + "%"; }
+
+  function renderLines() {
+    var g = G(), d = nextDraw(g);
+    $("l-draw").textContent = g.name + " · " + longDate(d);
+    $("l-count").textContent = S.lines.length + " line" + (S.lines.length === 1 ? "" : "s");
+    $("l-odds").textContent = g.name + " jackpot: 1 in " + fmt(g.total) + ", for every line.";
+    var ol = $("l-list"); ol.innerHTML = "";
+    if (!S.lines.length) { ol.innerHTML = "<li class='note'>Press “Pick my lines” to get " + S.perDraw + " line" + (S.perDraw > 1 ? "s" : "") + " for this draw.</li>"; return; }
+    S.lines.forEach(function (line, i) {
+      var li = document.createElement("li"); li.className = "line";
+      var rs = reasons(line, g, S.lines), cm = Math.exp(crowdOf(line.main, g.th)) - 1;
+      li.innerHTML = "<div class='top'>" + ballsHTML(g, line) + "</div><div class='meta'><span class='crowd-chip " + (cm <= -0.05 ? "good" : cm > 0.05 ? "bad" : "") + "'>" +
+        (cm >= 0 ? "+" : "−") + Math.abs(Math.round(cm * 100)) + "% co-winners</span>" +
+        "<button type='button' class='mini' data-copy='" + i + "'>Copy</button><button type='button' class='mini' data-edit='" + i + "'>Adjust</button>" +
+        "<button type='button' class='mini' data-del='" + i + "' aria-label='Remove line " + (i + 1) + "'>Remove</button></div>" +
+        "<ul class='reasons'>" + rs.map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join("") + "</ul>";
+      ol.appendChild(li);
+    });
+  }
+  function lineText(g, line, i) {
+    return "Line " + (i + 1) + ": " + line.main.map(pad).join(" ") + (line.extra.length ? "  +  " + line.extra.map(pad).join(" ") : "");
+  }
+  function copyText(t) {
+    function done() { $("l-copied").textContent = "Copied. Open the official site and tick the same numbers."; }
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(done, fallback); } else fallback();
+    function fallback() { var ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "absolute"; ta.style.left = "-9999px";
+      document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) { $("l-copied").textContent = t; } ta.remove(); }
+  }
+  function header(g) { return g.name + " · " + longDate(nextDraw(g)) + (g.key === "lotto649" ? " (Superzahl comes from your ticket)" : ""); }
+
+  function renderCountry() {
+    var g = G(), sel = $("l-country"); sel.innerHTML = "";
+    g.operators.forEach(function (o) { var op = document.createElement("option"); op.value = o.cc;
+      op.textContent = o.country + " — " + o.name + (o.verified ? "" : " (homepage)"); sel.appendChild(op); });
+    sel.value = S.country[g.key] || "DE"; if (!sel.value) sel.selectedIndex = 0;
+    var o = g.operators.filter(function (x) { return x.cc === sel.value; })[0] || g.operators[0];
+    $("l-go").href = o.url; $("l-go").setAttribute("aria-label", "Open " + o.name + ", the official " + g.name + " site for " + o.country + " (new tab)");
+  }
+
+  // ---- check / adjust grid
+  function buildGrid(id, n, g, ex, sel, max) {
+    var host = $(id); host.innerHTML = "";
+    var pop = ex ? g.extra.pop : g.pop;
     for (var i = 1; i <= n; i++) (function (k) {
       var b = document.createElement("button"); b.type = "button"; b.textContent = k; b.setAttribute("aria-pressed", "false");
-      var h = heat(pop[k - 1]); var bar = document.createElement("span"); bar.className = "heat";
-      bar.style.background = h.col; bar.style.opacity = h.op; b.appendChild(bar);
-      b.setAttribute("aria-label", "Number " + k + ", popularity index " + pop[k - 1].toFixed(2));
-      b.title = "Popularity index " + pop[k - 1].toFixed(2) + " (1.00 = average)";
-      b.addEventListener("click", function () { var at = sel.indexOf(k); if (at >= 0) sel.splice(at, 1); else if (sel.length < max) sel.push(k); render(); });
+      var v = pop[k - 1], a = Math.min(1, Math.abs(v - 1) / 0.12), bar = document.createElement("span"); bar.className = "heat";
+      bar.style.background = v >= 1 ? C.copper : C.blue; bar.style.opacity = 0.25 + 0.75 * a; b.appendChild(bar);
+      b.title = tip(g, k, ex); b.setAttribute("aria-label", tip(g, k, ex));
+      b.addEventListener("click", function () { var at = sel.indexOf(k); if (at >= 0) sel.splice(at, 1); else if (sel.length < max) sel.push(k); renderCheck(); });
       host.appendChild(b);
     })(i);
   }
-  grid("pick-main", 50, popM, selM, 5); grid("pick-euro", 12, popE, selE, 2);
+  function renderGrids() {
+    var g = G();
+    $("pick-main-label").textContent = "Main numbers · pick " + g.pick;
+    $("pick-main").style.gridTemplateColumns = "repeat(" + (g.cols === 7 ? 7 : 10) + ",1fr)";
+    buildGrid("pick-main", g.pool, g, false, S.selM, g.pick);
+    $("extra-wrap").hidden = !g.extra; $("sz-note").hidden = !!g.extra;
+    if (g.extra) { $("pick-extra-label").textContent = g.extra.label; buildGrid("pick-euro", g.extra.pool, g, true, S.selE, g.extra.pick); }
+  }
   function sync(id, sel, max) { Array.prototype.forEach.call($(id).children, function (b, i) { var on = sel.indexOf(i + 1) >= 0;
     b.setAttribute("aria-pressed", on ? "true" : "false"); b.disabled = !on && sel.length >= max; }); }
-  function render() {
-    sync("pick-main", selM, 5); sync("pick-euro", selE, 2);
-    var m = selM.slice().sort(function (a, b) { return a - b; }), e = selE.slice().sort(function (a, b) { return a - b; });
-    $("my-balls").innerHTML = m.map(function (n) { return ballHTML(n); }).join("") + (e.length ? "<span class='plus' aria-hidden='true'>+</span>" : "") + e.map(function (n) { return ballHTML(n, true); }).join("");
-    var bar = $("meter-bar");
-    if (m.length < 5 || e.length < 2) { $("crowd").textContent = "—"; bar.style.width = "0"; $("crowd-text").textContent = "Choose " + (5 - m.length) + " more main and " + (2 - e.length) + " more Euro number" + (2 - e.length === 1 ? "" : "s") + ", or use a quick pick."; return; }
-    var cm = m.reduce(function (p, n) { return p * popM[n - 1]; }, 1), ce = e.reduce(function (p, n) { return p * popE[n - 1]; }, 1);
-    var pct = (cm - 1) * 100, pe = (ce - 1) * 100;
-    $("crowd").innerHTML = (pct >= 0 ? "+" : "−") + Math.abs(pct).toFixed(0) + "%<small>main</small> &nbsp;" + (pe >= 0 ? "+" : "−") + Math.abs(pe).toFixed(0) + "%<small>Euro</small>";
-    var pos = Math.max(-40, Math.min(40, pct)); var w = Math.abs(pos) / 80 * 100;
+  function renderCheck() {
+    var g = G(); sync("pick-main", S.selM, g.pick); if (g.extra) sync("pick-euro", S.selE, g.extra.pick);
+    var m = S.selM.slice().sort(function (a, b) { return a - b; }), e = S.selE.slice().sort(function (a, b) { return a - b; });
+    var line = {main: m, extra: g.extra ? e : []};
+    $("my-balls").innerHTML = ballsHTML(g, line);
+    var complete = m.length === g.pick && (!g.extra || e.length === g.extra.pick), bar = $("meter-bar");
+    $("use-line").disabled = !complete;
+    $("use-line").textContent = S.editing >= 0 ? "Update line " + (S.editing + 1) : "Add to my lines";
+    if (!complete) { $("crowd").textContent = "—"; bar.style.width = "0"; $("my-reasons").innerHTML = "<li>Choose " + (g.pick - m.length) + " more main number" + (g.pick - m.length === 1 ? "" : "s") +
+      (g.extra ? " and " + (g.extra.pick - e.length) + " more Euro number" + (g.extra.pick - e.length === 1 ? "" : "s") : "") + ".</li>"; return; }
+    var cm = (Math.exp(crowdOf(m, g.th)) - 1) * 100;
+    $("crowd").innerHTML = (cm >= 0 ? "+" : "−") + Math.abs(cm).toFixed(0) + "%<small>main</small>" +
+      (g.extra ? " &nbsp;" + ((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100 >= 0 ? "+" : "−") + Math.abs((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100).toFixed(0) + "%<small>Euro</small>" : "");
+    var pos = Math.max(-40, Math.min(40, cm)), w = Math.abs(pos) / 80 * 100;
     bar.style.background = pos <= 0 ? C.blue : C.copper; bar.style.width = w + "%"; bar.style.left = pos <= 0 ? (50 - w) + "%" : "50%";
-    function word(v) { return v <= -10 ? "fewer people than average" : v >= 10 ? "more people than average" : "about as many people as average"; }
-    var same = (pct <= -10) === (pe <= -10) && (pct >= 10) === (pe >= 10);
-    var verdict = same ? word(pct) + " would share a prize with you"
-      : word(pct) + " would share a three-number prize, and " + word(pe) + " a prize that needs both Euro numbers";
-    $("crowd-text").innerHTML = "On past behaviour, <b>" + verdict + "</b>. The chance of winning is unchanged: every line is 1 in 139,838,160.";
+    $("my-reasons").innerHTML = reasons(line, g, null).map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join("");
   }
+
+  function setGame(key) {
+    if (!GAMES[key]) return;
+    S.game = key; S.lines = []; S.selM.length = 0; S.selE.length = 0; S.editing = -1; S.variant = 0; $("l-copied").textContent = "";
+    ["eurojackpot", "lotto649"].forEach(function (k) { var t = $("tab-" + k); var on = k === key;
+      t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; });
+    $("app-panel").setAttribute("aria-labelledby", "tab-" + key);
+    renderPlan(); renderCountry(); renderGrids(); renderCheck(); renderLines(); renderPay();
+  }
+
+  // ---- events
+  if (!GAMES.lotto649) { $("tab-lotto649").hidden = true; }
+  Array.prototype.forEach.call(document.querySelectorAll("[role=tab]"), function (t, i, all) {
+    t.addEventListener("click", function () { setGame(t.getAttribute("data-game")); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      var vis = Array.prototype.filter.call(all, function (x) { return !x.hidden; }), j = vis.indexOf(t);
+      var nx = vis[(j + (e.key === "ArrowRight" ? 1 : vis.length - 1)) % vis.length]; nx.focus(); nx.click(); e.preventDefault();
+    });
+  });
+  $("b-budget").addEventListener("input", function () { S.budget = +this.value; renderPlan(); });
+  $("b-lines").addEventListener("input", function () { S.perDraw = +this.value; renderPlan(); renderLines(); });
+  $("b-fee").addEventListener("change", function () { var v = parseFloat(String(this.value).replace(",", "."));
+    if (isFinite(v) && v >= 0 && v <= 5) { S.fee[G().key] = v; store("fee", S.fee); } renderPlan(); });
+  $("l-pick").addEventListener("click", function () { S.lines = pickLines(G(), S.perDraw, S.variant); renderLines(); });
+  $("l-again").addEventListener("click", function () { S.variant++; S.lines = pickLines(G(), S.perDraw, S.variant); renderLines(); });
+  $("l-copy").addEventListener("click", function () { var g = G(); if (!S.lines.length) { $("l-copied").textContent = "Pick your lines first."; return; }
+    copyText(header(g) + "\n" + S.lines.map(function (l, i) { return lineText(g, l, i); }).join("\n")); });
+  $("l-country").addEventListener("change", function () { S.country[G().key] = this.value; store("country", S.country); renderCountry(); });
+  $("l-list").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var g = G();
+    if (b.hasAttribute("data-copy")) { var i = +b.getAttribute("data-copy"); copyText(header(g) + "\n" + lineText(g, S.lines[i], i)); }
+    if (b.hasAttribute("data-del")) { S.lines.splice(+b.getAttribute("data-del"), 1); renderLines(); }
+    if (b.hasAttribute("data-edit")) { var j = +b.getAttribute("data-edit"); S.editing = j;
+      S.selM.length = 0; S.selE.length = 0; Array.prototype.push.apply(S.selM, S.lines[j].main); Array.prototype.push.apply(S.selE, S.lines[j].extra);
+      renderCheck(); $("check").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
+  });
   function rnd(n) { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; }
   function sample(n, k) { var pool = []; for (var i = 1; i <= n; i++) pool.push(i); var out = []; while (out.length < k) out.push(pool.splice(rnd(pool.length), 1)[0]); return out; }
-  $("qp").addEventListener("click", function () { selM.length = 0; selE.length = 0; Array.prototype.push.apply(selM, sample(50, 5)); Array.prototype.push.apply(selE, sample(12, 2)); render(); });
-  $("clear").addEventListener("click", function () { selM.length = 0; selE.length = 0; render(); });
-  render();
-
-  // ---- odds calculator
-  var pJ = 1 / D.combinations, pAny = D.any_prize_p, cost = D.pricing.cost_per_line, ev = D.expected_return ? D.expected_return.total : null;
-  $("c-price").textContent = eur(cost) + " (€" + D.pricing.stake.toFixed(2) + " stake + €" + D.pricing.fee.toFixed(2) + " fee)";
-  function atLeast(p, n) { return -Math.expm1(n * Math.log1p(-p)); }
-  function calc() {
-    var L = +$("c-lines").value, Dw = +$("c-draws").value, Y = +$("c-years").value, n = L * Dw * 52 * Y;
-    $("v-lines").textContent = L; $("v-draws").textContent = Dw; $("v-years").textContent = Y;
-    var j = atLeast(pJ, n), a = atLeast(pAny, n);
-    $("o-n").textContent = fmt(n); $("o-cost").textContent = eur(n * cost);
-    $("o-jack").textContent = "1 in " + fmt(1 / j); $("o-any").textContent = (a * 100 >= 99.95 ? ">99.9" : (a * 100).toFixed(1)) + "%";
-    $("o-back").textContent = ev ? eur(n * ev) : "n/a"; $("o-loss").textContent = ev ? eur(n * (cost - ev)) : "n/a";
-    var yrs = Math.log(0.5) / Math.log1p(-pJ) / (L * Dw * 52);
-    $("o-text").innerHTML = "At this rate a <b>50% chance of one jackpot</b> would take about <b>" + fmt(yrs) + " years</b>. " +
-      (n * cost > D.pricing.monthly_budget * 12 * Y ? "This is more than AI Draw's default cap of " + eur(D.pricing.monthly_budget) + " a month allows." : "This fits within AI Draw's default cap of " + eur(D.pricing.monthly_budget) + " a month.");
-  }
-  ["c-lines", "c-draws", "c-years"].forEach(function (id) { $(id).addEventListener("input", calc); }); calc();
-
-  // ---- prize table
-  $("pay-lede").textContent = "Exact odds for one line, and what each class actually paid in the " + fmt(D.archive.current_format_draws) +
-    " draws since the current format began in March 2022. Amounts vary because each class is split between its winners.";
-  var tb = document.querySelector("#pay-table tbody");
-  D.classes.forEach(function (c) {
-    var tr = document.createElement("tr");
-    [c.cls, c.match, "1 in " + fmt(c.one_in), c.min == null ? "—" : eur(c.min), c.median == null ? "—" : eur(c.median), c.max == null ? "—" : eur(c.max)]
-      .forEach(function (v) { var td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
-    tb.appendChild(tr);
+  $("qp").addEventListener("click", function () { var g = G(); S.selM.length = 0; S.selE.length = 0; Array.prototype.push.apply(S.selM, sample(g.pool, g.pick));
+    if (g.extra) Array.prototype.push.apply(S.selE, sample(g.extra.pool, g.extra.pick)); renderCheck(); });
+  $("clear").addEventListener("click", function () { S.selM.length = 0; S.selE.length = 0; S.editing = -1; renderCheck(); });
+  $("use-line").addEventListener("click", function () {
+    var line = {main: S.selM.slice().sort(function (a, b) { return a - b; }), extra: S.selE.slice().sort(function (a, b) { return a - b; })};
+    if (S.editing >= 0 && S.editing < S.lines.length) S.lines[S.editing] = line; else S.lines.push(line);
+    S.editing = -1; renderLines(); renderCheck(); $("l-list").scrollIntoView({block: "nearest"});
   });
+
+  // ---- prize table (per game)
+  function renderPay() {
+    var g = G();
+    $("pay-lede").textContent = "Exact odds for one " + g.name + " line, and what each class actually paid since " + g.evYear +
+      ". Amounts vary because each class is split between its winners." + (g.key === "lotto649" ? " SZ = Superzahl, from your ticket number." : "");
+    var tb = document.querySelector("#pay-table tbody"); tb.innerHTML = "";
+    g.classes.forEach(function (c) {
+      var tr = document.createElement("tr");
+      [c.cls, c.match, "1 in " + fmt(c.one_in), c.min == null ? "—" : eur(c.min), c.median == null ? "—" : eur(c.median), c.max == null ? "—" : eur(c.max)]
+        .forEach(function (v) { var td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+  }
+  setGame("eurojackpot");
+
 })();
 </script>
 </body>
