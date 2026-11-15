@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Draw — Eurojackpot statistics that never pretend to predict | AIBoosters</title>
+<meta name="description" content="AI Draw by ai:boosters analyses every official Eurojackpot result since 2012, gives one reproducible line per draw, avoids over-picked numbers and caps spending. It does not predict draws.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
+<meta property="og:title" content="AI Draw — the draw is random. AI Draw proves it.">
+<meta property="og:description" content="Statistics for Eurojackpot results, tested walk-forward on every draw since 2012. No predictions, no ticket sales, a fixed spending cap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Grounds are neutral on purpose (no blue bias), matching the AI Boosters site. */
+  --ink:#0A0A0B;--ink-2:#0E0E10;--surface:#16161A;--surface-2:#1F1F24;
+  --copper:#C97A3C;--copper-lt:#E9A063;--copper-dk:#8A4E20;--copper-dim:rgba(201,122,60,.13);--copper-glow:rgba(201,122,60,.45);
+  --white:#F8FAFC;--grey:#A9A9B2;--grey-d:#7E7E88;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.055);
+  --blue:#3987E5;--aqua:#199E70;--violet:#9085E9;--good:#6EE7A8;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--radius:14px;--maxw:1240px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--ink);color:var(--white);font-family:var(--font);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%)}
+main,header,footer{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--copper);color:var(--ink);padding:10px 14px;border-radius:8px;z-index:50}
+.skip:focus{left:12px}
+:focus-visible{outline:2px solid var(--copper-lt);outline-offset:3px;border-radius:6px}
+
+/* header */
+header{border-bottom:1px solid var(--line-2);background:rgba(10,10,11,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+header nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:30px;height:28px}
+.brand b{font-size:19px;font-weight:700;letter-spacing:-.03em}
+.brand b em{font-style:normal;color:var(--copper)}
+.navlinks{display:flex;gap:28px;font-size:13.5px;color:var(--grey)}
+.navlinks a{position:relative;padding:6px 0}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--copper);transition:width .28s ease}
+.navlinks a:hover::after,.navlinks a.on::after{width:100%}
+.navlinks a.on{color:var(--white)}
+@media (max-width:860px){.navlinks{display:none}}
+
+/* type */
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper-lt);
+  display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.kicker::before{content:"";width:22px;height:1px;background:var(--copper)}
+h1{font-size:clamp(36px,5vw,66px);font-weight:600;letter-spacing:-.035em;line-height:1.04;max-width:16ch}
+h1 em,h2 em{font-style:normal;color:var(--copper-lt)}
+h2{font-size:clamp(28px,3.2vw,42px);font-weight:600;letter-spacing:-.028em;line-height:1.12;max-width:22ch}
+h3{font-size:18px;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.lede{color:var(--grey);font-size:clamp(15.5px,1.4vw,18px);font-weight:300;line-height:1.75;max-width:60ch;margin-top:22px}
+.lede b{color:var(--white);font-weight:500}
+p.body{color:var(--grey);font-size:15px;font-weight:300;line-height:1.78;max-width:68ch}
+.mono{font-family:var(--mono)}
+
+/* buttons, badges */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:550;min-height:44px;
+  padding:11px 22px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .22s ease;font-family:inherit;white-space:nowrap}
+.btn-primary{background:var(--copper);color:var(--ink);box-shadow:0 6px 24px -8px var(--copper-glow)}
+.btn-primary:hover{background:var(--copper-lt);transform:translateY(-1px);box-shadow:0 10px 30px -8px var(--copper-glow)}
+.btn-ghost{border-color:var(--line);color:var(--white);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:var(--copper);background:var(--copper-dim)}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:7px 13px;border-radius:20px;
+  white-space:nowrap;border:1px solid;display:inline-flex}
+.badge.dev{color:var(--copper-lt);border-color:rgba(233,160,99,.32);background:rgba(233,160,99,.07)}
+.badge.age{color:var(--grey);border-color:var(--line);background:rgba(255,255,255,.02)}
+
+/* hero */
+.hero{padding:76px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.hero .tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.drawcard{background:linear-gradient(150deg,var(--surface),var(--ink-2));border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px;position:relative;overflow:hidden}
+.drawcard::before,.card::before,.panel::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);opacity:.45}
+.label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-d)}
+.drawcard .date{font-size:15px;font-weight:500;margin:6px 0 16px}
+.balls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ball{position:relative;display:inline-flex;width:50px;height:50px;border-radius:50%;align-items:center;justify-content:center;
+  font-weight:600;font-size:18px;color:var(--white);letter-spacing:-.02em;
+  background:radial-gradient(circle at 32% 26%,#3a3a42 0%,#1d1d22 46%,#0c0c0e 100%);
+  box-shadow:inset 0 0 0 1.5px rgba(233,160,99,.85),inset 0 -6px 12px rgba(0,0,0,.55),0 8px 22px -10px rgba(201,122,60,.55)}
+.ball::after{content:"";position:absolute;top:8px;left:12px;width:13px;height:8px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);transform:rotate(-24deg)}
+.ball.euro{color:var(--ink);background:radial-gradient(circle at 32% 26%,#F6D3AE 0%,#E9A063 38%,#C97A3C 72%,#8A4E20 100%);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25),inset 0 -6px 12px rgba(80,40,10,.45),0 8px 22px -8px rgba(201,122,60,.7)}
+.plus{font-family:var(--mono);color:var(--grey-d);padding:0 2px}
+.drawcard .rows{margin-top:22px;border-top:1px solid var(--line-2)}
+.drawcard .row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);font-size:14px}
+.drawcard .row span:first-child{color:var(--grey)}
+.drawcard .row b{font-family:var(--mono);font-weight:500;font-size:13px}
+
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:56px}
+.strip div{padding:22px 24px;background:rgba(255,255,255,.015);border-right:1px solid var(--line)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-size:clamp(22px,2.4vw,30px);font-weight:600;letter-spacing:-.03em}
+.strip span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-d)}
+
+/* sections */
+section.band{padding:96px 0;border-top:1px solid var(--line-2)}
+section.alt{background:var(--ink-2)}
+.head{margin-bottom:44px}
+.head p.body{margin-top:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;position:relative;overflow:hidden}
+.card .num{font-family:var(--mono);font-size:11px;color:var(--copper);letter-spacing:.1em;margin-bottom:18px}
+.card h3{margin-bottom:10px}
+.card p{color:var(--grey);font-size:14px;font-weight:300;line-height:1.7}
+.panel{background:linear-gradient(150deg,var(--surface),var(--ink-2));border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px;position:relative;overflow:hidden}
+.panel h3{margin-bottom:6px}
+.panel .note{color:var(--grey-d);font-size:12.5px;line-height:1.65;margin-top:14px}
+.panel .big{font-size:clamp(28px,3vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.panel .big small{font-size:14px;color:var(--grey);font-weight:400;letter-spacing:0;margin-left:6px}
+svg.chart{width:100%;height:auto;display:block;margin-top:18px;overflow:visible}
+svg.chart text{font-family:var(--mono);font-size:11px;fill:var(--grey)}
+/* --grey-d is 4.49:1 on --surface (below AA), so small text on cards and panels uses --grey */
+.panel .label,.drawcard .label,.out .label,.card .label,.panel .note,.scale{color:var(--grey)}
+svg.chart .lbl{font-family:var(--font);font-size:12.5px;fill:var(--grey)}
+svg.chart .val{fill:var(--white);font-size:11px}
+
+/* line builder */
+.builder{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}
+.pick{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:14px}
+.pick.euro{grid-template-columns:repeat(6,1fr);max-width:360px}
+.pick button{min-height:44px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--white);
+  font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;position:relative;transition:background .18s ease,border-color .18s ease}
+.pick button .heat{position:absolute;left:6px;right:6px;bottom:5px;height:2px;border-radius:2px}
+.pick button:hover{border-color:var(--copper)}
+.pick button[aria-pressed="true"]{background:var(--copper);border-color:var(--copper);color:var(--ink);font-weight:650}
+.pick button[aria-pressed="true"] .heat{opacity:0}
+.pick button:disabled{opacity:.35;cursor:not-allowed}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--grey)}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:7px}
+.meter{height:8px;border-radius:8px;background:var(--surface-2);position:relative;margin:14px 0 6px;overflow:hidden}
+.meter span{position:absolute;top:0;bottom:0;border-radius:8px;transition:all .3s ease}
+.meter .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--grey-d)}
+.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--grey-d);letter-spacing:.06em}
+.result-line{font-size:15px;color:var(--grey);margin-top:16px;line-height:1.65}
+.result-line b{color:var(--white);font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px}
+.field{margin-top:22px}
+.field label{display:flex;justify-content:space-between;font-size:14px;color:var(--grey);margin-bottom:10px}
+.field label b{font-family:var(--mono);color:var(--white);font-weight:500}
+input[type=range]{width:100%;accent-color:var(--copper);height:44px;cursor:pointer}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.out{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.02)}
+.out b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em;margin-top:6px}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.tbl th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-d);font-weight:400;
+  text-align:right;padding:12px 14px;border-bottom:1px solid var(--line)}
+.tbl td{text-align:right;padding:12px 14px;border-bottom:1px solid var(--line-2);color:var(--grey)}
+.tbl th:first-child,.tbl td:first-child,.tbl th:nth-child(2),.tbl td:nth-child(2){text-align:left}
+.tbl td:nth-child(2){color:var(--white);font-family:var(--mono)}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+
+/* never */
+.never{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.never div{border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:flex;gap:12px;align-items:flex-start;
+  color:var(--grey);font-size:14px;line-height:1.6;background:rgba(255,255,255,.015)}
+.never svg{flex:none;margin-top:2px}
+.never b{color:var(--white);font-weight:600;display:block;margin-bottom:2px}
+
+/* status / cta */
+.status{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.callout{display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border-radius:12px;border:1px solid rgba(233,160,99,.32);
+  background:rgba(233,160,99,.06);color:var(--grey);font-size:14px;line-height:1.65;margin-top:22px}
+.callout b{color:var(--white)}
+
+footer{border-top:1px solid var(--line);padding:44px 0 56px;color:var(--grey-d);font-size:12.5px;line-height:1.75}
+footer .row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer b{color:var(--grey);font-weight:500}
+footer a{color:var(--grey);text-decoration:underline;text-underline-offset:3px}
+
+@media (max-width:1000px){
+  .hero-grid,.builder,.calc,.status,.grid-2{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:1fr 1fr}.never{grid-template-columns:1fr 1fr}
+  .strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}
+  .strip div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:600px){
+  .hero{padding:44px 0 36px}section.band{padding:64px 0}
+  .grid-4,.never,.outs{grid-template-columns:1fr}
+  .pick{grid-template-columns:repeat(7,1fr)}
+  .ball{width:42px;height:42px;font-size:15px}.ball::after{top:6px;left:10px;width:11px;height:7px}
+  .drawcard,.panel{padding:22px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark9" viewBox="0 0 187.71 174.29">
+    <circle cx="12.0" cy="161.71" r="3.0" fill="#C97A3C"/>
+    <circle cx="21.64" cy="161.34" r="3.95" fill="#C97A3C"/>
+    <circle cx="33.39" cy="159.88" r="5.2" fill="#C97A3C"/>
+    <circle cx="47.73" cy="156.52" r="6.84" fill="#C97A3C"/>
+    <circle cx="65.05" cy="149.97" r="9.0" fill="#C97A3C"/>
+    <circle cx="85.34" cy="138.1" r="11.84" fill="#C97A3C"/>
+    <circle cx="107.49" cy="117.76" r="15.59" fill="#C97A3C"/>
+    <circle cx="127.81" cy="84.89" r="20.52" fill="#C97A3C"/>
+    <circle cx="151.71" cy="36.0" r="27.0" fill="#C97A3C"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="#E9A063" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></g></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="#E9A063" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></g></symbol>
+</svg>
+<a href="#main" class="skip">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a href="index.html" class="brand" aria-label="ai:boosters home">
+        <svg viewBox="0 0 187.71 174.29" aria-hidden="true"><use href="#mark9"/></svg>
+        <b>ai<em>:</em>boosters</b>
+      </a>
+      <div class="navlinks"><a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="apps.html" class="on">Apps</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
+      <a href="apps.html" class="btn btn-ghost" style="padding:9px 16px">All apps</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="tags"><span class="badge dev">In development</span><span class="badge age">18+ only</span></div>
+        <div class="kicker">APP/02 · AI Draw</div>
+        <h1>The draw is random. <em>AI Draw proves it.</em></h1>
+        <p class="lede">AI Draw analyses <b data-k="archive.draws">the full archive of</b> official Eurojackpot results since 2012, gives you
+          one reproducible line per draw, steers you away from numbers other players over-pick, and holds your spending to
+          a fixed cap. <b>It does not predict draws. Nothing can.</b></p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#build">Try the line builder</a>
+          <a class="btn btn-ghost" href="#evidence">See the evidence</a>
+        </div>
+      </div>
+      <div class="drawcard" aria-labelledby="latest-h">
+        <div class="label" id="latest-h">Latest official result</div>
+        <div class="date" id="latest-date"></div>
+        <div class="balls" id="latest-balls" role="list" aria-label="Winning numbers"></div>
+        <div class="rows">
+          <div class="row"><span>Next draw</span><b id="next-draw"></b></div>
+          <div class="row"><span>Jackpot chance, any line</span><b>1 in <span id="combos"></span></b></div>
+          <div class="row"><span>Chance of any prize</span><b>1 in <span id="anyprize"></span></b></div>
+        </div>
+      </div>
+    </div>
+    <div class="strip" role="list">
+      <div role="listitem"><b id="s-draws"></b><span>official draws analysed</span></div>
+      <div role="listitem"><b id="s-test"></b><span>draws in the walk-forward test</span></div>
+      <div role="listitem"><b>None</b><span>predictive edge found</span></div>
+      <div role="listitem"><b id="s-cap"></b><span>default monthly cap</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" aria-labelledby="what-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">What it does</div><h2 id="what-h">Four things, done <em>properly</em>.</h2></div>
+    <div class="grid-4">
+      <div class="card"><div class="num">01</div><h3>Every official result</h3>
+        <p>The complete archive, checked draw by draw for gaps, bad dates and impossible numbers, including the two times the game's rules changed.</p></div>
+      <div class="card"><div class="num">02</div><h3>One line per draw</h3>
+        <p>Each line comes from a recorded seed and data version, so you can regenerate it exactly. Stored lines can never be quietly changed.</p></div>
+      <div class="card"><div class="num">03</div><h3>Fewer people to share with</h3>
+        <p>Every prize is split between its winners. AI Draw measures which numbers players over-pick and avoids them. Your odds stay the same.</p></div>
+      <div class="card"><div class="num">04</div><h3>A cap that holds</h3>
+        <p>A fixed monthly limit, with lines generated for free and only tickets you actually bought counted against it. It never suggests chasing losses.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="evidence" aria-labelledby="ev-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">The evidence</div>
+      <h2 id="ev-h">We tested it the way we test <em>client systems</em>.</h2>
+      <p class="body" id="ev-lede"></p></div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="label">Walk-forward backtest</div>
+        <h3>Average numbers matched per line</h3>
+        <svg class="chart" id="bt-chart" role="img" aria-labelledby="bt-desc"></svg>
+        <p class="note" id="bt-desc"></p>
+      </div>
+      <div class="panel">
+        <div class="label">Prize sharing, tested on later draws</div>
+        <h3>Prize money by how popular a line's numbers are</h3>
+        <svg class="chart" id="dec-chart" role="img" aria-labelledby="dec-desc"></svg>
+        <p class="note" id="dec-desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="build" aria-labelledby="build-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">Try it</div><h2 id="build-h">Build a line. See how <em>crowded</em> it is.</h2>
+      <p class="body">Pick five main numbers and two Euro numbers. The bar under each number shows how much players favour it,
+        measured from official winner counts. Every combination has the same chance of winning; what changes is how many
+        people you would share a prize with.</p></div>
+    <div class="builder">
+      <div class="panel">
+        <div class="label">Main numbers · pick 5</div>
+        <div class="pick" id="pick-main" role="group" aria-label="Main numbers 1 to 50"></div>
+        <div class="label" style="margin-top:24px">Euro numbers · pick 2</div>
+        <div class="pick euro" id="pick-euro" role="group" aria-label="Euro numbers 1 to 12"></div>
+        <div class="legend"><span><i style="background:var(--copper)"></i>over-picked by players</span>
+          <span><i style="background:var(--blue)"></i>under-picked</span></div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <div class="label">Your line</div>
+        <div class="balls" id="my-balls" style="min-height:56px;margin-top:12px"></div>
+        <div class="label" style="margin-top:22px">Expected co-winners vs an average line</div>
+        <div class="big" id="crowd">—</div>
+        <div class="meter" aria-hidden="true"><span id="meter-bar"></span><i class="mid"></i></div>
+        <div class="scale"><span>fewer to share with</span><span>average</span><span>more</span></div>
+        <p class="result-line" id="crowd-text">Choose 5 + 2 numbers, or use a quick pick.</p>
+        <div class="actions">
+          <button class="btn btn-primary" id="qp" type="button">Quick pick</button>
+          <button class="btn btn-ghost" id="clear" type="button">Clear</button>
+        </div>
+        <p class="note">Estimate for the three-number and both-Euro prize classes, from official winner counts across Europe.
+          Quick pick is uniformly random. Jackpot chance for this line: 1 in 139,838,160, the same as every other line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="calc-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">The odds</div><h2 id="calc-h">What playing actually <em>adds up to</em>.</h2></div>
+    <div class="calc">
+      <div class="panel">
+        <h3>Your habit</h3>
+        <div class="field"><label for="c-lines">Lines per draw <b id="v-lines">1</b></label>
+          <input type="range" id="c-lines" min="1" max="5" value="1"></div>
+        <div class="field"><label for="c-draws">Draws per week <b id="v-draws">2</b></label>
+          <input type="range" id="c-draws" min="1" max="2" value="2"></div>
+        <div class="field"><label for="c-years">Years <b id="v-years">1</b></label>
+          <input type="range" id="c-years" min="1" max="40" value="1"></div>
+        <p class="note">Exact combinatorics: P(at least one) = 1 − (1 − p)<sup>n</sup>. Cost uses <span id="c-price"></span> per line.
+          Expected return uses the average actually paid per prize class since March 2022.</p>
+      </div>
+      <div class="panel" aria-live="polite">
+        <div class="outs">
+          <div class="out"><span class="label">Lines played</span><b id="o-n"></b></div>
+          <div class="out"><span class="label">Spent</span><b id="o-cost"></b></div>
+          <div class="out"><span class="label">Chance of at least one jackpot</span><b id="o-jack"></b></div>
+          <div class="out"><span class="label">Chance of at least one prize</span><b id="o-any"></b></div>
+          <div class="out"><span class="label">Expected back, on average</span><b id="o-back"></b></div>
+          <div class="out"><span class="label">Expected loss, on average</span><b id="o-loss"></b></div>
+        </div>
+        <p class="result-line" id="o-text"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" aria-labelledby="pay-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">Every prize class</div><h2 id="pay-h">What a win actually <em>pays</em>.</h2>
+      <p class="body" id="pay-lede"></p></div>
+    <div class="scroll"><table class="tbl" id="pay-table">
+      <thead><tr><th scope="col">Class</th><th scope="col">Match</th><th scope="col">Odds</th><th scope="col">Lowest paid</th>
+        <th scope="col">Typical</th><th scope="col">Highest paid</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="never-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">What it will never do</div><h2 id="never-h">The lines we <em>do not cross</em>.</h2></div>
+    <div class="never">
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Predict a draw</b>Draws are random. We tested every strategy on 13 years of results and say so plainly.</span></div>
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Sell tickets or take money</b>No betting account, no payments, no automatic purchases. You buy from your licensed lottery, if at all.</span></div>
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Push you to play more</b>No streaks, no "due" numbers, no loss-chasing prompts. The cap only ever stops you.</span></div>
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Send your data anywhere</b>It runs on your device. Your lines and spending stay with you.</span></div>
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Hide the odds</b>Every screen that generates a line shows its jackpot chance: 1 in 139,838,160.</span></div>
+      <div><svg width="20" height="20" aria-hidden="true"><use href="#i-x"/></svg><span><b>Serve under-18s</b>Lottery products are 18+ in Germany and across Europe. AI Draw is too.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" aria-labelledby="status-h">
+  <div class="wrap status">
+    <div>
+      <div class="kicker">Status</div>
+      <h2 id="status-h">Working today. <em>Not yet published.</em></h2>
+      <p class="body" style="margin-top:16px">The engine, the analysis and every figure on this page run now, against the real
+        archive. It is not downloadable yet, so it is marked in development, the same way we mark everything on our products
+        page. If you would use it, tell us: demand decides what ships first.</p>
+      <div class="callout"><svg width="20" height="20" aria-hidden="true" style="flex:none"><use href="#i-info"/></svg>
+        <span><b>Figures on this page</b> are computed by AI Draw from the official archive (<span id="gen-note"></span>), not typed in.
+          Results data: westlotto.de.</span></div>
+    </div>
+    <div class="panel">
+      <h3>Want it when it ships?</h3>
+      <p class="body" style="margin-top:8px;font-size:14px">One email when AI Draw is available. Nothing else.</p>
+      <div class="actions"><a class="btn btn-primary" href="contact.html">Tell us you want it</a><a class="btn btn-ghost" href="apps.html">See all apps</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div><b>AI Draw</b> by ai:boosters · statistical analysis of Eurojackpot results · 18+ only.<br>
+        Eurojackpot is a registered trademark of its owners. AI Draw is not affiliated with Eurojackpot, WestLotto or any lottery operator.</div>
+      <div>Only play with money you can afford to lose. Never raise your stake to win back losses.<br>
+        Help in Germany: BZgA <a href="tel:08001372700">0800 1 37 27 00</a> (free) · <a href="https://www.check-dein-spiel.de" rel="noopener">check-dein-spiel.de</a></div>
+    </div>
+    <div style="margin-top:22px">&copy; 2026 AIBoosters Consulting</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var D = {"generated":"2026-11-15","algorithm_version":"2.1.0","dataset_version":"n1007-f82a567ef391","archive":{"draws":1007,"first":"2012-03-23","last":"2026-11-13","current_format_draws":485},"latest":{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},"next_draw":"2026-11-17","combinations":139838160,"any_prize_p":0.03141625290264117,"classes":[{"cls":1,"match":"5 + 2","one_in":139838160.0,"p":7.1511238420185165e-09,"min":5000000.0,"median":45691514.8,"max":120000000.0},{"cls":2,"match":"5 + 1","one_in":6991908.0,"p":1.4302247684037032e-07,"min":100735.2,"median":666047.9,"max":21177159.2},{"cls":3,"match":"5 + 0","one_in":3107514.67,"p":3.218005728908332e-07,"min":43237.6,"median":157629.05,"max":1058678.0},{"cls":4,"match":"4 + 2","one_in":621502.93,"p":1.6090028644541661e-06,"min":1725.3,"median":5385.7,"max":22144.8},{"cls":5,"match":"4 + 1","one_in":31075.15,"p":3.218005728908332e-05,"min":106.4,"median":320.9,"max":530.1},{"cls":6,"match":"3 + 2","one_in":14125.07,"p":7.079612603598332e-05,"min":57.4,"median":163.4,"max":337.9},{"cls":7,"match":"4 + 0","one_in":13811.18,"p":7.240512890043748e-05,"min":33.3,"median":114.5,"max":163.6},{"cls":8,"match":"2 + 2","one_in":985.47,"p":0.0010147444731824274,"min":12.7,"median":25.7,"max":52.7},{"cls":9,"match":"3 + 1","one_in":706.25,"p":0.0014159225207196662,"min":12.7,"median":20.3,"max":29.2},{"cls":10,"match":"3 + 0","one_in":313.89,"p":0.003185825671619249,"min":12.1,"median":17.2,"max":24.1},{"cls":11,"match":"1 + 2","one_in":187.71,"p":0.005327408484207744,"min":7.6,"median":12.9,"max":22.4},{"cls":12,"match":"2 + 1","one_in":49.27,"p":0.02029488946364855,"min":7.5,"median":9.9,"max":14.8}],"expected_return":{"per_line_cost":2.75,"lower":0.645,"jackpot":0.387,"total":1.032,"draws":485},"pricing":{"stake":2.0,"fee":0.75,"cost_per_line":2.75,"monthly_budget":20.0,"draws_per_month_min":8,"draws_per_month_max":9},"uniformity":{"main_p":0.89,"euro_p":0.194,"beyond_196":1,"expected_by_chance":2.5},"frequency":{"counts":[105,95,94,101,93,101,106,104,101,93,112,101,103,104,102,110,116,108,100,117,113,98,108,91,89,91,90,88,99,110,94,97,96,115,117,87,103,101,105,97,107,95,101,96,103,103,98,80,108,89],"expected":100.7},"popularity":{"main":[0.9648,1.0107,1.0597,1.0257,1.0541,1.0216,1.1159,1.0426,1.0487,1.0231,1.062,1.0805,1.0771,1.021,1.0009,1.0006,1.0632,1.0253,1.0592,0.9822,0.9979,1.0331,1.0612,1.028,1.0269,1.0168,1.0564,1.0259,1.0057,0.9535,0.9555,0.9735,1.0164,0.9805,0.9859,0.9619,0.9902,0.9826,0.9664,0.9097,0.9173,0.9514,0.9513,0.9614,0.9377,0.9308,0.9539,0.941,0.9451,0.903],"euro":[0.928,1.0413,1.1417,1.0668,1.0951,1.0351,1.1111,1.0826,1.0809,0.9461,0.8057,0.7564],"draws":1007,"euro_draws":485,"corr":0.85,"euro_corr":null,"split":"2021-01-01","train":458,"test":549,"least_vs_most":9.8,"deciles":[{"d":1,"vs":3.81,"se_pct":0.65,"prizes":17.22},{"d":2,"vs":2.46,"se_pct":0.65,"prizes":17.21},{"d":3,"vs":1.83,"se_pct":0.64,"prizes":17.2},{"d":4,"vs":0.64,"se_pct":0.61,"prizes":17.11},{"d":5,"vs":0.54,"se_pct":0.62,"prizes":17.17},{"d":6,"vs":1.01,"se_pct":0.61,"prizes":17.44},{"d":7,"vs":-0.58,"se_pct":0.65,"prizes":17.2},{"d":8,"vs":-1.24,"se_pct":0.63,"prizes":17.16},{"d":9,"vs":-2.99,"se_pct":0.6,"prizes":17.09},{"d":10,"vs":-5.48,"se_pct":0.62,"prizes":16.88}]},"backtest":{"test_draws":955,"first":"2013-03-22","last":"2026-11-13","seeds":20,"expected":0.8746,"strategies":[{"key":"hybrid","label":"Hybrid (walk-forward, out-of-sample)","kind":"out-of-sample (walk-forward)","mean":0.881,"lo":0.8492,"hi":0.9128,"lines":19100},{"key":"random","label":"Pure random","kind":"out-of-sample (walk-forward)","mean":0.8752,"lo":0.8627,"hi":0.8877,"lines":19100},{"key":"balanced","label":"Distribution-balanced random","kind":"out-of-sample (walk-forward)","mean":0.8719,"lo":0.86,"hi":0.8839,"lines":19100},{"key":"hybrid_in_sample","label":"Hybrid IN-SAMPLE (look-ahead, not achievable)","kind":"in-sample (look-ahead)","mean":0.9234,"lo":0.8906,"hi":0.9562,"lines":19100}],"hybrid_vs_random":{"diff":0.0058,"lo":-0.0285,"hi":0.04,"p":0.74}}};
+  if (!D) { document.body.insertAdjacentHTML("afterbegin", "<p style='padding:20px;color:#F2777A'>Data missing: build with tools/export_web_data.py</p>"); return; }
+  var C = {copper: "#C97A3C", copperLt: "#E9A063", blue: "#3987E5", aqua: "#199E70", violet: "#9085E9",
+           grey: "#A9A9B2", greyD: "#7E7E88", line: "#26262B", white: "#F8FAFC"};
+  var STRAT = {hybrid: C.copper, random: C.blue, balanced: C.aqua, hybrid_in_sample: C.violet};
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n, d) { return Number(n).toLocaleString("en-GB", {minimumFractionDigits: d || 0, maximumFractionDigits: d || 0}); };
+  var eur = function (n) { return "€" + fmt(n, n >= 100 ? 0 : 2); };
+  var day = function (iso) { return new Date(iso + "T12:00:00").toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long", year: "numeric"}); };
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+  function ballHTML(n, euro) { return "<span class='ball" + (euro ? " euro" : "") + "' role='listitem' aria-label='" + (euro ? "Euro" : "main") + " number " + n + "'>" + n + "</span>"; }
+
+  // ---- hero
+  $("latest-date").textContent = day(D.latest.date);
+  $("latest-balls").innerHTML = D.latest.main.map(function (n) { return ballHTML(n); }).join("") + "<span class='plus' aria-hidden='true'>+</span>" + D.latest.euro.map(function (n) { return ballHTML(n, true); }).join("");
+  $("next-draw").textContent = new Date(D.next_draw + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short"});
+  $("combos").textContent = fmt(D.combinations);
+  $("anyprize").textContent = fmt(1 / D.any_prize_p, 1);
+  document.querySelector("[data-k='archive.draws']").textContent = "all " + fmt(D.archive.draws);
+  $("s-draws").textContent = fmt(D.archive.draws);
+  $("s-test").textContent = fmt(D.backtest.test_draws);
+  $("s-cap").textContent = eur(D.pricing.monthly_budget);
+  $("gen-note").textContent = D.archive.draws + " draws to " + D.archive.last + ", built " + D.generated + ", algorithm v" + D.algorithm_version;
+
+  // ---- evidence: backtest dot + interval chart
+  var B = D.backtest, hv = B.hybrid_vs_random;
+  $("ev-lede").textContent = "Every strategy was run walk-forward over " + fmt(B.test_draws) + " real draws (" + B.first.slice(0, 4) + "–" +
+    B.last.slice(0, 4) + "): each line built only from draws before it, then checked against the actual result, " + B.seeds +
+    " times over. The archive itself passes the fairness tests (chi-square p = " + D.uniformity.main_p + " for main numbers).";
+  function drawBT() {
+    var svg = $("bt-chart"); while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = Math.max(300, Math.round(svg.parentNode.clientWidth - 56)), narrow = W < 460;
+    var s = B.strategies, rowH = 46, top = 10, left = narrow ? 92 : 190, right = 40, H = top + rowH * s.length + 40;
+    var lo = Math.min.apply(null, s.map(function (x) { return x.lo; }).concat([B.expected])) - 0.01;
+    var hi = Math.max.apply(null, s.map(function (x) { return x.hi; }).concat([B.expected])) + 0.01;
+    var X = function (v) { return left + (v - lo) / (hi - lo) * (W - left - right); };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    for (var t = Math.ceil(lo * 50) / 50; t <= hi; t += (narrow ? 0.04 : 0.02)) {
+      svg.appendChild(el("line", {x1: X(t), x2: X(t), y1: top, y2: H - 30, stroke: C.line}));
+      svg.appendChild(el("text", {x: X(t), y: H - 12, "text-anchor": "middle"}, t.toFixed(2)));
+    }
+    svg.appendChild(el("line", {x1: X(B.expected), x2: X(B.expected), y1: top - 4, y2: H - 30, stroke: C.grey, "stroke-dasharray": "4 3"}));
+    s.forEach(function (x, i) {
+      var y = top + rowH * i + rowH / 2, col = STRAT[x.key] || C.copper;
+      var name = (narrow ? {hybrid: "AI Draw", random: "Random", balanced: "Balanced", hybrid_in_sample: "Hindsight*"}
+        : {hybrid: "AI Draw (walk-forward)", random: "Pure random", balanced: "Balanced random", hybrid_in_sample: "AI Draw with hindsight*"})[x.key] || x.label;
+      svg.appendChild(el("text", {x: left - 14, y: y + 4, "text-anchor": "end", "class": "lbl"}, name));
+      svg.appendChild(el("line", {x1: X(x.lo), x2: X(x.hi), y1: y, y2: y, stroke: col, "stroke-width": 2.5, "stroke-linecap": "round"}));
+      var c = el("circle", {cx: X(x.mean), cy: y, r: 6, fill: col, stroke: "#16161A", "stroke-width": 2});
+      c.appendChild(el("title", {}, name + ": " + x.mean.toFixed(3) + " (95% " + x.lo.toFixed(3) + "–" + x.hi.toFixed(3) + ")"));
+      svg.appendChild(c);
+      svg.appendChild(el("text", {x: X(x.hi) + 8, y: y + 4, "class": "val"}, x.mean.toFixed(3)));
+    });
+    svg.appendChild(el("text", {x: X(B.expected) + 6, y: top + 2, fill: C.grey}, "random draws: " + B.expected.toFixed(3)));
+    $("bt-desc").textContent = "Dots are means, bars 95% intervals, the dashed line is what fair random draws give. AI Draw minus pure random: " +
+      (hv.diff >= 0 ? "+" : "") + hv.diff.toFixed(3) + " matches per line (95% interval " + hv.lo.toFixed(3) + " to " + hv.hi.toFixed(3) +
+      ", p = " + hv.p + "): no detectable difference. *Hindsight used the very results it was tested on; its lead is impossible on a future draw.";
+  }
+
+  // ---- evidence: prize sharing deciles
+  function drawDec() {
+    var P = D.popularity, d = P.deciles; if (!d.length) return;
+    var svg = $("dec-chart"); while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = Math.max(300, Math.round(svg.parentNode.clientWidth - 56)), H = 250, left = 44, right = 10, top = 14, bottom = 40;
+    var maxA = Math.max.apply(null, d.map(function (x) { return Math.abs(x.vs) + 1.96 * x.se_pct; })) + 0.5;
+    var bw = (W - left - right) / d.length, Y = function (v) { return top + (maxA - v) / (2 * maxA) * (H - top - bottom); };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    [-6, -3, 0, 3, 6].forEach(function (t) { if (Math.abs(t) > maxA) return;
+      svg.appendChild(el("line", {x1: left, x2: W - right, y1: Y(t), y2: Y(t), stroke: t === 0 ? C.greyD : C.line}));
+      svg.appendChild(el("text", {x: left - 8, y: Y(t) + 4, "text-anchor": "end"}, (t > 0 ? "+" : "") + t + "%")); });
+    d.forEach(function (x, i) {
+      var cx = left + bw * i + bw / 2, y0 = Y(0), y1 = Y(x.vs), col = x.vs >= 0 ? C.copper : C.blue;
+      var r = el("rect", {x: cx - bw * 0.32, width: bw * 0.64, y: Math.min(y0, y1), height: Math.max(1, Math.abs(y1 - y0)), rx: 3, fill: col});
+      r.appendChild(el("title", {}, "Decile " + x.d + ": " + (x.vs >= 0 ? "+" : "") + x.vs.toFixed(1) + "% prize money, " + x.prizes.toFixed(1) + " prizes per line"));
+      svg.appendChild(r);
+      svg.appendChild(el("line", {x1: cx, x2: cx, y1: Y(x.vs - 1.96 * x.se_pct), y2: Y(x.vs + 1.96 * x.se_pct), stroke: C.grey, "stroke-width": 1}));
+      svg.appendChild(el("text", {x: cx, y: H - 22, "text-anchor": "middle"}, String(x.d)));
+    });
+    svg.appendChild(el("text", {x: left, y: H - 4}, "least popular"));
+    svg.appendChild(el("text", {x: W - right, y: H - 4, "text-anchor": "end"}, "most popular"));
+    $("dec-desc").textContent = "Popularity was learned from the " + P.train + " draws before " + P.split.slice(0, 4) + " only, then 20,000 lines were scored on the " +
+      P.test + " later draws. The least popular tenth won " + (P.least_vs_most > 0 ? "+" : "") + P.least_vs_most.toFixed(1) +
+      "% more prize money than the most popular tenth, from the same number of prizes. Bars show prize money vs average (classes 3+2 and below), whiskers 95% intervals.";
+  }
+  drawBT(); drawDec();
+  var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { drawBT(); drawDec(); }, 150); });
+
+  // ---- line builder
+  var popM = D.popularity.main, popE = D.popularity.euro, selM = [], selE = [];
+  function heat(v) { var a = Math.min(1, Math.abs(v - 1) / 0.12); return {col: v >= 1 ? C.copper : C.blue, op: 0.25 + 0.75 * a}; }
+  function grid(id, n, pop, sel, max) {
+    var host = $(id);
+    for (var i = 1; i <= n; i++) (function (k) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = k; b.setAttribute("aria-pressed", "false");
+      var h = heat(pop[k - 1]); var bar = document.createElement("span"); bar.className = "heat";
+      bar.style.background = h.col; bar.style.opacity = h.op; b.appendChild(bar);
+      b.setAttribute("aria-label", "Number " + k + ", popularity index " + pop[k - 1].toFixed(2));
+      b.title = "Popularity index " + pop[k - 1].toFixed(2) + " (1.00 = average)";
+      b.addEventListener("click", function () { var at = sel.indexOf(k); if (at >= 0) sel.splice(at, 1); else if (sel.length < max) sel.push(k); render(); });
+      host.appendChild(b);
+    })(i);
+  }
+  grid("pick-main", 50, popM, selM, 5); grid("pick-euro", 12, popE, selE, 2);
+  function sync(id, sel, max) { Array.prototype.forEach.call($(id).children, function (b, i) { var on = sel.indexOf(i + 1) >= 0;
+    b.setAttribute("aria-pressed", on ? "true" : "false"); b.disabled = !on && sel.length >= max; }); }
+  function render() {
+    sync("pick-main", selM, 5); sync("pick-euro", selE, 2);
+    var m = selM.slice().sort(function (a, b) { return a - b; }), e = selE.slice().sort(function (a, b) { return a - b; });
+    $("my-balls").innerHTML = m.map(function (n) { return ballHTML(n); }).join("") + (e.length ? "<span class='plus' aria-hidden='true'>+</span>" : "") + e.map(function (n) { return ballHTML(n, true); }).join("");
+    var bar = $("meter-bar");
+    if (m.length < 5 || e.length < 2) { $("crowd").textContent = "—"; bar.style.width = "0"; $("crowd-text").textContent = "Choose " + (5 - m.length) + " more main and " + (2 - e.length) + " more Euro number" + (2 - e.length === 1 ? "" : "s") + ", or use a quick pick."; return; }
+    var cm = m.reduce(function (p, n) { return p * popM[n - 1]; }, 1), ce = e.reduce(function (p, n) { return p * popE[n - 1]; }, 1);
+    var pct = (cm - 1) * 100, pe = (ce - 1) * 100;
+    $("crowd").innerHTML = (pct >= 0 ? "+" : "−") + Math.abs(pct).toFixed(0) + "%<small>main</small> &nbsp;" + (pe >= 0 ? "+" : "−") + Math.abs(pe).toFixed(0) + "%<small>Euro</small>";
+    var pos = Math.max(-40, Math.min(40, pct)); var w = Math.abs(pos) / 80 * 100;
+    bar.style.background = pos <= 0 ? C.blue : C.copper; bar.style.width = w + "%"; bar.style.left = pos <= 0 ? (50 - w) + "%" : "50%";
+    function word(v) { return v <= -10 ? "fewer people than average" : v >= 10 ? "more people than average" : "about as many people as average"; }
+    var same = (pct <= -10) === (pe <= -10) && (pct >= 10) === (pe >= 10);
+    var verdict = same ? word(pct) + " would share a prize with you"
+      : word(pct) + " would share a three-number prize, and " + word(pe) + " a prize that needs both Euro numbers";
+    $("crowd-text").innerHTML = "On past behaviour, <b>" + verdict + "</b>. The chance of winning is unchanged: every line is 1 in 139,838,160.";
+  }
+  function rnd(n) { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; }
+  function sample(n, k) { var pool = []; for (var i = 1; i <= n; i++) pool.push(i); var out = []; while (out.length < k) out.push(pool.splice(rnd(pool.length), 1)[0]); return out; }
+  $("qp").addEventListener("click", function () { selM.length = 0; selE.length = 0; Array.prototype.push.apply(selM, sample(50, 5)); Array.prototype.push.apply(selE, sample(12, 2)); render(); });
+  $("clear").addEventListener("click", function () { selM.length = 0; selE.length = 0; render(); });
+  render();
+
+  // ---- odds calculator
+  var pJ = 1 / D.combinations, pAny = D.any_prize_p, cost = D.pricing.cost_per_line, ev = D.expected_return ? D.expected_return.total : null;
+  $("c-price").textContent = eur(cost) + " (€" + D.pricing.stake.toFixed(2) + " stake + €" + D.pricing.fee.toFixed(2) + " fee)";
+  function atLeast(p, n) { return -Math.expm1(n * Math.log1p(-p)); }
+  function calc() {
+    var L = +$("c-lines").value, Dw = +$("c-draws").value, Y = +$("c-years").value, n = L * Dw * 52 * Y;
+    $("v-lines").textContent = L; $("v-draws").textContent = Dw; $("v-years").textContent = Y;
+    var j = atLeast(pJ, n), a = atLeast(pAny, n);
+    $("o-n").textContent = fmt(n); $("o-cost").textContent = eur(n * cost);
+    $("o-jack").textContent = "1 in " + fmt(1 / j); $("o-any").textContent = (a * 100 >= 99.95 ? ">99.9" : (a * 100).toFixed(1)) + "%";
+    $("o-back").textContent = ev ? eur(n * ev) : "n/a"; $("o-loss").textContent = ev ? eur(n * (cost - ev)) : "n/a";
+    var yrs = Math.log(0.5) / Math.log1p(-pJ) / (L * Dw * 52);
+    $("o-text").innerHTML = "At this rate a <b>50% chance of one jackpot</b> would take about <b>" + fmt(yrs) + " years</b>. " +
+      (n * cost > D.pricing.monthly_budget * 12 * Y ? "This is more than AI Draw's default cap of " + eur(D.pricing.monthly_budget) + " a month allows." : "This fits within AI Draw's default cap of " + eur(D.pricing.monthly_budget) + " a month.");
+  }
+  ["c-lines", "c-draws", "c-years"].forEach(function (id) { $(id).addEventListener("input", calc); }); calc();
+
+  // ---- prize table
+  $("pay-lede").textContent = "Exact odds for one line, and what each class actually paid in the " + fmt(D.archive.current_format_draws) +
+    " draws since the current format began in March 2022. Amounts vary because each class is split between its winners.";
+  var tb = document.querySelector("#pay-table tbody");
+  D.classes.forEach(function (c) {
+    var tr = document.createElement("tr");
+    [c.cls, c.match, "1 in " + fmt(c.one_in), c.min == null ? "—" : eur(c.min), c.median == null ? "—" : eur(c.median), c.max == null ? "—" : eur(c.max)]
+      .forEach(function (v) { var td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

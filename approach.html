@@ -342,7 +342,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
         <b>ai<em>:</em>boosters</b>
       </a>
-      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="approach.html" class="on">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
+      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="apps.html">Apps</a><a href="approach.html" class="on">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
       <a href="contact.html" class="btn btn-primary navcta">Book a briefing</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
         <i></i><i></i><i></i>
@@ -451,6 +451,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-
         <a href="services.html">Deployment &amp; Development</a>
         <a href="services.html">All nine capabilities</a>
         <a href="products.html">Products &amp; frameworks</a>
+        <a href="apps.html">Apps</a>
       </div>
       <div class="foot-col">
         <h5>Firm</h5>
@@ -663,8 +664,8 @@ document.querySelectorAll('[data-count]').forEach(el=>sio.observe(el));
   cvs.addEventListener('webglcontextlost',e=>{e.preventDefault();cvs.style.display='none';});
   function size(){const h=cvs.parentElement.offsetHeight;rnd.setSize(innerWidth,h);
     frameCam();cam.aspect=innerWidth/h;cam.updateProjectionMatrix();}
-  rnd.setPixelRatio(Math.min(devicePixelRatio,1.75)); size();
   const g=new THREE.Group(); sc.add(g);
+  rnd.setPixelRatio(Math.min(devicePixelRatio,1.75)); size();
   const orbs=[],pathPts=[];
   for(let i=0;i<9;i++){
     const r=.55+i*.42, ang=i*.55-1.1, rad=7+i*1.5;
