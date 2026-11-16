@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Draw — Eurojackpot statistics that never pretend to predict | AIBoosters</title>
-<meta name="description" content="AI Draw by ai:boosters analyses every official Eurojackpot result since 2012, gives one reproducible line per draw, avoids over-picked numbers and caps spending. It does not predict draws.">
+<title>AI Draw — lottery numbers picked for a reason | Eurojackpot, Lotto 6aus49, EuroMillions | AIBoosters</title>
+<meta name="description" content="AI Draw by ai:boosters picks Eurojackpot, Lotto 6aus49 and EuroMillions lines that fewer people play and that cover more numbers, keeps you to a budget, and shows the latest official results. It does not predict draws.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
-<meta property="og:title" content="AI Draw for Eurojackpot — the draw is random. AI Draw proves it.">
-<meta property="og:description" content="Statistics for Eurojackpot results, tested walk-forward on every draw since 2012. No predictions, no ticket sales, a fixed spending cap.">
+<meta property="og:title" content="AI Draw — lottery numbers, picked for a reason">
+<meta property="og:description" content="Eurojackpot, Lotto 6aus49 and EuroMillions: lines fewer people play, spread to win more often, within your budget. Latest official results. No predictions, no ticket sales.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -267,6 +267,45 @@ select{appearance:auto}
 .toggle small{flex-basis:100%;color:var(--grey);font-size:12px;margin-left:30px;margin-top:-6px}
 @media (max-width:1000px){.app-grid,.check-grid{grid-template-columns:1fr}}
 @media (max-width:600px){.play-row{grid-template-columns:1fr}.tabs [role=tab]{flex:1 1 100%}}
+/* ---- clean end-user layout ---- */
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.seg button{min-height:44px;padding:8px 12px;border-radius:20px;border:1px solid var(--line);background:transparent;color:var(--grey);
+  font-family:var(--font);font-size:13px;cursor:pointer}
+.seg button[aria-pressed=true]{border-color:var(--copper);background:var(--copper-dim);color:var(--white)}
+.howto{color:var(--grey);font-size:14px;line-height:1.6;margin-top:6px}
+.ball-key{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin:6px 0 0 26px}
+.ball.sm{width:34px;height:34px;font-size:13px}.ball.sm::after{top:5px;left:8px;width:9px;height:6px}
+.sz{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--copper-lt);border:1px solid rgba(233,160,99,.4);
+  border-radius:20px;padding:5px 10px;margin-left:4px}
+details.fold{margin-top:16px}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:4px;padding-right:36px;position:relative;min-height:44px;justify-content:center}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"";position:absolute;right:4px;top:50%;width:10px;height:10px;margin-top:-7px;
+  border-right:2px solid var(--copper-lt);border-bottom:2px solid var(--copper-lt);transform:rotate(45deg);transition:transform .2s ease}
+details.fold[open]>summary::after{transform:rotate(-135deg);margin-top:-2px}
+details.fold>summary b{font-size:18px;font-weight:600;letter-spacing:-.015em;color:var(--white)}
+details.fold[open]>summary{margin-bottom:16px}
+details.mini-fold{margin-top:14px;border-top:1px solid var(--line-2);padding-top:6px}
+details.mini-fold>summary{font-size:14px;color:var(--copper-lt);min-height:44px}
+details.mini-fold[open]>summary{margin-bottom:6px}
+details.why{margin-top:8px}
+details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-height:44px;display:flex;align-items:center}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.res-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden}
+.res-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--copper),transparent);opacity:.45}
+.res-card h3{margin:4px 0 14px;font-size:16px}
+.res-card .balls{gap:6px}
+.balls .ex{display:inline-flex;align-items:center;gap:inherit;white-space:nowrap}
+.res-next{margin-top:14px;font-size:13.5px;color:var(--grey)}.res-next b{color:var(--white);font-weight:500}
+.res-list{list-style:none;display:grid;gap:10px;margin-top:6px}
+.res-list li{display:grid;gap:6px;padding-bottom:10px;border-bottom:1px solid var(--line-2)}
+.res-list .ball.sm{width:28px;height:28px;font-size:11.5px}
+.res-date{font-family:var(--mono);font-size:11px;color:var(--grey);letter-spacing:.04em}
+.howto-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px}
+.howto-steps div{border:1px solid var(--line);border-radius:12px;padding:18px;background:rgba(255,255,255,.015)}
+.howto-steps b{display:block;color:var(--white);font-weight:600;margin-bottom:6px}
+.howto-steps span{color:var(--grey);font-size:14px;line-height:1.6}
+@media (max-width:1000px){.res-grid,.howto-steps{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -305,48 +344,41 @@ select{appearance:auto}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="tags"><span class="badge game">Eurojackpot</span><span class="badge game">Lotto 6aus49</span><span class="badge game">EuroMillions</span><span class="badge dev">In development</span><span class="badge age">18+ only</span></div>
-        <div class="kicker">APP/02 · AI Draw for Eurojackpot, Lotto 6aus49 and EuroMillions</div>
-        <h1>Eurojackpot is random.<br><em>AI Draw proves it.</em></h1>
-        <p class="lede">AI Draw analyses <b data-k="archive.draws">the full archive of</b> official Eurojackpot results since 2012, gives you
-          one reproducible line per draw, steers you away from numbers other players over-pick, and holds your spending to
-          a fixed cap. <b>It does not predict draws. Nothing can.</b></p>
-        <p class="game-facts"><span class="gf-label">The games</span><b>Eurojackpot:</b> 5 numbers from 1&ndash;50 and 2 Euro numbers
-          from 1&ndash;12, drawn every Tuesday and Friday<span id="countries-note">, played across Europe</span>.<br>
-          <b>Lotto 6aus49:</b> 6 numbers from 1&ndash;49 plus a Superzahl from your ticket, drawn every Wednesday and Saturday in Germany.<br>
-          <b>EuroMillions (France):</b> 5 numbers from 1&ndash;50 and 2 stars from 1&ndash;12, drawn every Tuesday and Friday.</p>
+        <div class="tags"><span class="badge dev">In development</span><span class="badge age">18+ only</span></div>
+        <div class="kicker">AI Draw · Eurojackpot · Lotto 6aus49 · EuroMillions</div>
+        <h1>Lottery numbers,<br><em>picked for a reason.</em></h1>
+        <p class="lede">AI Draw picks lines that fewer people play and that cover more numbers, keeps you to a budget,
+          and shows you the real odds. <b>It cannot predict a draw. Nothing can.</b></p>
         <div class="cta">
-          <a class="btn btn-primary" href="#app">Pick my numbers</a>
-          <a class="btn btn-ghost" href="#evidence">See the evidence</a>
+          <a class="btn btn-primary" href="#app">Get my numbers</a>
+          <a class="btn btn-ghost" href="#results">Latest results</a>
         </div>
       </div>
-      <div class="drawcard" aria-labelledby="latest-h">
-        <div class="label" id="latest-h">Latest official Eurojackpot result</div>
-        <div class="date" id="latest-date"></div>
-        <div class="balls" id="latest-balls" role="list" aria-label="Winning numbers"></div>
+      <div class="drawcard" id="hero-result" aria-labelledby="hr-label">
+        <div class="seg" role="group" aria-label="Show the latest result for">
+          <button type="button" data-hr="eurojackpot" aria-pressed="true">Eurojackpot</button>
+          <button type="button" data-hr="lotto649" aria-pressed="false">Lotto 6aus49</button>
+          <button type="button" data-hr="euromillions" aria-pressed="false">EuroMillions</button>
+        </div>
+        <div class="label" id="hr-label"></div>
+        <div class="date" id="hr-date"></div>
+        <div class="balls" id="hr-balls" role="list" aria-label="Winning numbers"></div>
         <div class="rows">
-          <div class="row"><span>Next Eurojackpot draw</span><b id="next-draw"></b></div>
-          <div class="row"><span>Jackpot chance, any line</span><b>1 in <span id="combos"></span></b></div>
-          <div class="row"><span>Chance of any prize</span><b>1 in <span id="anyprize"></span></b></div>
+          <div class="row"><span>Next draw</span><b id="hr-next"></b></div>
+          <div class="row"><span>Jackpot</span><b id="hr-jackpot"></b></div>
+          <div class="row"><span>Jackpot chance, any line</span><b id="hr-odds"></b></div>
         </div>
+        <p class="note" id="hr-note"></p>
       </div>
-    </div>
-    <div class="strip" role="list">
-      <div role="listitem"><b id="s-draws"></b><span>Eurojackpot draws analysed</span></div>
-      <div role="listitem"><b id="s-test"></b><span>draws in the walk-forward test</span></div>
-      <div role="listitem"><b>None</b><span>predictive edge found</span></div>
-      <div role="listitem"><b id="s-cap"></b><span>default monthly cap</span></div>
     </div>
   </div>
 </section>
 
 <section class="band app" id="app" aria-labelledby="app-h">
   <div class="wrap">
-    <div class="head"><div class="kicker">The app</div>
-      <h2 id="app-h">Pick your numbers <em>for a reason</em>.</h2>
-      <p class="body">Choose a game, set what you want to spend, and AI Draw picks your lines. Every line is equally likely
-        to win, so the picks are chosen for what can be changed: how many people share a prize with you, and how well
-        your lines cover different numbers. Each pick shows its reasons.</p></div>
+    <div class="head"><div class="kicker">Your numbers</div>
+      <h2 id="app-h">Choose a game. <em>Get your lines.</em></h2>
+      <p class="body">Set your budget, press <b>Pick my lines</b>, then copy them to the official lottery site.</p></div>
 
     <div class="tabs" role="tablist" aria-label="Game">
       <button type="button" role="tab" id="tab-eurojackpot" data-game="eurojackpot" aria-selected="true" aria-controls="app-panel">Eurojackpot<span>5 of 50 + 2 of 12 · Tue &amp; Fri</span></button>
@@ -356,6 +388,30 @@ select{appearance:auto}
 
     <div id="app-panel" role="tabpanel" aria-labelledby="tab-eurojackpot">
       <div class="app-grid">
+        <div class="panel lines">
+          <div class="row-between">
+            <div><div class="label">Your lines for the next draw</div><h3 id="l-draw"></h3></div>
+            <span class="badge game" id="l-count"></span>
+          </div>
+          <p class="howto" id="l-howto"></p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="l-pick">Pick my lines</button>
+            <button type="button" class="btn btn-ghost" id="l-again">Another suggestion</button>
+          </div>
+          <ol class="linelist" id="l-list" aria-live="polite"></ol>
+          <div class="fit ok" id="l-set" hidden></div>
+          <div class="play">
+            <div class="actions"><button type="button" class="btn btn-primary" id="l-copy">Copy my lines</button></div>
+            <p class="note" id="l-copied" role="status"></p>
+            <label for="l-country" class="label" style="margin-top:14px;display:block">Then play at the official lottery in</label>
+            <div class="play-row">
+              <select id="l-country"></select>
+              <a class="btn btn-ghost" id="l-go" target="_blank" rel="noopener">Open official site <span aria-hidden="true">&#8599;</span></a>
+            </div>
+          </div>
+          <p class="note"><b>Every line has the same chance.</b> <span id="l-odds"></span> AI Draw never buys tickets or takes payments.</p>
+        </div>
+
         <div class="panel plan">
           <div class="label">Your plan</div>
           <h3>Budget</h3>
@@ -364,54 +420,34 @@ select{appearance:auto}
           <div class="field"><label for="b-lines">Lines per draw <b id="v-lines"></b></label>
             <input type="range" id="b-lines" min="1" max="10" step="1" value="1"></div>
           <fieldset class="field days"><legend>Draws you play</legend><div id="b-days" class="chips"></div></fieldset>
-          <div class="field"><label for="b-fee">Fee per line <small>varies by country and shop</small> <b id="v-price"></b></label>
-            <input type="number" id="b-fee" min="0" max="5" step="0.05" inputmode="decimal"></div>
           <div class="fit" id="b-fit" role="status"></div>
-          <div class="value" id="b-value"></div>
           <div class="outs">
-            <div class="out"><span class="label">Lines a month</span><b id="o-lines"></b></div>
             <div class="out"><span class="label">Cost a month</span><b id="o-cost"></b></div>
             <div class="out"><span class="label">Any prize this month</span><b id="o-any"></b></div>
             <div class="out"><span class="label">Money back this month</span><b id="o-back-m"></b></div>
-            <div class="out"><span class="label">Money back over a year</span><b id="o-back-y"></b></div>
             <div class="out"><span class="label">Expected loss a year</span><b id="o-loss"></b></div>
           </div>
-          <p class="note" id="b-note"></p>
-        </div>
-
-        <div class="panel lines">
-          <div class="row-between">
-            <div><div class="label">Your lines for the next draw</div><h3 id="l-draw"></h3></div>
-            <span class="badge game" id="l-count"></span>
-          </div>
-          <div class="actions">
-            <button type="button" class="btn btn-primary" id="l-pick">Pick my lines</button>
-            <button type="button" class="btn btn-ghost" id="l-again">Another suggestion</button>
-          </div>
-          <label class="toggle"><input type="checkbox" id="l-history"> Lean towards numbers drawn more often
-            <small>history only; tested over 955 draws, it made no difference</small></label>
-          <ol class="linelist" id="l-list" aria-live="polite"></ol>
-          <div class="fit ok" id="l-set" hidden></div>
-          <div class="play">
-            <label for="l-country" class="label">Play at the official lottery in</label>
-            <div class="play-row">
-              <select id="l-country"></select>
-              <a class="btn btn-ghost" id="l-go" target="_blank" rel="noopener">Open official site <span aria-hidden="true">&#8599;</span></a>
+          <details class="fold mini-fold">
+            <summary>More about this draw and your odds</summary>
+            <div class="value" id="b-value"></div>
+            <div class="outs">
+              <div class="out"><span class="label">Lines a month</span><b id="o-lines"></b></div>
+              <div class="out"><span class="label">Money back over a year</span><b id="o-back-y"></b></div>
             </div>
-            <div class="actions"><button type="button" class="btn btn-primary" id="l-copy">Copy all lines</button></div>
-            <p class="note" id="l-copied" role="status"></p>
-            <p class="note">Official sites have their own number grid: copy your lines, open the site, and tick the same
-              numbers there. AI Draw never buys tickets or takes payments.</p>
-          </div>
-          <p class="note"><b>Every line has the same chance.</b> <span id="l-odds"></span> These picks are chosen for
-            prize share and spread, not for a better chance of winning; nothing can give that.</p>
+            <p class="note" id="b-note"></p>
+          </details>
+          <details class="fold mini-fold">
+            <summary>More settings</summary>
+            <div class="field"><label for="b-fee">Fee per line <small>varies by country and shop</small> <b id="v-price"></b></label>
+              <input type="number" id="b-fee" min="0" max="5" step="0.05" inputmode="decimal"></div>
+            <label class="toggle"><input type="checkbox" id="l-history"> Lean towards numbers drawn more often
+              <small>history only; tested over 955 draws, it made no difference</small></label>
+          </details>
         </div>
       </div>
 
-      <div class="panel check" id="check">
-        <div class="row-between">
-          <div><div class="label">Check or adjust a line</div><h3>Tap numbers to see how a line is judged</h3></div>
-        </div>
+      <details class="fold panel check" id="check">
+        <summary><span class="label">Check or build your own line</span><b>Tap numbers to see how any line is judged</b></summary>
         <div class="check-grid">
           <div>
             <div class="label" id="pick-main-label"></div>
@@ -438,78 +474,75 @@ select{appearance:auto}
             </div>
           </div>
         </div>
-      </div>
-          <div class="panel ranges" id="ranges-panel">
-        <div class="label">Number ranges in winning draws</div>
-        <h3 id="rg-title"></h3>
-        <svg class="chart" id="rg-chart" role="img" aria-labelledby="rg-desc"></svg>
-        <p class="note" id="rg-desc"></p>
-        <div class="scroll" style="margin-top:16px"><table class="tbl" id="rg-table"><thead><tr><th scope="col">Numbers per range</th>
-          <th scope="col">Share of all lines</th><th scope="col">Share of draws</th><th scope="col">Lines with this shape</th></tr></thead><tbody></tbody></table></div>
-        <p class="note" id="rg-note"></p>
-      </div>
-</div>
-  </div>
-</section>
-
-
-<section class="band alt" id="strategies" aria-labelledby="st-h">
-  <div class="wrap">
-    <div class="head"><div class="kicker">Every strategy, tested</div>
-      <h2 id="st-h">What works, what does not, and <em>why</em>.</h2>
-      <p class="body">No strategy changes the chance of any single line: every line is 1 in 139,838,160. These are the ones that
-        change something real, and the popular ones that do not, each with the evidence from the official archive.</p></div>
-    <div class="scroll"><table class="tbl strat" id="st-table">
-      <thead><tr><th scope="col">Strategy</th><th scope="col">What it changes</th><th scope="col">Evidence</th><th scope="col">In AI Draw</th></tr></thead>
-      <tbody></tbody></table></div>
-  </div>
-</section>
-
-<section class="band alt" aria-labelledby="what-h">
-  <div class="wrap">
-    <div class="head"><div class="kicker">What it does</div><h2 id="what-h">Four things, done <em>properly</em>.</h2></div>
-    <div class="grid-4">
-      <div class="card"><div class="num">01</div><h3>Every Eurojackpot result</h3>
-        <p>The complete archive, checked draw by draw for gaps, bad dates and impossible numbers, including the two times the game's rules changed.</p></div>
-      <div class="card"><div class="num">02</div><h3>One line per draw</h3>
-        <p>Each line comes from a recorded seed and data version, so you can regenerate it exactly. Stored lines can never be quietly changed.</p></div>
-      <div class="card"><div class="num">03</div><h3>Fewer people to share with</h3>
-        <p>Every prize is split between its winners. AI Draw measures which numbers players over-pick and avoids them. Your odds stay the same.</p></div>
-      <div class="card"><div class="num">04</div><h3>A cap that holds</h3>
-        <p>A fixed monthly limit, with lines generated for free and only tickets you actually bought counted against it. It never suggests chasing losses.</p></div>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="band" id="evidence" aria-labelledby="ev-h">
+
+<section class="band alt" id="results" aria-labelledby="res-h">
   <div class="wrap">
-    <div class="head"><div class="kicker">The evidence</div>
-      <h2 id="ev-h">We tested it the way we test <em>client systems</em>.</h2>
-      <p class="body" id="ev-lede"></p></div>
-    <div class="grid-2">
-      <div class="panel">
-        <div class="label">Walk-forward backtest</div>
-        <h3>Average numbers matched per line</h3>
-        <svg class="chart" id="bt-chart" role="img" aria-labelledby="bt-desc"></svg>
-        <p class="note" id="bt-desc"></p>
-      </div>
-      <div class="panel">
-        <div class="label">Prize sharing, tested on later draws</div>
-        <h3>Prize money by how popular a line's numbers are</h3>
-        <svg class="chart" id="dec-chart" role="img" aria-labelledby="dec-desc"></svg>
-        <p class="note" id="dec-desc"></p>
-      </div>
-    </div>
+    <div class="head"><div class="kicker">Latest results</div>
+      <h2 id="res-h">Official results for <em>every game</em>.</h2>
+      <p class="body">The most recent draws, straight from the official sources. Open a game for its previous draws.</p></div>
+    <div class="res-grid" id="res-grid"></div>
   </div>
 </section>
 
-<section class="band alt" aria-labelledby="pay-h">
+<section class="band" id="how" aria-labelledby="how-h">
   <div class="wrap">
-    <div class="head"><div class="kicker">Every prize class</div><h2 id="pay-h">What a win actually <em>pays</em>.</h2>
-      <p class="body" id="pay-lede"></p></div>
-    <div class="scroll"><table class="tbl" id="pay-table">
-      <thead><tr><th scope="col">Class</th><th scope="col">Match</th><th scope="col">Odds</th><th scope="col">Lowest paid</th>
-        <th scope="col">Typical</th><th scope="col">Highest paid</th></tr></thead><tbody></tbody></table></div>
+    <div class="head"><div class="kicker">How it works</div>
+      <h2 id="how-h">The reasons behind <em>every pick</em>.</h2>
+      <p class="body">Every line has the same chance of winning. AI Draw changes what can be changed, and shows its evidence.
+        Open any panel for the detail; the figures follow the game you chose above.</p></div>
+    <div class="howto-steps">
+      <div><b>1 · Fewer people to share with</b><span>Avoids the numbers and patterns other players pick most, measured from official winner counts.</span></div>
+      <div><b>2 · Lines that work together</b><span>Your lines are spread so they rarely win in the same draw, raising the chance that at least one wins.</span></div>
+      <div><b>3 · A budget that holds</b><span>Shows what fits, the real chance of getting money back, and when a ticket is worth most.</span></div>
+    </div>
+
+    <details class="fold panel" id="fold-strategies">
+      <summary><span class="label">Every strategy, tested</span><b>What works, what does not, and why</b></summary>
+      <div class="scroll"><table class="tbl strat" id="st-table">
+        <thead><tr><th scope="col">Strategy</th><th scope="col">What it changes</th><th scope="col">Evidence</th><th scope="col">In AI Draw</th></tr></thead>
+        <tbody></tbody></table></div>
+    </details>
+
+    <details class="fold panel" id="fold-evidence">
+      <summary><span class="label">The evidence</span><b>Tested on real draws, like a client system</b></summary>
+      <p class="body" id="ev-lede"></p>
+      <div class="grid-2" style="margin-top:16px">
+        <div>
+          <div class="label">Walk-forward backtest (Eurojackpot)</div>
+          <h3>Average numbers matched per line</h3>
+          <svg class="chart" id="bt-chart" role="img" aria-labelledby="bt-desc"></svg>
+          <p class="note" id="bt-desc"></p>
+        </div>
+        <div>
+          <div class="label">Prize sharing, tested on later draws</div>
+          <h3>Prize money by how popular a line's numbers are</h3>
+          <svg class="chart" id="dec-chart" role="img" aria-labelledby="dec-desc"></svg>
+          <p class="note" id="dec-desc"></p>
+        </div>
+      </div>
+    </details>
+
+    <details class="fold panel" id="ranges-panel">
+      <summary><span class="label">Number ranges</span><b id="rg-title"></b></summary>
+      <svg class="chart" id="rg-chart" role="img" aria-labelledby="rg-desc"></svg>
+      <p class="note" id="rg-desc"></p>
+      <div class="scroll" style="margin-top:16px"><table class="tbl" id="rg-table"><thead><tr><th scope="col">Numbers per range</th>
+        <th scope="col">Share of all lines</th><th scope="col">Share of draws</th><th scope="col">Lines with this shape</th></tr></thead><tbody></tbody></table></div>
+      <p class="note" id="rg-note"></p>
+    </details>
+
+    <details class="fold panel" id="fold-pay">
+      <summary><span class="label">Every prize class</span><b>What a win actually pays</b></summary>
+      <p class="body" id="pay-lede"></p>
+      <div class="scroll" style="margin-top:14px"><table class="tbl" id="pay-table">
+        <thead><tr><th scope="col">Class</th><th scope="col">Match</th><th scope="col">Odds</th><th scope="col">Lowest paid</th>
+          <th scope="col">Typical</th><th scope="col">Highest paid</th></tr></thead><tbody></tbody></table></div>
+    </details>
   </div>
 </section>
 
@@ -537,7 +570,7 @@ select{appearance:auto}
         page. If you would use it, tell us: demand decides what ships first.</p>
       <div class="callout"><svg width="20" height="20" aria-hidden="true" style="flex:none"><use href="#i-info"/></svg>
         <span><b>Figures on this page</b> are computed by AI Draw from the official archive (<span id="gen-note"></span>), not typed in.
-          Results data: westlotto.de.</span></div>
+          Results data: westlotto.de (Eurojackpot, Lotto 6aus49) and FDJ (EuroMillions).</span></div>
     </div>
     <div class="panel">
       <h3>Want it when it ships?</h3>
@@ -551,8 +584,9 @@ select{appearance:auto}
 <footer>
   <div class="wrap">
     <div class="row">
-      <div><b>AI Draw</b> by ai:boosters · statistical analysis of Eurojackpot results · 18+ only.<br>
-        Eurojackpot is a registered trademark of its owners. AI Draw is not affiliated with Eurojackpot, WestLotto or any lottery operator.</div>
+      <div><b>AI Draw</b> by ai:boosters · lottery statistics for Eurojackpot, Lotto 6aus49 and EuroMillions · 18+ only.<br>
+        Eurojackpot, LOTTO 6aus49 and EuroMillions are registered trademarks of their owners. AI Draw is not affiliated with them,
+        WestLotto, FDJ or any lottery operator.</div>
       <div>Only play with money you can afford to lose. Never raise your stake to win back losses.<br>
         Help in Germany: BZgA <a href="tel:08001372700">0800 1 37 27 00</a> (free) · <a href="https://www.check-dein-spiel.de" rel="noopener">check-dein-spiel.de</a></div>
     </div>
@@ -563,7 +597,7 @@ select{appearance:auto}
 <script>
 (function () {
   "use strict";
-  var D = {"generated":"2026-11-16","algorithm_version":"2.1.0","dataset_version":"n1007-f82a567ef391","archive":{"draws":1007,"first":"2012-03-23","last":"2026-11-13","current_format_draws":485},"latest":{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},"next_draw":"2026-11-17","countries":19,"combinations":139838160,"any_prize_p":0.03141625290264117,"classes":[{"cls":1,"match":"5 + 2","one_in":139838160.0,"q":[5000000.0,10000000.0,10000000.0,11831507.15,16811926.4,18462633.95,21208281.0,24163628.55,35268799.2,38420246.85,45691514.8,54259969.0,60000000.0,69943977.5,74104783.6,80710152.15,92511126.9,113044058.95,120000000.0,120000000.0,120000000.0],"p":7.1511238420185165e-09,"min":5000000.0,"median":45691514.8,"max":120000000.0},{"cls":2,"match":"5 + 1","one_in":6991908.0,"q":[100735.2,256846.89,318204.44,366441.84,394884.88,434274.65,472796.1,522253.33,566725.08,623153.61,666047.9,726896.46,844733.66,890404.83,950371.24,1095171.9,1305268.24,1566126.75,1836654.44,3059252.49,21177159.2],"p":1.4302247684037032e-07,"min":100735.2,"median":666047.9,"max":21177159.2},{"cls":3,"match":"5 + 0","one_in":3107514.67,"q":[43237.6,70361.25,79718.35,92954.06,102377.52,113050.38,122261.29,130818.1,136840.8,143456.62,157629.05,171104.93,181967.4,200172.47,214898.65,238274.0,272804.88,308834.66,357543.05,481182.52,1058678.0],"p":3.218005728908332e-07,"min":43237.6,"median":157629.05,"max":1058678.0},{"cls":4,"match":"4 + 2","one_in":621502.93,"q":[1725.3,2858.22,3376.08,3708.84,3907.34,4204.8,4463.36,4755.92,4974.56,5209.62,5385.7,5608.6,5827.5,6113.96,6382.58,6593.4,7023.92,7797.42,8259.56,9135.04,22144.8],"p":1.6090028644541661e-06,"min":1725.3,"median":5385.7,"max":22144.8},{"cls":5,"match":"4 + 1","one_in":31075.15,"q":[106.4,222.98,242.6,257.78,269.7,281.5,289.84,299.04,307.58,313.1,320.9,329.94,339.88,347.72,354.5,361.8,374.06,384.42,408.68,423.18,530.1],"p":3.218005728908332e-05,"min":106.4,"median":320.9,"max":530.1},{"cls":6,"match":"3 + 2","one_in":14125.07,"q":[57.4,102.92,116.9,126.4,132.08,137.7,141.02,147.16,152.4,156.18,163.4,168.92,173.02,178.26,184.18,190.9,198.14,205.2,212.82,226.94,337.9],"p":7.079612603598332e-05,"min":57.4,"median":163.4,"max":337.9},{"cls":7,"match":"4 + 0","one_in":13811.18,"q":[33.3,77.86,84.46,91.4,94.7,98.1,101.32,104.7,108.96,112.06,114.5,116.9,119.74,123.98,126.48,129.2,133.0,135.92,141.72,146.1,163.6],"p":7.240512890043748e-05,"min":33.3,"median":114.5,"max":163.6},{"cls":8,"match":"2 + 2","one_in":985.47,"q":[12.7,17.9,19.3,20.36,21.5,22.3,23.2,23.84,24.4,25.08,25.7,26.5,27.2,28.1,29.2,30.2,31.42,32.6,33.7,36.9,52.7],"p":0.0010147444731824274,"min":12.7,"median":25.7,"max":52.7},{"cls":9,"match":"3 + 1","one_in":706.25,"q":[12.7,15.72,16.94,17.6,18.18,18.6,18.9,19.3,19.6,19.9,20.3,20.6,20.9,21.2,21.68,22.2,22.62,23.2,23.8,25.0,29.2],"p":0.0014159225207196662,"min":12.7,"median":20.3,"max":29.2},{"cls":10,"match":"3 + 0","one_in":313.89,"q":[12.1,14.4,14.9,15.26,15.7,16.0,16.3,16.5,16.7,17.0,17.2,17.4,17.6,18.0,18.3,18.6,19.0,19.44,19.9,20.6,24.1],"p":0.003185825671619249,"min":12.1,"median":17.2,"max":24.1},{"cls":11,"match":"1 + 2","one_in":187.71,"q":[7.6,9.3,9.7,10.16,10.7,11.1,11.6,11.9,12.3,12.6,12.9,13.22,13.6,13.9,14.4,14.9,15.5,15.9,16.26,17.4,22.4],"p":0.005327408484207744,"min":7.6,"median":12.9,"max":22.4},{"cls":12,"match":"2 + 1","one_in":49.27,"q":[7.5,8.52,8.9,9.1,9.18,9.3,9.4,9.6,9.7,9.8,9.9,10.0,10.2,10.4,10.5,10.6,10.8,11.0,11.3,11.88,14.8],"p":0.02029488946364855,"min":7.5,"median":9.9,"max":14.8}],"expected_return":{"per_line_cost":2.75,"lower":0.645,"jackpot":0.387,"total":1.032,"draws":485},"pricing":{"stake":2.0,"fee":0.75,"cost_per_line":2.75,"monthly_budget":20.0,"draws_per_month_min":8,"draws_per_month_max":9},"uniformity":{"main_p":0.89,"euro_p":0.194,"beyond_196":1,"expected_by_chance":2.5},"frequency":{"counts":[105,95,94,101,93,101,106,104,101,93,112,101,103,104,102,110,116,108,100,117,113,98,108,91,89,91,90,88,99,110,94,97,96,115,117,87,103,101,105,97,107,95,101,96,103,103,98,80,108,89],"expected":100.7},"euro_frequency":{"counts":[185,168,204,191,219,185,195,198,165,149,67,88],"expected":[191.9,191.9,191.9,191.9,191.9,191.9,191.9,191.9,158.6,158.6,80.8,80.8]},"operators":{"eurojackpot":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/eurojackpot","verified":true},{"cc":"CZ","country":"Czechia","name":"Allwyn","url":"https://www.allwyn.cz/loterie/eurojackpot","verified":true},{"cc":"DK","country":"Denmark","name":"Danske Spil","url":"https://danskespil.dk/eurojackpot","verified":true},{"cc":"EE","country":"Estonia","name":"Eesti Loto","url":"https://www.eestiloto.ee/eurojackpot","verified":false},{"cc":"FI","country":"Finland","name":"Veikkaus","url":"https://www.veikkaus.fi/fi/eurojackpot","verified":true},{"cc":"GR","country":"Greece","name":"OPAP","url":"https://www.opap.gr/","verified":false},{"cc":"HR","country":"Croatia","name":"Hrvatska Lutrija","url":"https://www.lutrija.hr/","verified":false},{"cc":"HU","country":"Hungary","name":"Szerencsej\u00e1t\u00e9k","url":"https://bet.szerencsejatek.hu/jatekok/eurojackpot","verified":true},{"cc":"IS","country":"Iceland","name":"\u00cdslensk getsp\u00e1","url":"https://games.lotto.is/","verified":true},{"cc":"IT","country":"Italy","name":"Sisal","url":"https://www.sisal.it/","verified":false},{"cc":"LT","country":"Lithuania","name":"Olif\u0117ja","url":"https://www.olifeja.lt/","verified":false},{"cc":"LV","country":"Latvia","name":"Latvijas Loto","url":"https://www.latloto.lv/","verified":false},{"cc":"NL","country":"Netherlands","name":"Nederlandse Loterij","url":"https://www.nederlandseloterij.nl/","verified":true},{"cc":"NO","country":"Norway","name":"Norsk Tipping","url":"https://www.norsk-tipping.no/lotteri/eurojackpot","verified":true},{"cc":"PL","country":"Poland","name":"Totalizator Sportowy (LOTTO)","url":"https://www.lotto.pl/","verified":false},{"cc":"SE","country":"Sweden","name":"Svenska Spel","url":"https://www.svenskaspel.se/eurojackpot","verified":true},{"cc":"SI","country":"Slovenia","name":"Loterija Slovenije","url":"https://www.loterija.si/","verified":true},{"cc":"SK","country":"Slovakia","name":"TIPOS","url":"https://www.tipos.sk/loterie/eurojackpot","verified":true},{"cc":"ES","country":"Spain","name":"ONCE (Juegos ONCE)","url":"https://www.juegosonce.es/eurojackpot","verified":true}],"lotto649":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/lotto-6aus49","verified":true}],"euromillions":[{"cc":"FR","country":"France","name":"FDJ (Fran\u00e7aise des Jeux)","url":"https://www.fdj.fr/jeux-de-tirage/euromillions-my-million","verified":true}]},"lotto649":{"game":"lotto649","draws":1413,"first":"2013-05-04","last":"2026-11-14","latest":{"date":"2026-11-14","main":[11,15,17,32,39,49],"superzahl":3},"price":{"before":1.0,"after":1.2,"change":"2020-11-21"},"popularity":[1.0031,1.0177,1.1011,1.0554,1.0666,1.0661,1.1175,1.0032,1.1083,1.0608,1.097,1.0489,1.0193,0.9288,0.9327,0.9848,1.0717,1.0246,1.0718,0.9526,0.9572,0.9402,1.0056,1.0268,1.03,1.0193,1.0104,0.9532,0.9324,0.981,1.033,1.0254,1.026,0.9573,0.922,0.9084,0.9641,0.9945,0.9864,0.9779,0.9857,0.9533,0.9331,0.9418,0.9469,0.9585,0.9878,0.9701,1.0079],"popularity_draws":1412,"line_model":{"theta":[0.00306,0.01752,0.09634,0.05394,0.0645,0.06397,0.11108,0.00321,0.10285,0.05905,0.09254,0.0477,0.01913,-0.07386,-0.06965,-0.0153,0.06924,0.0243,0.06935,-0.04858,-0.04376,-0.06161,0.00558,0.02647,0.02953,0.01914,0.0103,-0.0479,-0.06996,-0.01922,0.0325,0.02511,0.0257,-0.0436,-0.08116,-0.09605,-0.03659,-0.00552,-0.01371,-0.02238,-0.0144,-0.04783,-0.06928,-0.06,-0.05461,-0.04235,-0.01226,-0.03039,0.00784],"beta":[-0.02024,-0.00464,0.00562,0.00958,0.0059,0.00531,0.00089,-0.02408],"lo":[0.0,0.0,2.0,2.0,0.0,0.0,0.0,0.34694],"hi":[2.89,1.0,4.0,5.0,1.0,1.0,1.0,0.97959],"mu":[0.60127,0.04816,2.483,3.82295,0.77054,0.50142,0.41076,0.73721],"sd":[0.70937,0.2141,0.61531,0.69281,0.42049,0.5,0.49197,0.14686],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-2.0,"ci95":[-2.27,-1.68],"significant":true},{"feature":"run3","effect_pct":-0.46,"ci95":[-0.89,-0.08],"significant":true},{"feature":"max_in_range","effect_pct":0.56,"ci95":[0.17,0.94],"significant":true},{"feature":"ranges_covered","effect_pct":0.96,"ci95":[0.53,1.32],"significant":true},{"feature":"same_ending","effect_pct":0.59,"ci95":[0.32,0.86],"significant":true},{"feature":"ap3","effect_pct":0.53,"ci95":[0.25,0.85],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.09,"ci95":[-0.18,0.38],"significant":false},{"feature":"spread","effect_pct":-2.38,"ci95":[-2.92,-1.92],"significant":true}],"draws":1412,"validation":{"split":"2021-01-01","train":800,"test":612,"corr_numbers_only":0.912,"corr_joint":0.928}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201349"],"observed":[1789,1762,1727,1664,1536],"expected":[1730.2,1730.2,1730.2,1730.2,1557.2],"p_value":0.2,"draws":1413,"shapes":[{"shape":"2-2-1-1-0","theory_pct":38.23,"observed_pct":38.15,"lines":5346000},{"shape":"3-2-1-0-0","theory_pct":20.389,"observed_pct":20.03,"lines":2851200},{"shape":"3-1-1-1-0","theory_pct":15.103,"observed_pct":15.57,"lines":2112000},{"shape":"2-1-1-1-1","theory_pct":14.159,"observed_pct":15.07,"lines":1980000},{"shape":"2-2-2-0-0","theory_pct":5.734,"observed_pct":4.6,"lines":801900},{"shape":"4-1-1-0-0","theory_pct":3.965,"observed_pct":4.95,"lines":554400},{"shape":"4-2-0-0-0","theory_pct":1.189,"observed_pct":0.64,"lines":166320},{"shape":"3-3-0-0-0","theory_pct":0.906,"observed_pct":0.71,"lines":126720},{"shape":"5-1-0-0-0","theory_pct":0.317,"observed_pct":0.28,"lines":44352},{"shape":"6-0-0-0-0","theory_pct":0.007,"observed_pct":0.0,"lines":924}]},"validation":{"split":"2021-01-01","train":800,"test":612,"corr":0.91},"frequency":{"counts":[186,165,187,171,183,200,185,165,173,174,189,162,176,154,177,187,162,177,201,177,148,178,160,167,187,173,162,175,189,188,177,163,175,148,159,170,182,160,167,163,176,174,169,186,145,163,174,176,173],"expected":173.0},"classes":[{"cls":1,"match":"6 + SZ","p":7.1511238420185165e-09,"one_in":139838160.0,"min":1492711.7,"median":9863525.05,"max":50000000.0,"q":[1492711.7,2405405.17,3524991.86,4121375.89,4810422.62,5270366.08,6310296.76,7698819.87,8895150.28,9465412.19,9863525.05,10814250.12,12182450.58,14798895.91,15326398.07,17039855.25,19693326.74,23943550.97,28149544.65,43886698.65,50000000.0]},{"cls":2,"match":"6","p":6.436011457816664e-08,"one_in":15537573.33,"min":171461.2,"median":1165788.0,"max":22500000.0,"q":[171461.2,322712.11,398201.36,516055.74,585098.52,637933.45,735689.98,820058.92,937356.12,1114207.02,1165788.0,1206205.28,1266133.46,1341840.73,1485614.69,1766548.8,2203227.54,2431103.99,2757903.35,3653159.89,22500000.0]},{"cls":3,"match":"5 + SZ","p":1.8449899512407774e-06,"one_in":542008.37,"min":3071.8,"median":13346.95,"max":283811.9,"q":[3071.8,6618.26,7825.89,8454.1,9088.52,9946.73,10645.67,11224.05,11986.46,12657.62,13346.95,14058.31,14687.78,15272.64,16041.44,17140.85,18311.14,19674.29,21441.18,25404.6,283811.9]},{"cls":4,"match":"5","p":1.6604909561166994e-05,"one_in":60223.15,"min":933.5,"median":4383.1,"max":9145.5,"q":[933.5,2316.56,2671.09,2961.79,3146.76,3315.53,3517.4,3754.04,3961.9,4182.1,4383.1,4599.36,4744.96,4995.89,5147.07,5384.12,5645.72,5929.4,6278.56,6855.49,9145.5]},{"cls":5,"match":"4 + SZ","p":9.68619724401408e-05,"one_in":10323.97,"min":66.7,"median":193.35,"max":378.9,"q":[66.7,121.78,137.86,148.68,155.34,161.55,168.65,176.6,181.54,186.53,193.35,201.63,209.18,217.29,223.87,234.57,242.34,254.23,270.61,296.41,378.9]},{"cls":6,"match":"4","p":0.0008717577519612673,"one_in":1147.11,"min":23.0,"median":51.45,"max":84.4,"q":[23.0,34.1,37.9,40.0,41.56,43.1,44.4,46.6,48.02,49.84,51.45,53.17,54.88,56.49,57.8,59.7,61.1,63.3,66.67,70.77,84.4]},{"cls":7,"match":"3 + SZ","p":0.0017650403866870104,"one_in":566.56,"min":9.6,"median":21.4,"max":36.9,"q":[9.6,15.02,16.5,17.3,17.76,18.4,19.0,19.6,20.1,20.7,21.4,21.9,22.4,22.9,23.7,24.52,25.4,26.46,27.9,29.66,36.9]},{"cls":8,"match":"3","p":0.01588536348018309,"one_in":62.95,"min":6.6,"median":11.1,"max":15.7,"q":[6.6,8.7,9.2,9.5,9.76,10.0,10.2,10.4,10.6,10.9,11.1,11.4,11.5,11.8,11.91,12.2,12.5,12.9,13.4,13.9,15.7]},{"cls":9,"match":"2 + SZ","p":0.013237802900152577,"one_in":75.54,"min":6.0,"median":6.0,"max":6.0,"q":[6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0]}],"any_prize_p":0.031875347902174916,"total_combinations":139838160,"ev_lower_per_line":0.53},"euromillions":{"game":"euromillions","draws":817,"first":"2016-09-27","last":"2024-07-23","latest":{"date":"2024-07-23","main":[4,8,10,16,34],"stars":[4,8]},"price":2.5,"lines_per_draw":23464414,"popularity":[1.018,1.0249,1.0329,1.0279,1.0333,1.0201,1.0568,1.0334,1.0284,1.0224,1.028,1.0313,1.0288,1.009,0.998,0.9987,1.0347,1.0045,1.023,0.9948,1.0041,1.007,1.0183,1.002,0.9938,0.9906,1.0102,1.0077,0.9932,0.992,0.9825,0.9819,0.9846,0.9711,0.966,0.9598,0.9784,0.9812,0.9813,0.9659,0.9666,0.9808,0.9776,0.9947,0.9769,0.9639,0.9813,0.9785,0.9866,0.9861],"star_popularity":[0.9419,1.0817,1.1221,1.0082,1.1219,1.0365,1.1809,1.0911,1.0752,0.8386,0.8644,0.7429],"star_validation_corr":0.82,"line_model":{"theta":[0.01786,0.02457,0.03241,0.02749,0.03272,0.01994,0.05524,0.03289,0.02801,0.02213,0.02758,0.03081,0.02839,0.00892,-0.00198,-0.00129,0.03414,0.00445,0.02276,-0.00524,0.00408,0.00694,0.01812,0.00196,-0.00623,-0.0094,0.01019,0.00769,-0.00683,-0.00808,-0.01761,-0.01823,-0.01554,-0.02937,-0.03455,-0.04099,-0.02182,-0.01897,-0.01883,-0.03466,-0.03402,-0.01939,-0.02264,-0.00536,-0.02335,-0.0368,-0.01883,-0.02178,-0.0135,-0.01399],"beta":[-0.01889,-0.00176,-0.00664,0.0124,0.00115,0.00412,0.00888,-0.03139],"lo":[0.0,0.0,1.0,2.0,0.0,0.0,0.0,0.2828],"hi":[2.0,1.0,4.0,5.0,1.0,1.0,1.0,0.96],"mu":[0.36564,0.02086,2.17914,3.47239,0.65153,0.26626,0.24172,0.67912],"sd":[0.55278,0.14291,0.51937,0.67117,0.47648,0.442,0.42812,0.16761],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-1.87,"ci95":[-2.14,-1.6],"significant":true},{"feature":"run3","effect_pct":-0.18,"ci95":[-0.5,0.18],"significant":false},{"feature":"max_in_range","effect_pct":-0.66,"ci95":[-1.16,0.01],"significant":false},{"feature":"ranges_covered","effect_pct":1.25,"ci95":[0.82,1.67],"significant":true},{"feature":"same_ending","effect_pct":0.11,"ci95":[-0.14,0.37],"significant":false},{"feature":"ap3","effect_pct":0.41,"ci95":[0.16,0.68],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.89,"ci95":[0.44,1.31],"significant":true},{"feature":"spread","effect_pct":-3.09,"ci95":[-3.43,-2.58],"significant":true}],"draws":815,"validation":{"split":"2021-01-01","train":444,"test":371,"corr_numbers_only":0.694,"corr_joint":0.84}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201350"],"observed":[795,850,823,804,813],"expected":[817.0,817.0,817.0,817.0,817.0],"p_value":0.66,"draws":817,"shapes":[{"shape":"2-1-1-1-0","theory_pct":42.478,"observed_pct":44.31,"lines":900000},{"shape":"2-2-1-0-0","theory_pct":28.672,"observed_pct":30.84,"lines":607500},{"shape":"3-1-1-0-0","theory_pct":16.991,"observed_pct":14.69,"lines":360000},{"shape":"3-2-0-0-0","theory_pct":5.097,"observed_pct":4.04,"lines":108000},{"shape":"1-1-1-1-1","theory_pct":4.72,"observed_pct":4.28,"lines":100000},{"shape":"4-1-0-0-0","theory_pct":1.982,"observed_pct":1.84,"lines":42000},{"shape":"5-0-0-0-0","theory_pct":0.059,"observed_pct":0.0,"lines":1260}]},"frequency":{"counts":[71,88,82,70,81,78,83,73,81,88,80,87,83,78,85,85,95,69,89,99,98,59,96,77,80,84,90,79,86,74,81,84,71,92,91,74,80,80,84,67,75,92,72,90,83,81,76,92,73,79],"expected":81.7},"star_frequency":{"counts":[120,159,166,126,117,144,135,138,132,123,138,136],"expected":[136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2]},"classes":[{"cls":1,"match":"5 + 2","p":7.1511238420185165e-09,"one_in":139838160.0,"min":17000000.0,"median":64894985.5,"max":240000000.0,"q":[17000000.0,17000000.0,17187866.5,25307481.0,26956990.0,30429713.5,36592152.5,44004958.0,48949099.0,53696523.25,64894985.5,67410882.75,73448160.0,81195603.5,88724761.5,112184131.0,130000000.0,143040333.5,161538972.5,192255643.0,240000000.0]},{"cls":2,"match":"5 + 1","p":1.4302247684037035e-07,"one_in":6991908.0,"min":54013.3,"median":264387.7,"max":5684144.4,"q":[54013.3,99828.29,123872.6,145918.62,157541.78,174069.25,186346.47,205033.61,230094.0,247366.29,264387.7,283151.55,320696.44,355054.91,383219.6,425434.85,500770.24,565930.25,700262.92,962257.78,5684144.4]},{"cls":3,"match":"5 + 0","p":3.218005728908332e-07,"one_in":3107514.67,"min":5410.2,"median":28723.5,"max":969918.1,"q":[5410.2,10984.55,13857.92,16434.87,18222.08,19723.2,21448.12,23179.42,24852.0,26751.19,28723.5,31354.2,34649.5,38394.41,41875.37,46824.32,55726.9,63798.75,90014.61,157879.35,969918.1]},{"cls":4,"match":"4 + 2","p":1.6090028644541661e-06,"one_in":621502.93,"min":309.8,"median":1871.3,"max":32617.8,"q":[309.8,870.8,1015.02,1150.82,1259.3,1369.5,1468.72,1555.26,1638.24,1745.68,1871.3,2011.53,2162.4,2460.22,2846.8,3138.95,3448.1,3895.76,4328.28,5229.88,32617.8]},{"cls":5,"match":"4 + 1","p":3.218005728908332e-05,"one_in":31075.15,"min":53.4,"median":142.6,"max":266.3,"q":[53.4,83.17,95.18,103.56,112.4,117.7,124.68,130.69,134.82,138.86,142.6,148.1,152.5,158.02,162.58,169.1,177.7,188.7,198.68,217.42,266.3]},{"cls":6,"match":"3 + 2","p":7.07961260359833e-05,"one_in":14125.07,"min":18.9,"median":72.7,"max":179.3,"q":[18.9,41.11,48.1,52.51,55.88,59.0,61.12,64.19,66.7,69.4,72.7,75.47,79.3,85.11,92.86,103.0,111.32,120.09,132.2,148.46,179.3]},{"cls":7,"match":"4 + 0","p":7.240512890043748e-05,"one_in":13811.18,"min":12.7,"median":47.9,"max":91.9,"q":[12.7,28.37,32.14,34.6,37.06,39.3,41.72,43.4,44.86,46.23,47.9,49.8,51.4,53.51,55.2,59.05,61.5,64.2,69.04,75.1,91.9]},{"cls":8,"match":"2 + 2","p":0.0010147444731824274,"one_in":985.47,"min":5.7,"median":16.2,"max":31.1,"q":[5.7,10.0,11.24,12.21,12.7,13.5,14.2,14.79,15.2,15.6,16.2,16.7,17.4,17.9,18.7,19.5,20.4,21.39,22.96,26.26,31.1]},{"cls":9,"match":"3 + 1","p":0.001415922520719666,"one_in":706.25,"min":6.8,"median":12.6,"max":20.3,"q":[6.8,8.7,9.5,10.1,10.7,11.0,11.4,11.8,12.0,12.4,12.6,12.9,13.2,13.5,13.9,14.4,15.02,15.79,16.4,17.4,20.3]},{"cls":10,"match":"3 + 0","p":0.0031858256716192487,"one_in":313.89,"min":5.3,"median":10.5,"max":17.3,"q":[5.3,7.4,8.0,8.4,8.8,9.1,9.42,9.7,10.06,10.3,10.5,10.8,11.1,11.3,11.6,12.0,12.5,12.9,13.4,14.33,17.3]},{"cls":11,"match":"1 + 2","p":0.005327408484207745,"one_in":187.71,"min":3.6,"median":7.9,"max":16.5,"q":[3.6,5.1,5.4,5.8,6.38,6.8,7.0,7.2,7.4,7.6,7.9,8.2,8.5,8.9,9.2,9.95,10.8,11.39,12.16,14.03,16.5]},{"cls":12,"match":"2 + 1","p":0.02029488946364855,"one_in":49.27,"min":4.0,"median":6.2,"max":11.1,"q":[4.0,4.67,5.0,5.2,5.4,5.5,5.7,5.8,5.9,6.0,6.2,6.5,6.8,7.2,7.5,7.75,8.1,8.4,8.8,9.23,11.1]},{"cls":13,"match":"2 + 0","p":0.04566350129320924,"one_in":21.9,"min":2.8,"median":4.1,"max":5.3,"q":[2.8,3.5,3.6,3.7,3.8,3.8,3.9,4.0,4.0,4.1,4.1,4.2,4.3,4.3,4.4,4.4,4.5,4.6,4.7,4.8,5.3]}],"any_prize_p":0.0770797541958504,"total_combinations":139838160,"source":"FDJ official archives (fdj.fr), current format since 27 Sep 2016; FDJ has not updated them since 23 Jul 2024"},"draw_value":{"eurojackpot":{"next":{"date":"2026-11-17","jackpot":75000000.0},"est_lines":21040909,"median":34303239,"p25":17631860,"p75":62975583,"draws":409},"lotto649":{"next":{"date":"2026-11-14","jackpot":7000000.0},"est_lines":26004027,"median":10073220,"p25":4938567,"p75":19560210,"draws":526}},"guarantee":{"eurojackpot":{"lines":252,"main_blocks":42,"euro_pairs_per_block":6,"cost":693.0,"guaranteed":"2 + 1","verified_main_draws":2118760,"floor_lines":192},"lotto649":{"lines":329,"cost":394.8,"guaranteed":"3 right","verified":"every triple in each group covered; pigeonhole completes the guarantee","floor_lines":233},"euromillions":{"lines":42,"cost":105.0,"guaranteed":"2 + 0","verified_main_draws":2118760,"floor_lines":32}},"line_model":{"theta":[-0.01378,0.0313,0.07347,0.03662,0.06038,0.02354,0.11745,0.04543,0.05159,0.02342,0.05685,0.07636,0.07002,0.01366,-0.00893,-0.00896,0.05494,0.01737,0.05385,-0.02379,-0.00777,0.02209,0.04734,0.01789,0.01659,0.00284,0.03877,0.0142,-0.0067,-0.05374,-0.05555,-0.03782,0.01335,-0.02231,-0.02188,-0.03894,-0.01477,-0.02292,-0.03326,-0.09316,-0.08777,-0.04805,-0.04466,-0.03135,-0.05587,-0.0578,-0.03168,-0.04752,-0.03593,-0.0744],"beta":[-0.02172,-0.00017,-0.00965,0.01748,-0.00117,0.00586,0.00916,-0.03275],"lo":[0.0,0.0,1.0,2.0,0.0,0.0,0.0,0.28],"hi":[2.0,1.0,4.0,5.0,1.0,1.0,1.0,0.96],"mu":[0.3863,0.02085,2.21152,3.44687,0.61668,0.27408,0.28798,0.67674],"sd":[0.57135,0.1429,0.54028,0.69393,0.48619,0.44605,0.45282,0.16878],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-2.15,"ci95":[-2.52,-1.74],"significant":true},{"feature":"run3","effect_pct":-0.02,"ci95":[-0.39,0.32],"significant":false},{"feature":"max_in_range","effect_pct":-0.96,"ci95":[-1.57,-0.21],"significant":true},{"feature":"ranges_covered","effect_pct":1.76,"ci95":[1.19,2.3],"significant":true},{"feature":"same_ending","effect_pct":-0.12,"ci95":[-0.43,0.12],"significant":false},{"feature":"ap3","effect_pct":0.59,"ci95":[0.27,0.93],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.92,"ci95":[0.44,1.52],"significant":true},{"feature":"spread","effect_pct":-3.22,"ci95":[-3.7,-2.79],"significant":true}],"draws":1007,"validation":{"split":"2021-01-01","train":458,"test":549,"corr_numbers_only":0.814,"corr_joint":0.891}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201350"],"observed":[993,1073,977,1012,980],"expected":[1007.0,1007.0,1007.0,1007.0,1007.0],"p_value":0.15,"draws":1007,"shapes":[{"shape":"2-1-1-1-0","theory_pct":42.478,"observed_pct":42.11,"lines":900000},{"shape":"2-2-1-0-0","theory_pct":28.672,"observed_pct":28.7,"lines":607500},{"shape":"3-1-1-0-0","theory_pct":16.991,"observed_pct":17.48,"lines":360000},{"shape":"3-2-0-0-0","theory_pct":5.097,"observed_pct":5.46,"lines":108000},{"shape":"1-1-1-1-1","theory_pct":4.72,"observed_pct":4.77,"lines":100000},{"shape":"4-1-0-0-0","theory_pct":1.982,"observed_pct":1.49,"lines":42000},{"shape":"5-0-0-0-0","theory_pct":0.059,"observed_pct":0.0,"lines":1260}]},"popularity":{"main":[0.9863,1.0318,1.0762,1.0373,1.0622,1.0238,1.1246,1.0465,1.0529,1.0237,1.0585,1.0794,1.0725,1.0138,0.9911,0.9911,1.0565,1.0175,1.0553,0.9765,0.9923,1.0223,1.0485,1.0181,1.0167,1.0028,1.0395,1.0143,0.9933,0.9477,0.946,0.9629,1.0134,0.9779,0.9784,0.9618,0.9853,0.9773,0.9673,0.911,0.916,0.9531,0.9563,0.9691,0.9457,0.9438,0.9688,0.9536,0.9647,0.9283],"euro":[0.928,1.0413,1.1417,1.0668,1.0951,1.0351,1.1111,1.0826,1.0809,0.9461,0.8057,0.7564],"draws":1007,"euro_draws":485,"corr":0.85,"euro_corr":null,"split":"2021-01-01","train":458,"test":549,"least_vs_most":9.8,"deciles":[{"d":1,"vs":3.81,"se_pct":0.65,"prizes":17.22},{"d":2,"vs":2.46,"se_pct":0.65,"prizes":17.21},{"d":3,"vs":1.83,"se_pct":0.64,"prizes":17.2},{"d":4,"vs":0.64,"se_pct":0.61,"prizes":17.11},{"d":5,"vs":0.54,"se_pct":0.62,"prizes":17.17},{"d":6,"vs":1.01,"se_pct":0.61,"prizes":17.44},{"d":7,"vs":-0.58,"se_pct":0.65,"prizes":17.2},{"d":8,"vs":-1.24,"se_pct":0.63,"prizes":17.16},{"d":9,"vs":-2.99,"se_pct":0.6,"prizes":17.09},{"d":10,"vs":-5.48,"se_pct":0.62,"prizes":16.88}]},"backtest":{"test_draws":955,"first":"2013-03-22","last":"2026-11-13","seeds":20,"expected":0.8746,"strategies":[{"key":"hybrid","label":"Hybrid (walk-forward, out-of-sample)","kind":"out-of-sample (walk-forward)","mean":0.881,"lo":0.8492,"hi":0.9128,"lines":19100},{"key":"random","label":"Pure random","kind":"out-of-sample (walk-forward)","mean":0.8752,"lo":0.8627,"hi":0.8877,"lines":19100},{"key":"balanced","label":"Distribution-balanced random","kind":"out-of-sample (walk-forward)","mean":0.8719,"lo":0.86,"hi":0.8839,"lines":19100},{"key":"hybrid_in_sample","label":"Hybrid IN-SAMPLE (look-ahead, not achievable)","kind":"in-sample (look-ahead)","mean":0.9234,"lo":0.8906,"hi":0.9562,"lines":19100}],"hybrid_vs_random":{"diff":0.0058,"lo":-0.0285,"hi":0.04,"p":0.74}}};
+  var D = {"generated":"2026-11-16","algorithm_version":"2.1.0","dataset_version":"n1007-f82a567ef391","archive":{"draws":1007,"first":"2012-03-23","last":"2026-11-13","current_format_draws":485},"latest":{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},"next_draw":"2026-11-17","recent":[{"date":"2026-11-13","main":[5,12,27,35,44],"euro":[4,12]},{"date":"2026-11-10","main":[7,15,17,40,44],"euro":[5,11]},{"date":"2026-11-06","main":[7,30,32,35,44],"euro":[2,6]},{"date":"2026-11-03","main":[2,5,12,32,43],"euro":[1,3]},{"date":"2026-10-30","main":[21,26,37,39,42],"euro":[5,7]},{"date":"2026-10-27","main":[11,33,38,42,47],"euro":[11,12]},{"date":"2026-10-23","main":[15,20,23,29,30],"euro":[5,12]},{"date":"2026-10-20","main":[5,16,32,34,38],"euro":[8,9]},{"date":"2026-10-16","main":[12,24,25,29,45],"euro":[1,9]},{"date":"2026-10-13","main":[11,17,20,22,35],"euro":[4,8]}],"countries":19,"combinations":139838160,"any_prize_p":0.03141625290264117,"classes":[{"cls":1,"match":"5 + 2","one_in":139838160.0,"q":[5000000.0,10000000.0,10000000.0,11831507.15,16811926.4,18462633.95,21208281.0,24163628.55,35268799.2,38420246.85,45691514.8,54259969.0,60000000.0,69943977.5,74104783.6,80710152.15,92511126.9,113044058.95,120000000.0,120000000.0,120000000.0],"p":7.1511238420185165e-09,"min":5000000.0,"median":45691514.8,"max":120000000.0},{"cls":2,"match":"5 + 1","one_in":6991908.0,"q":[100735.2,256846.89,318204.44,366441.84,394884.88,434274.65,472796.1,522253.33,566725.08,623153.61,666047.9,726896.46,844733.66,890404.83,950371.24,1095171.9,1305268.24,1566126.75,1836654.44,3059252.49,21177159.2],"p":1.4302247684037032e-07,"min":100735.2,"median":666047.9,"max":21177159.2},{"cls":3,"match":"5 + 0","one_in":3107514.67,"q":[43237.6,70361.25,79718.35,92954.06,102377.52,113050.38,122261.29,130818.1,136840.8,143456.62,157629.05,171104.93,181967.4,200172.47,214898.65,238274.0,272804.88,308834.66,357543.05,481182.52,1058678.0],"p":3.218005728908332e-07,"min":43237.6,"median":157629.05,"max":1058678.0},{"cls":4,"match":"4 + 2","one_in":621502.93,"q":[1725.3,2858.22,3376.08,3708.84,3907.34,4204.8,4463.36,4755.92,4974.56,5209.62,5385.7,5608.6,5827.5,6113.96,6382.58,6593.4,7023.92,7797.42,8259.56,9135.04,22144.8],"p":1.6090028644541661e-06,"min":1725.3,"median":5385.7,"max":22144.8},{"cls":5,"match":"4 + 1","one_in":31075.15,"q":[106.4,222.98,242.6,257.78,269.7,281.5,289.84,299.04,307.58,313.1,320.9,329.94,339.88,347.72,354.5,361.8,374.06,384.42,408.68,423.18,530.1],"p":3.218005728908332e-05,"min":106.4,"median":320.9,"max":530.1},{"cls":6,"match":"3 + 2","one_in":14125.07,"q":[57.4,102.92,116.9,126.4,132.08,137.7,141.02,147.16,152.4,156.18,163.4,168.92,173.02,178.26,184.18,190.9,198.14,205.2,212.82,226.94,337.9],"p":7.079612603598332e-05,"min":57.4,"median":163.4,"max":337.9},{"cls":7,"match":"4 + 0","one_in":13811.18,"q":[33.3,77.86,84.46,91.4,94.7,98.1,101.32,104.7,108.96,112.06,114.5,116.9,119.74,123.98,126.48,129.2,133.0,135.92,141.72,146.1,163.6],"p":7.240512890043748e-05,"min":33.3,"median":114.5,"max":163.6},{"cls":8,"match":"2 + 2","one_in":985.47,"q":[12.7,17.9,19.3,20.36,21.5,22.3,23.2,23.84,24.4,25.08,25.7,26.5,27.2,28.1,29.2,30.2,31.42,32.6,33.7,36.9,52.7],"p":0.0010147444731824274,"min":12.7,"median":25.7,"max":52.7},{"cls":9,"match":"3 + 1","one_in":706.25,"q":[12.7,15.72,16.94,17.6,18.18,18.6,18.9,19.3,19.6,19.9,20.3,20.6,20.9,21.2,21.68,22.2,22.62,23.2,23.8,25.0,29.2],"p":0.0014159225207196662,"min":12.7,"median":20.3,"max":29.2},{"cls":10,"match":"3 + 0","one_in":313.89,"q":[12.1,14.4,14.9,15.26,15.7,16.0,16.3,16.5,16.7,17.0,17.2,17.4,17.6,18.0,18.3,18.6,19.0,19.44,19.9,20.6,24.1],"p":0.003185825671619249,"min":12.1,"median":17.2,"max":24.1},{"cls":11,"match":"1 + 2","one_in":187.71,"q":[7.6,9.3,9.7,10.16,10.7,11.1,11.6,11.9,12.3,12.6,12.9,13.22,13.6,13.9,14.4,14.9,15.5,15.9,16.26,17.4,22.4],"p":0.005327408484207744,"min":7.6,"median":12.9,"max":22.4},{"cls":12,"match":"2 + 1","one_in":49.27,"q":[7.5,8.52,8.9,9.1,9.18,9.3,9.4,9.6,9.7,9.8,9.9,10.0,10.2,10.4,10.5,10.6,10.8,11.0,11.3,11.88,14.8],"p":0.02029488946364855,"min":7.5,"median":9.9,"max":14.8}],"expected_return":{"per_line_cost":2.75,"lower":0.645,"jackpot":0.387,"total":1.032,"draws":485},"pricing":{"stake":2.0,"fee":0.75,"cost_per_line":2.75,"monthly_budget":20.0,"draws_per_month_min":8,"draws_per_month_max":9},"uniformity":{"main_p":0.89,"euro_p":0.194,"beyond_196":1,"expected_by_chance":2.5},"frequency":{"counts":[105,95,94,101,93,101,106,104,101,93,112,101,103,104,102,110,116,108,100,117,113,98,108,91,89,91,90,88,99,110,94,97,96,115,117,87,103,101,105,97,107,95,101,96,103,103,98,80,108,89],"expected":100.7},"euro_frequency":{"counts":[185,168,204,191,219,185,195,198,165,149,67,88],"expected":[191.9,191.9,191.9,191.9,191.9,191.9,191.9,191.9,158.6,158.6,80.8,80.8]},"operators":{"eurojackpot":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/eurojackpot","verified":true},{"cc":"CZ","country":"Czechia","name":"Allwyn","url":"https://www.allwyn.cz/loterie/eurojackpot","verified":true},{"cc":"DK","country":"Denmark","name":"Danske Spil","url":"https://danskespil.dk/eurojackpot","verified":true},{"cc":"EE","country":"Estonia","name":"Eesti Loto","url":"https://www.eestiloto.ee/eurojackpot","verified":false},{"cc":"FI","country":"Finland","name":"Veikkaus","url":"https://www.veikkaus.fi/fi/eurojackpot","verified":true},{"cc":"GR","country":"Greece","name":"OPAP","url":"https://www.opap.gr/","verified":false},{"cc":"HR","country":"Croatia","name":"Hrvatska Lutrija","url":"https://www.lutrija.hr/","verified":false},{"cc":"HU","country":"Hungary","name":"Szerencsej\u00e1t\u00e9k","url":"https://bet.szerencsejatek.hu/jatekok/eurojackpot","verified":true},{"cc":"IS","country":"Iceland","name":"\u00cdslensk getsp\u00e1","url":"https://games.lotto.is/","verified":true},{"cc":"IT","country":"Italy","name":"Sisal","url":"https://www.sisal.it/","verified":false},{"cc":"LT","country":"Lithuania","name":"Olif\u0117ja","url":"https://www.olifeja.lt/","verified":false},{"cc":"LV","country":"Latvia","name":"Latvijas Loto","url":"https://www.latloto.lv/","verified":false},{"cc":"NL","country":"Netherlands","name":"Nederlandse Loterij","url":"https://www.nederlandseloterij.nl/","verified":true},{"cc":"NO","country":"Norway","name":"Norsk Tipping","url":"https://www.norsk-tipping.no/lotteri/eurojackpot","verified":true},{"cc":"PL","country":"Poland","name":"Totalizator Sportowy (LOTTO)","url":"https://www.lotto.pl/","verified":false},{"cc":"SE","country":"Sweden","name":"Svenska Spel","url":"https://www.svenskaspel.se/eurojackpot","verified":true},{"cc":"SI","country":"Slovenia","name":"Loterija Slovenije","url":"https://www.loterija.si/","verified":true},{"cc":"SK","country":"Slovakia","name":"TIPOS","url":"https://www.tipos.sk/loterie/eurojackpot","verified":true},{"cc":"ES","country":"Spain","name":"ONCE (Juegos ONCE)","url":"https://www.juegosonce.es/eurojackpot","verified":true}],"lotto649":[{"cc":"DE","country":"Germany","name":"LOTTO (Deutscher Lotto- und Totoblock)","url":"https://www.lotto.de/lotto-6aus49","verified":true}],"euromillions":[{"cc":"FR","country":"France","name":"FDJ (Fran\u00e7aise des Jeux)","url":"https://www.fdj.fr/jeux-de-tirage/euromillions-my-million","verified":true}]},"lotto649":{"game":"lotto649","draws":1413,"first":"2013-05-04","last":"2026-11-14","latest":{"date":"2026-11-14","main":[11,15,17,32,39,49],"superzahl":3},"recent":[{"date":"2026-11-14","main":[11,15,17,32,39,49],"superzahl":3},{"date":"2026-11-11","main":[11,20,21,23,31,49],"superzahl":8},{"date":"2026-11-07","main":[6,9,19,45,47,48],"superzahl":8},{"date":"2026-11-04","main":[3,13,16,28,44,49],"superzahl":2},{"date":"2026-10-31","main":[5,6,13,22,24,41],"superzahl":5},{"date":"2026-10-28","main":[18,20,24,26,38,44],"superzahl":0},{"date":"2026-10-24","main":[15,24,36,39,45,48],"superzahl":1},{"date":"2026-10-21","main":[4,6,19,22,34,38],"superzahl":6},{"date":"2026-10-17","main":[6,13,15,19,30,40],"superzahl":8},{"date":"2026-10-14","main":[4,13,16,33,36,39],"superzahl":9}],"price":{"before":1.0,"after":1.2,"change":"2020-11-21"},"popularity":[1.0031,1.0177,1.1011,1.0554,1.0666,1.0661,1.1175,1.0032,1.1083,1.0608,1.097,1.0489,1.0193,0.9288,0.9327,0.9848,1.0717,1.0246,1.0718,0.9526,0.9572,0.9402,1.0056,1.0268,1.03,1.0193,1.0104,0.9532,0.9324,0.981,1.033,1.0254,1.026,0.9573,0.922,0.9084,0.9641,0.9945,0.9864,0.9779,0.9857,0.9533,0.9331,0.9418,0.9469,0.9585,0.9878,0.9701,1.0079],"popularity_draws":1412,"line_model":{"theta":[0.00306,0.01752,0.09634,0.05394,0.0645,0.06397,0.11108,0.00321,0.10285,0.05905,0.09254,0.0477,0.01913,-0.07386,-0.06965,-0.0153,0.06924,0.0243,0.06935,-0.04858,-0.04376,-0.06161,0.00558,0.02647,0.02953,0.01914,0.0103,-0.0479,-0.06996,-0.01922,0.0325,0.02511,0.0257,-0.0436,-0.08116,-0.09605,-0.03659,-0.00552,-0.01371,-0.02238,-0.0144,-0.04783,-0.06928,-0.06,-0.05461,-0.04235,-0.01226,-0.03039,0.00784],"beta":[-0.02024,-0.00464,0.00562,0.00958,0.0059,0.00531,0.00089,-0.02408],"lo":[0.0,0.0,2.0,2.0,0.0,0.0,0.0,0.34694],"hi":[2.89,1.0,4.0,5.0,1.0,1.0,1.0,0.97959],"mu":[0.60127,0.04816,2.483,3.82295,0.77054,0.50142,0.41076,0.73721],"sd":[0.70937,0.2141,0.61531,0.69281,0.42049,0.5,0.49197,0.14686],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-2.0,"ci95":[-2.27,-1.68],"significant":true},{"feature":"run3","effect_pct":-0.46,"ci95":[-0.89,-0.08],"significant":true},{"feature":"max_in_range","effect_pct":0.56,"ci95":[0.17,0.94],"significant":true},{"feature":"ranges_covered","effect_pct":0.96,"ci95":[0.53,1.32],"significant":true},{"feature":"same_ending","effect_pct":0.59,"ci95":[0.32,0.86],"significant":true},{"feature":"ap3","effect_pct":0.53,"ci95":[0.25,0.85],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.09,"ci95":[-0.18,0.38],"significant":false},{"feature":"spread","effect_pct":-2.38,"ci95":[-2.92,-1.92],"significant":true}],"draws":1412,"validation":{"split":"2021-01-01","train":800,"test":612,"corr_numbers_only":0.912,"corr_joint":0.928}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201349"],"observed":[1789,1762,1727,1664,1536],"expected":[1730.2,1730.2,1730.2,1730.2,1557.2],"p_value":0.2,"draws":1413,"shapes":[{"shape":"2-2-1-1-0","theory_pct":38.23,"observed_pct":38.15,"lines":5346000},{"shape":"3-2-1-0-0","theory_pct":20.389,"observed_pct":20.03,"lines":2851200},{"shape":"3-1-1-1-0","theory_pct":15.103,"observed_pct":15.57,"lines":2112000},{"shape":"2-1-1-1-1","theory_pct":14.159,"observed_pct":15.07,"lines":1980000},{"shape":"2-2-2-0-0","theory_pct":5.734,"observed_pct":4.6,"lines":801900},{"shape":"4-1-1-0-0","theory_pct":3.965,"observed_pct":4.95,"lines":554400},{"shape":"4-2-0-0-0","theory_pct":1.189,"observed_pct":0.64,"lines":166320},{"shape":"3-3-0-0-0","theory_pct":0.906,"observed_pct":0.71,"lines":126720},{"shape":"5-1-0-0-0","theory_pct":0.317,"observed_pct":0.28,"lines":44352},{"shape":"6-0-0-0-0","theory_pct":0.007,"observed_pct":0.0,"lines":924}]},"validation":{"split":"2021-01-01","train":800,"test":612,"corr":0.91},"frequency":{"counts":[186,165,187,171,183,200,185,165,173,174,189,162,176,154,177,187,162,177,201,177,148,178,160,167,187,173,162,175,189,188,177,163,175,148,159,170,182,160,167,163,176,174,169,186,145,163,174,176,173],"expected":173.0},"classes":[{"cls":1,"match":"6 + SZ","p":7.1511238420185165e-09,"one_in":139838160.0,"min":1492711.7,"median":9863525.05,"max":50000000.0,"q":[1492711.7,2405405.17,3524991.86,4121375.89,4810422.62,5270366.08,6310296.76,7698819.87,8895150.28,9465412.19,9863525.05,10814250.12,12182450.58,14798895.91,15326398.07,17039855.25,19693326.74,23943550.97,28149544.65,43886698.65,50000000.0]},{"cls":2,"match":"6","p":6.436011457816664e-08,"one_in":15537573.33,"min":171461.2,"median":1165788.0,"max":22500000.0,"q":[171461.2,322712.11,398201.36,516055.74,585098.52,637933.45,735689.98,820058.92,937356.12,1114207.02,1165788.0,1206205.28,1266133.46,1341840.73,1485614.69,1766548.8,2203227.54,2431103.99,2757903.35,3653159.89,22500000.0]},{"cls":3,"match":"5 + SZ","p":1.8449899512407774e-06,"one_in":542008.37,"min":3071.8,"median":13346.95,"max":283811.9,"q":[3071.8,6618.26,7825.89,8454.1,9088.52,9946.73,10645.67,11224.05,11986.46,12657.62,13346.95,14058.31,14687.78,15272.64,16041.44,17140.85,18311.14,19674.29,21441.18,25404.6,283811.9]},{"cls":4,"match":"5","p":1.6604909561166994e-05,"one_in":60223.15,"min":933.5,"median":4383.1,"max":9145.5,"q":[933.5,2316.56,2671.09,2961.79,3146.76,3315.53,3517.4,3754.04,3961.9,4182.1,4383.1,4599.36,4744.96,4995.89,5147.07,5384.12,5645.72,5929.4,6278.56,6855.49,9145.5]},{"cls":5,"match":"4 + SZ","p":9.68619724401408e-05,"one_in":10323.97,"min":66.7,"median":193.35,"max":378.9,"q":[66.7,121.78,137.86,148.68,155.34,161.55,168.65,176.6,181.54,186.53,193.35,201.63,209.18,217.29,223.87,234.57,242.34,254.23,270.61,296.41,378.9]},{"cls":6,"match":"4","p":0.0008717577519612673,"one_in":1147.11,"min":23.0,"median":51.45,"max":84.4,"q":[23.0,34.1,37.9,40.0,41.56,43.1,44.4,46.6,48.02,49.84,51.45,53.17,54.88,56.49,57.8,59.7,61.1,63.3,66.67,70.77,84.4]},{"cls":7,"match":"3 + SZ","p":0.0017650403866870104,"one_in":566.56,"min":9.6,"median":21.4,"max":36.9,"q":[9.6,15.02,16.5,17.3,17.76,18.4,19.0,19.6,20.1,20.7,21.4,21.9,22.4,22.9,23.7,24.52,25.4,26.46,27.9,29.66,36.9]},{"cls":8,"match":"3","p":0.01588536348018309,"one_in":62.95,"min":6.6,"median":11.1,"max":15.7,"q":[6.6,8.7,9.2,9.5,9.76,10.0,10.2,10.4,10.6,10.9,11.1,11.4,11.5,11.8,11.91,12.2,12.5,12.9,13.4,13.9,15.7]},{"cls":9,"match":"2 + SZ","p":0.013237802900152577,"one_in":75.54,"min":6.0,"median":6.0,"max":6.0,"q":[6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0,6.0]}],"any_prize_p":0.031875347902174916,"total_combinations":139838160,"ev_lower_per_line":0.53},"euromillions":{"game":"euromillions","draws":817,"first":"2016-09-27","last":"2024-07-23","latest":{"date":"2024-07-23","main":[4,8,10,16,34],"stars":[4,8]},"recent":[{"date":"2024-07-23","main":[4,8,10,16,34],"stars":[4,8]},{"date":"2024-07-19","main":[15,22,35,44,48],"stars":[6,7]},{"date":"2024-07-16","main":[2,32,35,36,39],"stars":[7,8]},{"date":"2024-07-12","main":[12,18,24,25,39],"stars":[8,10]},{"date":"2024-07-09","main":[6,15,19,28,39],"stars":[7,11]},{"date":"2024-07-05","main":[11,13,29,31,47],"stars":[1,11]},{"date":"2024-07-02","main":[2,7,34,35,46],"stars":[6,8]},{"date":"2024-06-28","main":[10,16,18,22,35],"stars":[1,10]},{"date":"2024-06-25","main":[14,16,37,45,49],"stars":[5,7]},{"date":"2024-06-21","main":[3,4,7,11,17],"stars":[3,12]}],"price":2.5,"lines_per_draw":23464414,"popularity":[1.018,1.0249,1.0329,1.0279,1.0333,1.0201,1.0568,1.0334,1.0284,1.0224,1.028,1.0313,1.0288,1.009,0.998,0.9987,1.0347,1.0045,1.023,0.9948,1.0041,1.007,1.0183,1.002,0.9938,0.9906,1.0102,1.0077,0.9932,0.992,0.9825,0.9819,0.9846,0.9711,0.966,0.9598,0.9784,0.9812,0.9813,0.9659,0.9666,0.9808,0.9776,0.9947,0.9769,0.9639,0.9813,0.9785,0.9866,0.9861],"star_popularity":[0.9419,1.0817,1.1221,1.0082,1.1219,1.0365,1.1809,1.0911,1.0752,0.8386,0.8644,0.7429],"star_validation_corr":0.82,"line_model":{"theta":[0.01786,0.02457,0.03241,0.02749,0.03272,0.01994,0.05524,0.03289,0.02801,0.02213,0.02758,0.03081,0.02839,0.00892,-0.00198,-0.00129,0.03414,0.00445,0.02276,-0.00524,0.00408,0.00694,0.01812,0.00196,-0.00623,-0.0094,0.01019,0.00769,-0.00683,-0.00808,-0.01761,-0.01823,-0.01554,-0.02937,-0.03455,-0.04099,-0.02182,-0.01897,-0.01883,-0.03466,-0.03402,-0.01939,-0.02264,-0.00536,-0.02335,-0.0368,-0.01883,-0.02178,-0.0135,-0.01399],"beta":[-0.01889,-0.00176,-0.00664,0.0124,0.00115,0.00412,0.00888,-0.03139],"lo":[0.0,0.0,1.0,2.0,0.0,0.0,0.0,0.2828],"hi":[2.0,1.0,4.0,5.0,1.0,1.0,1.0,0.96],"mu":[0.36564,0.02086,2.17914,3.47239,0.65153,0.26626,0.24172,0.67912],"sd":[0.55278,0.14291,0.51937,0.67117,0.47648,0.442,0.42812,0.16761],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-1.87,"ci95":[-2.14,-1.6],"significant":true},{"feature":"run3","effect_pct":-0.18,"ci95":[-0.5,0.18],"significant":false},{"feature":"max_in_range","effect_pct":-0.66,"ci95":[-1.16,0.01],"significant":false},{"feature":"ranges_covered","effect_pct":1.25,"ci95":[0.82,1.67],"significant":true},{"feature":"same_ending","effect_pct":0.11,"ci95":[-0.14,0.37],"significant":false},{"feature":"ap3","effect_pct":0.41,"ci95":[0.16,0.68],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.89,"ci95":[0.44,1.31],"significant":true},{"feature":"spread","effect_pct":-3.09,"ci95":[-3.43,-2.58],"significant":true}],"draws":815,"validation":{"split":"2021-01-01","train":444,"test":371,"corr_numbers_only":0.694,"corr_joint":0.84}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201350"],"observed":[795,850,823,804,813],"expected":[817.0,817.0,817.0,817.0,817.0],"p_value":0.66,"draws":817,"shapes":[{"shape":"2-1-1-1-0","theory_pct":42.478,"observed_pct":44.31,"lines":900000},{"shape":"2-2-1-0-0","theory_pct":28.672,"observed_pct":30.84,"lines":607500},{"shape":"3-1-1-0-0","theory_pct":16.991,"observed_pct":14.69,"lines":360000},{"shape":"3-2-0-0-0","theory_pct":5.097,"observed_pct":4.04,"lines":108000},{"shape":"1-1-1-1-1","theory_pct":4.72,"observed_pct":4.28,"lines":100000},{"shape":"4-1-0-0-0","theory_pct":1.982,"observed_pct":1.84,"lines":42000},{"shape":"5-0-0-0-0","theory_pct":0.059,"observed_pct":0.0,"lines":1260}]},"frequency":{"counts":[71,88,82,70,81,78,83,73,81,88,80,87,83,78,85,85,95,69,89,99,98,59,96,77,80,84,90,79,86,74,81,84,71,92,91,74,80,80,84,67,75,92,72,90,83,81,76,92,73,79],"expected":81.7},"star_frequency":{"counts":[120,159,166,126,117,144,135,138,132,123,138,136],"expected":[136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2,136.2]},"classes":[{"cls":1,"match":"5 + 2","p":7.1511238420185165e-09,"one_in":139838160.0,"min":17000000.0,"median":64894985.5,"max":240000000.0,"q":[17000000.0,17000000.0,17187866.5,25307481.0,26956990.0,30429713.5,36592152.5,44004958.0,48949099.0,53696523.25,64894985.5,67410882.75,73448160.0,81195603.5,88724761.5,112184131.0,130000000.0,143040333.5,161538972.5,192255643.0,240000000.0]},{"cls":2,"match":"5 + 1","p":1.4302247684037035e-07,"one_in":6991908.0,"min":54013.3,"median":264387.7,"max":5684144.4,"q":[54013.3,99828.29,123872.6,145918.62,157541.78,174069.25,186346.47,205033.61,230094.0,247366.29,264387.7,283151.55,320696.44,355054.91,383219.6,425434.85,500770.24,565930.25,700262.92,962257.78,5684144.4]},{"cls":3,"match":"5 + 0","p":3.218005728908332e-07,"one_in":3107514.67,"min":5410.2,"median":28723.5,"max":969918.1,"q":[5410.2,10984.55,13857.92,16434.87,18222.08,19723.2,21448.12,23179.42,24852.0,26751.19,28723.5,31354.2,34649.5,38394.41,41875.37,46824.32,55726.9,63798.75,90014.61,157879.35,969918.1]},{"cls":4,"match":"4 + 2","p":1.6090028644541661e-06,"one_in":621502.93,"min":309.8,"median":1871.3,"max":32617.8,"q":[309.8,870.8,1015.02,1150.82,1259.3,1369.5,1468.72,1555.26,1638.24,1745.68,1871.3,2011.53,2162.4,2460.22,2846.8,3138.95,3448.1,3895.76,4328.28,5229.88,32617.8]},{"cls":5,"match":"4 + 1","p":3.218005728908332e-05,"one_in":31075.15,"min":53.4,"median":142.6,"max":266.3,"q":[53.4,83.17,95.18,103.56,112.4,117.7,124.68,130.69,134.82,138.86,142.6,148.1,152.5,158.02,162.58,169.1,177.7,188.7,198.68,217.42,266.3]},{"cls":6,"match":"3 + 2","p":7.07961260359833e-05,"one_in":14125.07,"min":18.9,"median":72.7,"max":179.3,"q":[18.9,41.11,48.1,52.51,55.88,59.0,61.12,64.19,66.7,69.4,72.7,75.47,79.3,85.11,92.86,103.0,111.32,120.09,132.2,148.46,179.3]},{"cls":7,"match":"4 + 0","p":7.240512890043748e-05,"one_in":13811.18,"min":12.7,"median":47.9,"max":91.9,"q":[12.7,28.37,32.14,34.6,37.06,39.3,41.72,43.4,44.86,46.23,47.9,49.8,51.4,53.51,55.2,59.05,61.5,64.2,69.04,75.1,91.9]},{"cls":8,"match":"2 + 2","p":0.0010147444731824274,"one_in":985.47,"min":5.7,"median":16.2,"max":31.1,"q":[5.7,10.0,11.24,12.21,12.7,13.5,14.2,14.79,15.2,15.6,16.2,16.7,17.4,17.9,18.7,19.5,20.4,21.39,22.96,26.26,31.1]},{"cls":9,"match":"3 + 1","p":0.001415922520719666,"one_in":706.25,"min":6.8,"median":12.6,"max":20.3,"q":[6.8,8.7,9.5,10.1,10.7,11.0,11.4,11.8,12.0,12.4,12.6,12.9,13.2,13.5,13.9,14.4,15.02,15.79,16.4,17.4,20.3]},{"cls":10,"match":"3 + 0","p":0.0031858256716192487,"one_in":313.89,"min":5.3,"median":10.5,"max":17.3,"q":[5.3,7.4,8.0,8.4,8.8,9.1,9.42,9.7,10.06,10.3,10.5,10.8,11.1,11.3,11.6,12.0,12.5,12.9,13.4,14.33,17.3]},{"cls":11,"match":"1 + 2","p":0.005327408484207745,"one_in":187.71,"min":3.6,"median":7.9,"max":16.5,"q":[3.6,5.1,5.4,5.8,6.38,6.8,7.0,7.2,7.4,7.6,7.9,8.2,8.5,8.9,9.2,9.95,10.8,11.39,12.16,14.03,16.5]},{"cls":12,"match":"2 + 1","p":0.02029488946364855,"one_in":49.27,"min":4.0,"median":6.2,"max":11.1,"q":[4.0,4.67,5.0,5.2,5.4,5.5,5.7,5.8,5.9,6.0,6.2,6.5,6.8,7.2,7.5,7.75,8.1,8.4,8.8,9.23,11.1]},{"cls":13,"match":"2 + 0","p":0.04566350129320924,"one_in":21.9,"min":2.8,"median":4.1,"max":5.3,"q":[2.8,3.5,3.6,3.7,3.8,3.8,3.9,4.0,4.0,4.1,4.1,4.2,4.3,4.3,4.4,4.4,4.5,4.6,4.7,4.8,5.3]}],"any_prize_p":0.0770797541958504,"total_combinations":139838160,"source":"FDJ official archives (fdj.fr), current format since 27 Sep 2016; FDJ has not updated them since 23 Jul 2024"},"draw_value":{"eurojackpot":{"next":{"date":"2026-11-17","jackpot":75000000.0},"est_lines":21040909,"median":34303239,"p25":17631860,"p75":62975583,"draws":409},"lotto649":{"next":{"date":"2026-11-14","jackpot":7000000.0},"est_lines":26004027,"median":10073220,"p25":4938567,"p75":19560210,"draws":526}},"guarantee":{"eurojackpot":{"lines":252,"main_blocks":42,"euro_pairs_per_block":6,"cost":693.0,"guaranteed":"2 + 1","verified_main_draws":2118760,"floor_lines":192},"lotto649":{"lines":329,"cost":394.8,"guaranteed":"3 right","verified":"every triple in each group covered; pigeonhole completes the guarantee","floor_lines":233},"euromillions":{"lines":42,"cost":105.0,"guaranteed":"2 + 0","verified_main_draws":2118760,"floor_lines":32}},"line_model":{"theta":[-0.01378,0.0313,0.07347,0.03662,0.06038,0.02354,0.11745,0.04543,0.05159,0.02342,0.05685,0.07636,0.07002,0.01366,-0.00893,-0.00896,0.05494,0.01737,0.05385,-0.02379,-0.00777,0.02209,0.04734,0.01789,0.01659,0.00284,0.03877,0.0142,-0.0067,-0.05374,-0.05555,-0.03782,0.01335,-0.02231,-0.02188,-0.03894,-0.01477,-0.02292,-0.03326,-0.09316,-0.08777,-0.04805,-0.04466,-0.03135,-0.05587,-0.0578,-0.03168,-0.04752,-0.03593,-0.0744],"beta":[-0.02172,-0.00017,-0.00965,0.01748,-0.00117,0.00586,0.00916,-0.03275],"lo":[0.0,0.0,1.0,2.0,0.0,0.0,0.0,0.28],"hi":[2.0,1.0,4.0,5.0,1.0,1.0,1.0,0.96],"mu":[0.3863,0.02085,2.21152,3.44687,0.61668,0.27408,0.28798,0.67674],"sd":[0.57135,0.1429,0.54028,0.69393,0.48619,0.44605,0.45282,0.16878],"features":["consec_pairs","run3","max_in_range","ranges_covered","same_ending","ap3","slip_row_or_col3","spread"],"effects":[{"feature":"consec_pairs","effect_pct":-2.15,"ci95":[-2.52,-1.74],"significant":true},{"feature":"run3","effect_pct":-0.02,"ci95":[-0.39,0.32],"significant":false},{"feature":"max_in_range","effect_pct":-0.96,"ci95":[-1.57,-0.21],"significant":true},{"feature":"ranges_covered","effect_pct":1.76,"ci95":[1.19,2.3],"significant":true},{"feature":"same_ending","effect_pct":-0.12,"ci95":[-0.43,0.12],"significant":false},{"feature":"ap3","effect_pct":0.59,"ci95":[0.27,0.93],"significant":true},{"feature":"slip_row_or_col3","effect_pct":0.92,"ci95":[0.44,1.52],"significant":true},{"feature":"spread","effect_pct":-3.22,"ci95":[-3.7,-2.79],"significant":true}],"draws":1007,"validation":{"split":"2021-01-01","train":458,"test":549,"corr_numbers_only":0.814,"corr_joint":0.891}},"ranges":{"labels":["1\u201310","11\u201320","21\u201330","31\u201340","41\u201350"],"observed":[993,1073,977,1012,980],"expected":[1007.0,1007.0,1007.0,1007.0,1007.0],"p_value":0.15,"draws":1007,"shapes":[{"shape":"2-1-1-1-0","theory_pct":42.478,"observed_pct":42.11,"lines":900000},{"shape":"2-2-1-0-0","theory_pct":28.672,"observed_pct":28.7,"lines":607500},{"shape":"3-1-1-0-0","theory_pct":16.991,"observed_pct":17.48,"lines":360000},{"shape":"3-2-0-0-0","theory_pct":5.097,"observed_pct":5.46,"lines":108000},{"shape":"1-1-1-1-1","theory_pct":4.72,"observed_pct":4.77,"lines":100000},{"shape":"4-1-0-0-0","theory_pct":1.982,"observed_pct":1.49,"lines":42000},{"shape":"5-0-0-0-0","theory_pct":0.059,"observed_pct":0.0,"lines":1260}]},"popularity":{"main":[0.9863,1.0318,1.0762,1.0373,1.0622,1.0238,1.1246,1.0465,1.0529,1.0237,1.0585,1.0794,1.0725,1.0138,0.9911,0.9911,1.0565,1.0175,1.0553,0.9765,0.9923,1.0223,1.0485,1.0181,1.0167,1.0028,1.0395,1.0143,0.9933,0.9477,0.946,0.9629,1.0134,0.9779,0.9784,0.9618,0.9853,0.9773,0.9673,0.911,0.916,0.9531,0.9563,0.9691,0.9457,0.9438,0.9688,0.9536,0.9647,0.9283],"euro":[0.928,1.0413,1.1417,1.0668,1.0951,1.0351,1.1111,1.0826,1.0809,0.9461,0.8057,0.7564],"draws":1007,"euro_draws":485,"corr":0.85,"euro_corr":null,"split":"2021-01-01","train":458,"test":549,"least_vs_most":9.8,"deciles":[{"d":1,"vs":3.81,"se_pct":0.65,"prizes":17.22},{"d":2,"vs":2.46,"se_pct":0.65,"prizes":17.21},{"d":3,"vs":1.83,"se_pct":0.64,"prizes":17.2},{"d":4,"vs":0.64,"se_pct":0.61,"prizes":17.11},{"d":5,"vs":0.54,"se_pct":0.62,"prizes":17.17},{"d":6,"vs":1.01,"se_pct":0.61,"prizes":17.44},{"d":7,"vs":-0.58,"se_pct":0.65,"prizes":17.2},{"d":8,"vs":-1.24,"se_pct":0.63,"prizes":17.16},{"d":9,"vs":-2.99,"se_pct":0.6,"prizes":17.09},{"d":10,"vs":-5.48,"se_pct":0.62,"prizes":16.88}]},"backtest":{"test_draws":955,"first":"2013-03-22","last":"2026-11-13","seeds":20,"expected":0.8746,"strategies":[{"key":"hybrid","label":"Hybrid (walk-forward, out-of-sample)","kind":"out-of-sample (walk-forward)","mean":0.881,"lo":0.8492,"hi":0.9128,"lines":19100},{"key":"random","label":"Pure random","kind":"out-of-sample (walk-forward)","mean":0.8752,"lo":0.8627,"hi":0.8877,"lines":19100},{"key":"balanced","label":"Distribution-balanced random","kind":"out-of-sample (walk-forward)","mean":0.8719,"lo":0.86,"hi":0.8839,"lines":19100},{"key":"hybrid_in_sample","label":"Hybrid IN-SAMPLE (look-ahead, not achievable)","kind":"in-sample (look-ahead)","mean":0.9234,"lo":0.8906,"hi":0.9562,"lines":19100}],"hybrid_vs_random":{"diff":0.0058,"lo":-0.0285,"hi":0.04,"p":0.74}}};
   if (!D) { document.body.insertAdjacentHTML("afterbegin", "<p style='padding:20px;color:#F2777A'>Data missing: build with tools/export_web_data.py</p>"); return; }
   var C = {copper: "#C97A3C", copperLt: "#E9A063", blue: "#3987E5", aqua: "#199E70", violet: "#9085E9",
            grey: "#A9A9B2", greyD: "#7E7E88", line: "#26262B", white: "#F8FAFC"};
@@ -576,17 +610,6 @@ select{appearance:auto}
   function el(tag, attrs, text) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
   function ballHTML(n, euro) { return "<span class='ball" + (euro ? " euro" : "") + "' role='listitem' aria-label='" + (euro ? "Euro" : "main") + " number " + n + "'>" + n + "</span>"; }
 
-  // ---- hero
-  $("latest-date").textContent = day(D.latest.date);
-  $("latest-balls").innerHTML = D.latest.main.map(function (n) { return ballHTML(n); }).join("") + "<span class='plus' aria-hidden='true'>+</span>" + D.latest.euro.map(function (n) { return ballHTML(n, true); }).join("");
-  if (D.countries) $("countries-note").textContent = ", played in " + D.countries + " European countries";
-  $("next-draw").textContent = new Date(D.next_draw + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short"});
-  $("combos").textContent = fmt(D.combinations);
-  $("anyprize").textContent = fmt(1 / D.any_prize_p, 1);
-  document.querySelector("[data-k='archive.draws']").textContent = "all " + fmt(D.archive.draws);
-  $("s-draws").textContent = fmt(D.archive.draws);
-  $("s-test").textContent = fmt(D.backtest.test_draws);
-  $("s-cap").textContent = eur(D.pricing.monthly_budget);
   $("gen-note").textContent = D.archive.draws + " draws to " + D.archive.last + ", built " + D.generated + ", algorithm v" + D.algorithm_version;
 
   // ---- evidence: backtest dot + interval chart
@@ -650,6 +673,9 @@ select{appearance:auto}
       "% more prize money than the most popular tenth, from the same number of prizes. Bars show prize money vs average (classes 3+2 and below), whiskers 95% intervals.";
   }
   drawBT(); drawDec();
+  // folded panels have no width until opened: draw their charts when they open
+  $("fold-evidence").addEventListener("toggle", function () { if (this.open) { drawBT(); drawDec(); } });
+  $("ranges-panel").addEventListener("toggle", function () { if (this.open && typeof renderRanges === "function") renderRanges(); });
   var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { drawBT(); drawDec(); if (typeof renderRanges === "function" && S) renderRanges(); }, 150); });
 
   function atLeast(p, n) { return -Math.expm1(n * Math.log1p(-p)); }
@@ -1020,11 +1046,13 @@ select{appearance:auto}
     S.lines.forEach(function (line, i) {
       var li = document.createElement("li"); li.className = "line";
       var rs = reasons(line, g, S.lines), cm = Math.exp(lineLog(line.main, g)) - 1, ood = outOfData(line.main, g);
-      li.innerHTML = "<div class='top'>" + ballsHTML(g, line) + "</div><div class='meta'><span class='crowd-chip " + (ood ? "bad" : cm <= -0.05 ? "good" : cm > 0.05 ? "bad" : "") + "'>" +
-        (ood ? "widely played shape" : (cm >= 0 ? "+" : "−") + Math.abs(Math.round(cm * 100)) + "% co-winners") + "</span>" +
+      li.innerHTML = "<div class='top'>" + ballsHTML(g, line) + "</div>" +
+        (g.extra ? "<div class='ball-key'>5 numbers <span aria-hidden='true'>+</span> 2 " + extraName(g).toLowerCase() + "</div>" : "<div class='ball-key'>6 numbers · Superzahl from your ticket</div>") +
+        "<div class='meta'><span class='crowd-chip " + (ood ? "bad" : cm <= -0.05 ? "good" : cm > 0.05 ? "bad" : "") + "'>" +
+        (ood ? "widely played shape" : cm <= 0 ? Math.abs(Math.round(cm * 100)) + "% fewer people to share with" : Math.round(cm * 100) + "% more people to share with") + "</span>" +
         "<button type='button' class='mini' data-copy='" + i + "'>Copy</button><button type='button' class='mini' data-edit='" + i + "'>Adjust</button>" +
         "<button type='button' class='mini' data-del='" + i + "' aria-label='Remove line " + (i + 1) + "'>Remove</button></div>" +
-        "<ul class='reasons'>" + rs.map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join("") + "</ul>";
+        "<details class='why'><summary>Why these numbers?</summary><ul class='reasons'>" + rs.map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join("") + "</ul></details>";
       ol.appendChild(li);
     });
   }
@@ -1034,14 +1062,55 @@ select{appearance:auto}
     var got = setChance(g, S.lines, 60000), indep = 1 - Math.pow(1 - g.pAny, S.lines.length);
     var naive = S.lines.naive ? setChance(g, S.lines.naive, 60000) : null;
     box.hidden = false;
-    box.innerHTML = "<b>Chance at least one of these " + S.lines.length + " lines wins a prize: " + (100 * got).toFixed(1) + "%.</b> " +
-      (naive != null ? "The same number of best-scoring lines picked without coverage: " + (100 * naive).toFixed(1) + "%. " : "") +
-      "Lines are spread so they rarely win in the same draw (exact pair maths; this figure from 60,000 simulated draws). " +
-      (g.key === "lotto649" ? "All lines on one Lotto ticket share one Superzahl, so their 2 + SZ prizes arrive together; that caps how far lines can be spread."
-                            : "Fully independent lines would give " + (100 * indep).toFixed(1) + "%; spreading the Euro numbers is what gets above it.");
+    box.innerHTML = "<b>Chance at least one of your " + S.lines.length + " lines wins a prize: " + (100 * got).toFixed(1) + "%</b>" +
+      (naive != null ? " (" + (100 * naive).toFixed(1) + "% if the same kind of lines were not spread out)." : ".") +
+      " Your lines are spread so they rarely win in the same draw.";
+    box.title = "From 60,000 simulated draws. " + (g.key === "lotto649" ? "All lines on one Lotto ticket share one Superzahl, which limits spreading."
+      : "Fully independent lines would give " + (100 * indep).toFixed(1) + "%.");
   }
+  function extraName(g) { return g.extra ? (g.extra.word === "star" ? "Stars" : "Euro numbers") : ""; }
   function lineText(g, line, i) {
-    return "Line " + (i + 1) + ": " + line.main.map(pad).join(" ") + (line.extra.length ? "  +  " + line.extra.map(pad).join(" ") : "");
+    return "Line " + (i + 1) + ": Numbers " + line.main.map(pad).join(" ") + (line.extra.length ? " · " + extraName(g) + " " + line.extra.map(pad).join(" ") : "");
+  }
+  function howTo(g) {
+    return g.key === "lotto649" ? "On your Lotto 6aus49 play slip, tick these 6 numbers. The Superzahl comes from your ticket number."
+      : "On the official play slip, tick the 5 numbers, then the 2 " + extraName(g).toLowerCase() + " in the separate grid below them.";
+  }
+
+  // ---- results: hero card and the results section
+  function resultLine(g, r) {
+    var ex = r.euro || r.stars || [];
+    return "<div class='balls' role='list'>" + r.main.map(function (n) { return "<span class='ball sm' role='listitem' aria-label='number " + n + "'>" + n + "</span>"; }).join("") +
+      (ex.length ? "<span class='ex'><span class='plus' aria-hidden='true'>+</span>" + ex.map(function (n) { return "<span class='ball sm euro' role='listitem' aria-label='" + extraName(g).slice(0, -1).toLowerCase() + " " + n + "'>" + n + "</span>"; }).join("") + "</span>" : "") +
+      (r.superzahl != null ? "<span class='sz' aria-label='Superzahl " + r.superzahl + "'>SZ " + r.superzahl + "</span>" : "") + "</div>";
+  }
+  function recentOf(g) { return g.key === "eurojackpot" ? D.recent : g.key === "lotto649" ? (L && L.recent) : (M && M.recent); }
+  function renderHero(key) {
+    var g = GAMES[key]; if (!g) return;
+    var rec = recentOf(g) || [], r = rec[0];
+    Array.prototype.forEach.call(document.querySelectorAll("[data-hr]"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-hr") === key ? "true" : "false"); });
+    $("hr-label").textContent = "Latest official " + g.name + " result";
+    $("hr-date").textContent = r ? day(r.date) : "";
+    $("hr-balls").innerHTML = r ? resultLine(g, r).replace(/ball sm/g, "ball") : "";
+    $("hr-next").textContent = longDate(nextDraw(g));
+    var dv = g.dv, known = dv && dv.next && dv.next.date === iso(nextDraw(g));
+    $("hr-jackpot").textContent = known ? eur(dv.next.jackpot) : "not announced yet";
+    $("hr-odds").textContent = "1 in " + fmt(g.total);
+    $("hr-note").textContent = g.dataNote ? "Results data until " + g.latestDate + " (FDJ's public archive)." : "";
+  }
+  function renderResults() {
+    var host = $("res-grid"); host.innerHTML = "";
+    ["eurojackpot", "lotto649", "euromillions"].forEach(function (k) {
+      var g = GAMES[k]; if (!g) return;
+      var rec = recentOf(g) || []; if (!rec.length) return;
+      var card = document.createElement("div"); card.className = "res-card";
+      var prev = rec.slice(1).map(function (r) { return "<li><span class='res-date'>" + new Date(r.date + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short", year: "numeric"}) + "</span>" + resultLine(g, r) + "</li>"; }).join("");
+      card.innerHTML = "<div class='label'>" + g.name + "</div><h3>" + day(rec[0].date) + "</h3>" + resultLine(g, rec[0]) +
+        "<div class='res-next'>Next draw: <b>" + longDate(nextDraw(g)) + "</b></div>" +
+        (g.dataNote ? "<p class='note'>Results until " + g.latestDate + ": FDJ has not updated its public archive since.</p>" : "") +
+        "<details class='fold mini-fold'><summary>Previous draws</summary><ul class='res-list'>" + prev + "</ul></details>";
+      host.appendChild(card);
+    });
   }
   function copyText(t) {
     function done() { $("l-copied").textContent = "Copied. Open the official site and tick the same numbers."; }
@@ -1092,12 +1161,12 @@ select{appearance:auto}
     $("use-line").disabled = !complete;
     $("use-line").textContent = S.editing >= 0 ? "Update line " + (S.editing + 1) : "Add to my lines";
     if (!complete) { $("crowd").textContent = "—"; bar.style.width = "0"; $("my-reasons").innerHTML = "<li>Choose " + (g.pick - m.length) + " more main number" + (g.pick - m.length === 1 ? "" : "s") +
-      (g.extra ? " and " + (g.extra.pick - e.length) + " more Euro number" + (g.extra.pick - e.length === 1 ? "" : "s") : "") + ".</li>"; return; }
+      (g.extra ? " and " + (g.extra.pick - e.length) + " more " + (g.extra.word === "star" ? "star" : "Euro number") + (g.extra.pick - e.length === 1 ? "" : "s") : "") + ".</li>"; return; }
     var cm = (Math.exp(lineLog(m, g)) - 1) * 100;
     if (outOfData(m, g)) { $("crowd").textContent = "Not measurable"; bar.style.width = "0";
       $("my-reasons").innerHTML = reasons(line, g, null).map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join(""); return; }
     $("crowd").innerHTML = (cm >= 0 ? "+" : "−") + Math.abs(cm).toFixed(0) + "%<small>main</small>" +
-      (g.extra ? " &nbsp;" + ((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100 >= 0 ? "+" : "−") + Math.abs((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100).toFixed(0) + "%<small>Euro</small>" : "");
+      (g.extra ? " &nbsp;" + ((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100 >= 0 ? "+" : "−") + Math.abs((Math.exp(crowdOf(e, g.extra.th)) - 1) * 100).toFixed(0) + "%<small>" + (g.extra.word === "star" ? "stars" : "Euro") + "</small>" : "");
     var pos = Math.max(-40, Math.min(40, cm)), w = Math.abs(pos) / 80 * 100;
     bar.style.background = pos <= 0 ? C.blue : C.copper; bar.style.width = w + "%"; bar.style.left = pos <= 0 ? (50 - w) + "%" : "50%";
     $("my-reasons").innerHTML = reasons(line, g, null).map(function (r) { return "<li class='" + r[0] + "'>" + r[1] + "</li>"; }).join("");
@@ -1109,8 +1178,13 @@ select{appearance:auto}
     ["eurojackpot", "lotto649", "euromillions"].forEach(function (k) { var t = $("tab-" + k); if (!t) return; var on = k === key;
       t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; });
     $("app-panel").setAttribute("aria-labelledby", "tab-" + key);
-    renderPlan(); renderCountry(); renderGrids(); renderCheck(); renderLines(); renderSet(); renderPay(); renderRanges(); renderStrategies();
+    $("l-howto").textContent = howTo(GAMES[key]);
+    renderPlan(); renderCountry(); renderGrids(); renderCheck(); renderLines(); renderSet(); renderPay(); renderRanges(); renderStrategies(); renderHero(key);
   }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-hr]"), function (b) {
+    if (!GAMES[b.getAttribute("data-hr")]) { b.hidden = true; return; }
+    b.addEventListener("click", function () { renderHero(b.getAttribute("data-hr")); });
+  });
 
   // ---- events
   if (!GAMES.lotto649) { $("tab-lotto649").hidden = true; }
@@ -1140,7 +1214,7 @@ select{appearance:auto}
     if (b.hasAttribute("data-del")) { S.lines.splice(+b.getAttribute("data-del"), 1); S.lines.naive = null; renderLines(); renderSet(); }
     if (b.hasAttribute("data-edit")) { var j = +b.getAttribute("data-edit"); S.editing = j;
       S.selM.length = 0; S.selE.length = 0; Array.prototype.push.apply(S.selM, S.lines[j].main); Array.prototype.push.apply(S.selE, S.lines[j].extra);
-      renderCheck(); $("check").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
+      renderCheck(); $("check").open = true; $("check").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); }
   });
   function rnd(n) { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; }
   function sample(n, k) { var pool = []; for (var i = 1; i <= n; i++) pool.push(i); var out = []; while (out.length < k) out.push(pool.splice(rnd(pool.length), 1)[0]); return out; }
@@ -1198,7 +1272,7 @@ select{appearance:auto}
       ["Hot numbers (drawn most)", "Nothing.", "Walk-forward test over 955 draws: no difference from random (p = 0.74).", "Optional switch, off", "no"],
       ["Overdue numbers", "Nothing. Draws have no memory.", "Gaps follow the pattern expected from fair draws; the backtest found no edge.", "No", "no"],
       ["Balanced ranges / odd-even", "Makes your line more shared.", "Each extra range covered: +" + (eff.ranges_covered ? eff.ranges_covered.effect_pct : "") + "% co-winners per standard deviation (measured).", "No, avoided", "no"],
-      ["Guarantee wheels", "A guaranteed small prize at a far higher cost.", "Smallest guaranteed prize: " + fmt(gu.lines || 0) + " lines (" + eur((gu.lines || 0) * price(g)) + ") per draw, verified.", "No, shown above", "no"],
+      ["Guarantee wheels", "A guaranteed small prize at a far higher cost.", "Smallest guaranteed prize: " + fmt(gu.lines || 0) + " lines (" + eur((gu.lines || 0) * price(g)) + ") per draw, verified.", "No, cost shown in your plan", "no"],
       ["Prediction (AI, systems)", "Nothing. Every combination is equally likely.", "The archive passes fairness tests (chi-square p = " + D.uniformity.main_p + ").", "No", "no"]
     ];
     var tb = document.querySelector("#st-table tbody"); tb.innerHTML = "";
@@ -1221,6 +1295,7 @@ select{appearance:auto}
     });
   }
   setGame("eurojackpot");
+  renderResults();
 
 })();
 </script>
