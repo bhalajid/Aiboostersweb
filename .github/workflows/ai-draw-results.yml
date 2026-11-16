@@ -1,0 +1,38 @@
+# Keeps data/ai-draw-results.json current for the AI Draw page (/ai-draw).
+# Fetches official results and prize tables, commits only when something changed;
+# Vercel then deploys the new file. Times are UTC.
+name: AI Draw results
+
+on:
+  schedule:
+    - cron: "15 20,22 * * 2,3,5,6"   # draw evenings: Tue/Fri Eurojackpot + EuroMillions, Wed/Sat Lotto
+    - cron: "30 6,12 * * *"           # every day: prize tables published late
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-draw-results
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch official results
+        run: python scripts/ai-draw/update_results.py data/ai-draw-results.json
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/ai-draw-results.json; then echo "No new results."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ai-draw-results.json
+          git commit -m "AI Draw: official results update"
+          git pull --rebase --autostash
+          git push

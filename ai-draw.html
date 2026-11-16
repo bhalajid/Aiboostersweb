@@ -306,6 +306,42 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
 .howto-steps b{display:block;color:var(--white);font-weight:600;margin-bottom:6px}
 .howto-steps span{color:var(--grey);font-size:14px;line-height:1.6}
 @media (max-width:1000px){.res-grid,.howto-steps{grid-template-columns:1fr}}
+/* ---- my tickets */
+.tk-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start}
+.tk-side{display:grid;gap:20px}
+.tk-totals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.tk-totals div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tk-totals span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.tk-totals b{display:block;margin-top:6px;font-size:18px;color:var(--white);font-weight:600}
+.tk-group{margin-top:22px}
+.tk-group>h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);font-weight:500;margin-bottom:10px}
+.tk-list{list-style:none;display:grid;gap:10px}
+.ticket{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.02)}
+.ticket.win{border-color:rgba(110,231,168,.4);background:rgba(110,231,168,.05)}
+.tk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tk-top .label{margin:0}
+.tk-chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:5px 10px;border-radius:20px;border:1px solid var(--line);color:var(--grey)}
+.tk-chip.win{color:#6EE7A8;border-color:rgba(110,231,168,.4)}
+.tk-chip.wait{color:var(--copper-lt);border-color:rgba(233,160,99,.4)}
+.ticket .ball.sm{width:32px;height:32px;font-size:12.5px}
+.ticket.done .ball:not(.hit){opacity:.45}
+.ball.hit{box-shadow:0 0 0 2px #6EE7A8}
+.tk-detail{margin-top:10px;font-size:13.5px;color:var(--grey);line-height:1.55}
+.tk-detail b{color:var(--white);font-weight:550}
+.tk-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.tk-actions select{width:auto;min-width:160px}
+.tk-empty{margin-top:18px;color:var(--grey);font-size:14.5px;line-height:1.6}
+#tk-account p{color:var(--grey);font-size:14px;line-height:1.6;margin-top:8px}
+#tk-account p b{color:var(--white);font-weight:550}
+input[type=text],input[type=email]{width:100%;min-height:44px;border-radius:8px;border:1px solid var(--line);background:var(--ink-2);color:var(--white);
+  font-family:var(--font);font-size:15px;padding:8px 12px}
+input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+.tk-err{color:var(--copper-lt);font-size:13.5px;min-height:1px;margin-top:10px}
+.tk-small{font-size:12.5px!important;color:var(--grey)}
+.linkbtn{background:none;border:0;color:var(--copper-lt);font:inherit;font-size:13.5px;cursor:pointer;min-height:44px;padding:0;text-decoration:underline;text-underline-offset:3px}
+.res-src{margin-top:10px;font-size:12px;color:var(--grey);line-height:1.5}
+@media (max-width:900px){.tk-grid{grid-template-columns:1fr}.tk-totals{grid-template-columns:1fr 1fr 1fr}}
+@media (max-width:420px){.tk-totals b{font-size:15px}}
 </style>
 </head>
 <body>
@@ -351,6 +387,7 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
           and shows you the real odds. <b>It cannot predict a draw. Nothing can.</b></p>
         <div class="cta">
           <a class="btn btn-primary" href="#app">Get my numbers</a>
+          <a class="btn btn-ghost" href="#tickets">My tickets</a>
           <a class="btn btn-ghost" href="#results">Latest results</a>
         </div>
       </div>
@@ -401,7 +438,8 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
           <ol class="linelist" id="l-list" aria-live="polite"></ol>
           <div class="fit ok" id="l-set" hidden></div>
           <div class="play">
-            <div class="actions"><button type="button" class="btn btn-primary" id="l-copy">Copy my lines</button></div>
+            <div class="actions"><button type="button" class="btn btn-primary" id="l-copy">Copy my lines</button>
+              <button type="button" class="btn btn-ghost" id="l-save">I bought these: save them</button></div>
             <p class="note" id="l-copied" role="status"></p>
             <label for="l-country" class="label" style="margin-top:14px;display:block">Then play at the official lottery in</label>
             <div class="play-row">
@@ -479,6 +517,46 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
   </div>
 </section>
 
+
+<section class="band" id="tickets" aria-labelledby="tk-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">My tickets</div>
+      <h2 id="tk-h">Save what you bought. <em>See if it won.</em></h2>
+      <p class="body">After every draw, AI Draw checks your saved tickets against the official numbers and prize tables.
+        Always confirm a win with your official lottery: only your ticket counts.</p></div>
+    <div class="tk-grid">
+      <div class="panel tk-main">
+        <div class="row-between">
+          <div><div class="label">Your tickets</div><h3 id="tk-summary">No tickets saved yet</h3></div>
+          <span class="badge game" id="tk-where">On this device</span>
+        </div>
+        <div class="tk-totals" id="tk-totals" hidden></div>
+        <div id="tk-list" aria-live="polite"></div>
+      </div>
+      <div class="tk-side">
+        <div class="panel" id="tk-account"></div>
+        <details class="fold panel" id="tk-add">
+          <summary><span class="label">Bought elsewhere?</span><b>Add a ticket by hand</b></summary>
+          <form id="tk-form" novalidate>
+            <div class="field"><label for="tk-game">Game</label>
+              <select id="tk-game"><option value="eurojackpot">Eurojackpot</option><option value="lotto649">Lotto 6aus49</option><option value="euromillions">EuroMillions</option></select></div>
+            <div class="field"><label for="tk-date">First draw on the ticket</label><select id="tk-date"></select></div>
+            <div class="field"><label for="tk-runs">Number of draws on the ticket</label>
+              <select id="tk-runs"><option value="1">1 draw</option><option value="2">2 draws</option><option value="4">4 draws</option><option value="6">6 draws</option><option value="8">8 draws</option></select></div>
+            <div class="field"><label for="tk-main" id="tk-main-l">5 numbers</label>
+              <input type="text" id="tk-main" inputmode="numeric" autocomplete="off" placeholder="e.g. 5 12 27 35 44"></div>
+            <div class="field" id="tk-extra-f"><label for="tk-extra" id="tk-extra-l">2 Euro numbers</label>
+              <input type="text" id="tk-extra" inputmode="numeric" autocomplete="off" placeholder="e.g. 4 12"></div>
+            <div class="field" id="tk-sz-f" hidden><label for="tk-sz">Superzahl <small>last digit of your ticket number</small></label>
+              <select id="tk-sz"><option value="">I don't know yet</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></div>
+            <p class="tk-err" id="tk-err" role="alert"></p>
+            <div class="actions"><button type="submit" class="btn btn-primary">Save ticket</button></div>
+          </form>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="band alt" id="results" aria-labelledby="res-h">
   <div class="wrap">
@@ -594,6 +672,7 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
   </div>
 </footer>
 
+<script src="ai-draw-config.js"></script>
 <script>
 (function () {
   "use strict";
@@ -732,6 +811,8 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
 
   function nextDraw(g) {
     var d = new Date(); d.setHours(12, 0, 0, 0);
+    // the operator's own next-draw date wins (it knows about holidays and schedule changes)
+    if (g.res && g.res.next && g.res.next >= iso(d)) return new Date(g.res.next + "T12:00:00");
     for (var i = 0; i < 8; i++) { if (g.days.indexOf(d.getDay()) >= 0) return d; d.setDate(d.getDate() + 1); }
     return d;
   }
@@ -1084,9 +1165,14 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
       (ex.length ? "<span class='ex'><span class='plus' aria-hidden='true'>+</span>" + ex.map(function (n) { return "<span class='ball sm euro' role='listitem' aria-label='" + extraName(g).slice(0, -1).toLowerCase() + " " + n + "'>" + n + "</span>"; }).join("") + "</span>" : "") +
       (r.superzahl != null ? "<span class='sz' aria-label='Superzahl " + r.superzahl + "'>SZ " + r.superzahl + "</span>" : "") + "</div>";
   }
-  function recentOf(g) { return g.key === "eurojackpot" ? D.recent : g.key === "lotto649" ? (L && L.recent) : (M && M.recent); }
+  function recentOf(g) {
+    if (g.res && g.res.draws && g.res.draws.length) return g.res.draws.slice(0, 10).map(function (r) {
+      return {date: r.date, main: r.main, euro: g.key === "eurojackpot" ? r.extra : undefined, stars: g.key === "euromillions" ? r.extra : undefined, superzahl: r.superzahl}; });
+    return g.key === "eurojackpot" ? D.recent : g.key === "lotto649" ? (L && L.recent) : (M && M.recent);
+  }
   function renderHero(key) {
     var g = GAMES[key]; if (!g) return;
+    heroKey = key;
     var rec = recentOf(g) || [], r = rec[0];
     Array.prototype.forEach.call(document.querySelectorAll("[data-hr]"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-hr") === key ? "true" : "false"); });
     $("hr-label").textContent = "Latest official " + g.name + " result";
@@ -1108,7 +1194,8 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
       card.innerHTML = "<div class='label'>" + g.name + "</div><h3>" + day(rec[0].date) + "</h3>" + resultLine(g, rec[0]) +
         "<div class='res-next'>Next draw: <b>" + longDate(nextDraw(g)) + "</b></div>" +
         (g.dataNote ? "<p class='note'>Results until " + g.latestDate + ": FDJ has not updated its public archive since.</p>" : "") +
-        "<details class='fold mini-fold'><summary>Previous draws</summary><ul class='res-list'>" + prev + "</ul></details>";
+        "<details class='fold mini-fold'><summary>Previous draws</summary><ul class='res-list'>" + prev + "</ul></details>" +
+        (g.res ? "<p class='res-src'>Source: " + g.res.source.split(". ")[0] + ".</p>" : "");
       host.appendChild(card);
     });
   }
@@ -1294,8 +1381,274 @@ details.why>summary{cursor:pointer;font-size:13px;color:var(--copper-lt);min-hei
       tb.appendChild(tr);
     });
   }
+  // ================================================================ live results
+  // data/ai-draw-results.json is refreshed by a scheduled job after every draw
+  // (tools/update_results.py). The data built into this page is the fallback.
+  var RES = null, heroKey = "eurojackpot";
+  function applyResults(r) {
+    RES = r;
+    Object.keys(GAMES).forEach(function (k) {
+      var g = GAMES[k], gr = r && r.games && r.games[k];
+      if (!g || !gr || !gr.draws || !gr.draws.length) return;
+      g.res = gr;
+      var last = gr.draws[0];
+      g.latest = last.main; g.latestExtra = last.extra || []; g.latestDate = last.date;
+      if (g.dataNote) g.dataNote = "";
+    });
+    renderHero(heroKey); renderResults(); renderLines(); renderTickets(); fillDates();
+  }
+  if (window.fetch) fetch("data/ai-draw-results.json", {cache: "no-cache"})
+    .then(function (x) { if (!x.ok) throw new Error(x.status); return x.json(); })
+    .then(applyResults).catch(function () { /* keep the built-in data */ });
+
+  // ================================================================ my tickets
+  // A ticket = one line for one draw: {id, game, draw_date, main, extra, superzahl}.
+  // Stored on this device, or in the user's account once signed in (Supabase, EU).
+  var CFG = window.AI_DRAW_CONFIG || {};
+  var TK = {list: load("tickets", []), sb: null, user: null, busy: false, msg: "", sent: ""};
+  function uid() { return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+  function sortNums(a) { return a.slice().sort(function (x, y) { return x - y; }); }
+  function saveLocal() { store("tickets", TK.list); }
+
+  function drawOf(t) {
+    var g = GAMES[t.game], r = g && g.res; if (!r) return null;
+    for (var i = 0; i < r.draws.length; i++) if (r.draws[i].date === t.draw_date) return r.draws[i];
+    return null;
+  }
+  // Status of one ticket against the official result and prize table.
+  function status(t) {
+    var g = GAMES[t.game]; if (!g) return {st: "wait", chip: "Unknown game"};
+    var today = iso(new Date());
+    if (!g.res) return {st: "wait", chip: "Results loading", text: "Results could not be loaded right now."};
+    var d = drawOf(t), last = g.res.draws[0], oldest = g.res.draws[g.res.draws.length - 1];
+    if (!d) {
+      if (t.draw_date > last.date) return {st: "wait", chip: t.draw_date === today ? "Draw tonight" : "Waiting for draw",
+        text: "Draw on <b>" + day(t.draw_date) + "</b>." + (t.draw_date <= today ? " Official results usually appear within a few hours." : "")};
+      if (t.draw_date < oldest.date) return {st: "old", chip: "Too old to check", text: "AI Draw keeps about a year of results. Check this one with your lottery."};
+      return {st: "old", chip: "No draw that day", text: "There was no " + g.name + " draw on " + day(t.draw_date) + ". Check the date on your ticket."};
+    }
+    var m = 0, e = 0, hitM = {}, hitE = {};
+    t.main.forEach(function (n) { if (d.main.indexOf(n) >= 0) { m++; hitM[n] = 1; } });
+    (t.extra || []).forEach(function (n) { if ((d.extra || []).indexOf(n) >= 0) { e++; hitE[n] = 1; } });
+    var out = {st: "lose", hitM: hitM, hitE: hitE, won: 0, d: d}, rows = d.prizes || [];
+    var what = g.key === "lotto649" ? m + " right" : m + " + " + e + " right";
+    function amount(p) { return p.prize != null ? eur(p.prize) : p.cls === 1 ? "the jackpot" : "a prize (amount not published yet)"; }
+    if (g.key === "lotto649") {
+      var szKnown = t.superzahl != null && t.superzahl !== "", szHit = szKnown && +t.superzahl === d.superzahl;
+      var withSz = rows.filter(function (p) { return p.m === m && p.sz === 1; })[0], noSz = rows.filter(function (p) { return p.m === m && p.sz === 0; })[0];
+      if (szKnown) {
+        var p1 = szHit ? withSz : noSz;
+        what += szHit ? " + Superzahl" : "";
+        if (p1) { out.st = "win"; out.won = p1.prize || 0; out.chip = "Won " + amount(p1); out.text = "<b>" + what + "</b> · prize class " + p1.cls + "."; }
+        else { out.chip = "No win"; out.text = "<b>" + what + "</b>. Prizes start at 2 right + Superzahl."; }
+      } else if (withSz || noSz) {
+        out.st = "maybe"; out.chip = "Check your Superzahl";
+        out.text = "<b>" + what + ".</b> " + (noSz ? "Wins " + amount(noSz) + ", or " : "Wins ") + (withSz ? amount(withSz) + " if your Superzahl is " + d.superzahl : "") +
+          (noSz ? "." : ", otherwise nothing.") + " Set your Superzahl below.";
+      } else { out.chip = "No win"; out.text = "<b>" + what + "</b>. Prizes start at 2 right + Superzahl."; }
+    } else {
+      var p = rows.filter(function (x) { return x.m === m && x.e === e; })[0];
+      if (p) { out.st = "win"; out.won = p.prize || 0; out.chip = "Won " + amount(p); out.text = "<b>" + what + "</b> · prize class " + p.cls + "."; }
+      else { out.chip = "No win"; out.text = "<b>" + what + "</b>. " + (rows.length ? "Prizes start at " + (g.key === "eurojackpot" ? "2 + 1 or 1 + 2." : "2 + 0.") : "Prize table not published yet."); }
+    }
+    if (out.st === "win" && t.game === "euromillions") out.text += " Irish payout in euros; your country's amount can differ by a few cents.";
+    if (out.st === "win" && !d.complete) out.text += " Prize amounts are still being confirmed.";
+    return out;
+  }
+
+  function ticketHTML(t) {
+    var g = GAMES[t.game], s = status(t), done = s.st === "win" || s.st === "lose" || s.st === "maybe";
+    var b = function (n, ex, hit) { return "<span class='ball sm" + (ex ? " euro" : "") + (hit ? " hit" : "") + "' role='listitem' aria-label='" +
+      (ex ? (g.extra && g.extra.word === "star" ? "star " : "Euro number ") : "number ") + n + (hit ? ", matched" : "") + "'>" + n + "</span>"; };
+    var balls = "<div class='balls' role='list'>" + t.main.map(function (n) { return b(n, false, s.hitM && s.hitM[n]); }).join("") +
+      ((t.extra || []).length ? "<span class='ex'><span class='plus' aria-hidden='true'>+</span>" + t.extra.map(function (n) { return b(n, true, s.hitE && s.hitE[n]); }).join("") + "</span>" : "") +
+      (t.game === "lotto649" && t.superzahl != null && t.superzahl !== "" ? "<span class='sz'>SZ " + t.superzahl + "</span>" : "") + "</div>";
+    var szSel = "";
+    if (t.game === "lotto649") {
+      szSel = "<label class='tk-small' for='sz-" + t.id + "'>Superzahl</label><select id='sz-" + t.id + "' data-tk-sz='" + t.id + "'><option value=''>Not set</option>";
+      for (var i = 0; i < 10; i++) szSel += "<option" + (String(t.superzahl) === String(i) ? " selected" : "") + ">" + i + "</option>";
+      szSel += "</select>";
+    }
+    return "<li class='ticket" + (s.st === "win" ? " win" : "") + (done ? " done" : "") + "'>" +
+      "<div class='tk-top'><span class='label'>" + (g ? g.name : t.game) + " · " + new Date(t.draw_date + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short", year: "numeric"}) + "</span>" +
+      "<span class='tk-chip " + (s.st === "win" ? "win" : s.st === "wait" || s.st === "maybe" ? "wait" : "") + "'>" + s.chip + "</span></div>" + balls +
+      (s.text ? "<p class='tk-detail'>" + s.text + "</p>" : "") +
+      "<div class='tk-actions'>" + szSel + "<button type='button' class='mini' data-tk-del='" + t.id + "'>Remove</button></div></li>";
+  }
+
+  function renderTickets() {
+    var host = $("tk-list"); if (!host) return;
+    var list = TK.list.slice().sort(function (a, b) { return a.draw_date < b.draw_date ? 1 : a.draw_date > b.draw_date ? -1 : 0; });
+    var wait = [], done = [], spent = 0, won = 0, wins = 0;
+    list.forEach(function (t) {
+      var s = status(t), g = GAMES[t.game];
+      if (s.st === "wait") wait.push(t); else done.push(t);
+      if (s.st === "win" || s.st === "lose" || s.st === "maybe") { spent += g ? price(g) : 0; won += s.won || 0; if (s.st === "win") wins++; }
+    });
+    wait.reverse();   // soonest draw first
+    $("tk-summary").textContent = list.length ? list.length + " line" + (list.length === 1 ? "" : "s") + " saved" + (wait.length ? ", " + wait.length + " waiting for a draw" : "") : "No tickets saved yet";
+    $("tk-where").textContent = TK.user ? "In your account" : "On this device";
+    var tot = $("tk-totals");
+    if (done.length) { tot.hidden = false;
+      tot.innerHTML = "<div><span>Checked</span><b>" + done.length + "</b></div><div><span>Prizes</span><b>" + wins + "</b></div><div><span>Won / spent</span><b>" + eur(won) + " / " + eur(spent) + "</b></div>"; }
+    else tot.hidden = true;
+    if (!list.length) { host.innerHTML = "<p class='tk-empty'>Pick your lines above, buy them at your official lottery, then press <b>I bought these: save them</b>. " +
+      "Or add a ticket by hand. After the draw you will see here what each line won.</p>"; return; }
+    host.innerHTML = (wait.length ? "<div class='tk-group'><h4>Waiting for the draw</h4><ol class='tk-list'>" + wait.map(ticketHTML).join("") + "</ol></div>" : "") +
+      (done.length ? "<div class='tk-group'><h4>Checked</h4><ol class='tk-list'>" + done.map(ticketHTML).join("") + "</ol></div>" : "") +
+      (TK.user ? "" : "<p class='tk-small' style='margin-top:14px'>These are saved in this browser only. Sign in to keep them on every device.</p>");
+  }
+
+  // ---- storage: local list always; the account (if signed in) is the source of truth
+  function toDb(t) { return {game: t.game, draw_date: t.draw_date, main: t.main, extra: t.extra || [], superzahl: t.superzahl === "" || t.superzahl == null ? null : +t.superzahl}; }
+  function fromDb(r) { return {id: r.id, game: r.game, draw_date: r.draw_date, main: r.main, extra: r.extra || [], superzahl: r.superzahl}; }
+  function reload() {
+    if (!TK.sb || !TK.user) { TK.list = load("tickets", []); renderTickets(); return Promise.resolve(); }
+    return TK.sb.from("ai_draw_tickets").select("id,game,draw_date,main,extra,superzahl").order("draw_date", {ascending: false}).limit(2000)
+      .then(function (r) { if (r.error) throw r.error; TK.list = r.data.map(fromDb); renderTickets(); })
+      .catch(function (e) { TK.msg = "Could not load your tickets: " + (e.message || e); renderAccount(); });
+  }
+  function addTickets(rows) {
+    if (TK.sb && TK.user) return TK.sb.from("ai_draw_tickets").insert(rows.map(toDb)).then(function (r) { if (r.error) throw r.error; return reload(); });
+    rows.forEach(function (t) { t.id = uid(); TK.list.push(t); }); saveLocal(); renderTickets(); return Promise.resolve();
+  }
+  function removeTicket(id) {
+    if (TK.sb && TK.user) return TK.sb.from("ai_draw_tickets").delete().eq("id", id).then(function (r) { if (r.error) throw r.error; return reload(); });
+    TK.list = TK.list.filter(function (t) { return t.id !== id; }); saveLocal(); renderTickets(); return Promise.resolve();
+  }
+  function setSz(id, v) {
+    var val = v === "" ? null : +v;
+    if (TK.sb && TK.user) return TK.sb.from("ai_draw_tickets").update({superzahl: val}).eq("id", id).then(function (r) { if (r.error) throw r.error; return reload(); });
+    TK.list.forEach(function (t) { if (t.id === id) t.superzahl = val; }); saveLocal(); renderTickets(); return Promise.resolve();
+  }
+  function fail(e) { TK.msg = "Something went wrong: " + (e && e.message || e) + ". Please try again."; renderAccount(); }
+
+  // ---- upcoming / recent draw dates for a game
+  function drawDates(g, upcoming, past) {
+    var out = [], d = nextDraw(g), seen = {};
+    for (var i = 0; out.length < upcoming && i < 60; i++) { if (g.days.indexOf(d.getDay()) >= 0 && !seen[iso(d)]) { seen[iso(d)] = 1; out.push(iso(d)); } d = new Date(d.getTime()); d.setDate(d.getDate() + 1); }
+    var prev = (g.res ? g.res.draws.map(function (r) { return r.date; }) : (recentOf(g) || []).map(function (r) { return r.date; })).slice(0, past);
+    return {up: out, past: prev};
+  }
+  function fillDates() {
+    var g = GAMES[$("tk-game").value]; if (!g) return;
+    var dd = drawDates(g, 8, 16), sel = $("tk-date"), cur = sel.value;
+    sel.innerHTML = "<optgroup label='Upcoming draws'>" + dd.up.map(function (x) { return "<option value='" + x + "'>" + day(x) + "</option>"; }).join("") + "</optgroup>" +
+      "<optgroup label='Past draws'>" + dd.past.map(function (x) { return "<option value='" + x + "'>" + day(x) + "</option>"; }).join("") + "</optgroup>";
+    if (cur) sel.value = cur; if (!sel.value) sel.selectedIndex = 0;
+    $("tk-main-l").textContent = g.pick + " numbers (1–" + g.pool + ")";
+    $("tk-main").placeholder = g.key === "lotto649" ? "e.g. 3 11 19 28 36 47" : "e.g. 5 12 27 35 44";
+    $("tk-extra-f").hidden = !g.extra; $("tk-sz-f").hidden = !!g.extra;
+    if (g.extra) $("tk-extra-l").textContent = "2 " + extraName(g).toLowerCase() + " (1–" + g.extra.pool + ")";
+  }
+  // the next `runs` draw dates starting at `first`
+  function runDates(g, first, runs) {
+    var out = [first], d = new Date(first + "T12:00:00");
+    while (out.length < runs) { d.setDate(d.getDate() + 1); if (g.days.indexOf(d.getDay()) >= 0) out.push(iso(d)); }
+    return out;
+  }
+  function parseNums(s, k, max) {
+    var a = String(s || "").split(/[^0-9]+/).filter(Boolean).map(Number);
+    if (a.length !== k) return "Enter exactly " + k + " numbers.";
+    for (var i = 0; i < a.length; i++) { if (a[i] < 1 || a[i] > max) return a[i] + " is not between 1 and " + max + "."; if (a.indexOf(a[i]) !== i) return a[i] + " appears twice."; }
+    return sortNums(a);
+  }
+  $("tk-game").addEventListener("change", fillDates);
+  $("tk-form").addEventListener("submit", function (e) {
+    e.preventDefault(); var g = GAMES[$("tk-game").value], err = $("tk-err"); err.textContent = "";
+    var main = parseNums($("tk-main").value, g.pick, g.pool); if (typeof main === "string") { err.textContent = "Numbers: " + main; $("tk-main").focus(); return; }
+    var extra = [];
+    if (g.extra) { extra = parseNums($("tk-extra").value, g.extra.pick, g.extra.pool); if (typeof extra === "string") { err.textContent = extraName(g) + ": " + extra; $("tk-extra").focus(); return; } }
+    var sz = g.extra ? null : ($("tk-sz").value === "" ? null : +$("tk-sz").value);
+    var rows = runDates(g, $("tk-date").value, +$("tk-runs").value).map(function (dt) { return {game: g.key, draw_date: dt, main: main, extra: extra, superzahl: sz}; });
+    addTickets(rows).then(function () { $("tk-main").value = ""; $("tk-extra").value = ""; err.textContent = "Saved " + rows.length + " draw" + (rows.length > 1 ? "s" : "") + "."; }, fail);
+  });
+  $("tk-list").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tk-del]"); if (!b) return;
+    removeTicket(b.getAttribute("data-tk-del")).catch(fail);
+  });
+  $("tk-list").addEventListener("change", function (e) {
+    var s = e.target.closest("[data-tk-sz]"); if (!s) return;
+    setSz(s.getAttribute("data-tk-sz"), s.value).catch(fail);
+  });
+  $("l-save").addEventListener("click", function () {
+    var g = G(); if (!S.lines.length) { $("l-copied").textContent = "Pick your lines first."; return; }
+    var dt = iso(nextDraw(g));
+    var rows = S.lines.map(function (l) { return {game: g.key, draw_date: dt, main: sortNums(l.main), extra: sortNums(l.extra || []), superzahl: null}; });
+    addTickets(rows).then(function () {
+      $("l-copied").innerHTML = "Saved " + rows.length + " line" + (rows.length > 1 ? "s" : "") + " for " + day(dt) + ". <a href='#tickets'>See my tickets</a>" +
+        (g.key === "lotto649" ? ". Add your Superzahl there once you have your ticket." : ".");
+    }, fail);
+  });
+
+  // ---- account (Supabase, email link, no password)
+  function renderAccount() {
+    var box = $("tk-account"), h = "";
+    if (!CFG.supabaseUrl || !CFG.supabaseAnonKey) {
+      h = "<div class='label'>Your account</div><h3>Saved on this device</h3><p>Accounts that keep your tickets on every device are being set up. " +
+        "Until then your tickets stay in this browser.</p>";
+    } else if (TK.user) {
+      h = "<div class='label'>Your account</div><h3>Signed in</h3><p>As <b id='tk-email'></b>. Your tickets are kept in your account (EU servers) and follow you to every device.</p>" +
+        "<div class='actions'><button type='button' class='btn btn-ghost' id='tk-out'>Sign out</button></div>" +
+        "<button type='button' class='linkbtn' id='tk-wipe'>Delete my account and all my tickets</button>";
+    } else if (TK.sent) {
+      h = "<div class='label'>Your account</div><h3>Check your email</h3><p>We sent a sign-in link to <b id='tk-email'></b>. Open it on this device to finish. " +
+        "No email after a few minutes? Check spam, or try again.</p><button type='button' class='linkbtn' id='tk-retry'>Use a different email</button>";
+    } else {
+      h = "<div class='label'>Your account</div><h3>Keep your tickets on every device</h3>" +
+        "<form id='tk-login' novalidate><div class='field'><label for='tk-mail'>Email</label><input type='email' id='tk-mail' autocomplete='email' required placeholder='you@example.com'></div>" +
+        "<div class='actions'><button type='submit' class='btn btn-primary'" + (TK.busy ? " disabled" : "") + ">Email me a sign-in link</button></div></form>" +
+        "<p class='tk-small'>No password. We store only your email and the tickets you save, on EU servers, to show your results. Delete everything at any time.</p>";
+    }
+    if (TK.msg) h += "<p class='tk-err' role='alert'>" + TK.msg.replace(/</g, "&lt;") + "</p>";
+    box.innerHTML = h;
+    var em = $("tk-email"); if (em) em.textContent = TK.user ? TK.user.email : TK.sent;
+    var f = $("tk-login");
+    if (f) f.addEventListener("submit", function (e) {
+      e.preventDefault(); var v = $("tk-mail").value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { TK.msg = "Please enter a valid email address."; renderAccount(); $("tk-mail").value = v; $("tk-mail").focus(); return; }
+      TK.busy = true; TK.msg = ""; renderAccount();
+      TK.sb.auth.signInWithOtp({email: v, options: {emailRedirectTo: location.origin + location.pathname}}).then(function (r) {
+        TK.busy = false; if (r.error) { TK.msg = r.error.message; } else TK.sent = v; renderAccount();
+      });
+    });
+    var o = $("tk-out"); if (o) o.addEventListener("click", function () { TK.sb.auth.signOut(); });
+    var rt = $("tk-retry"); if (rt) rt.addEventListener("click", function () { TK.sent = ""; renderAccount(); });
+    var w = $("tk-wipe"); if (w) w.addEventListener("click", function () {
+      if (!confirm("Delete your account and all your saved tickets? This cannot be undone.")) return;
+      TK.sb.rpc("delete_my_account").then(function (r) { if (r.error) return fail(r.error); TK.msg = "Your account and tickets were deleted."; TK.sb.auth.signOut(); });
+    });
+  }
+  // move tickets saved on this device into the account after sign-in
+  function migrate() {
+    var local = load("tickets", []); if (!local.length) return Promise.resolve();
+    return TK.sb.from("ai_draw_tickets").insert(local.map(toDb)).then(function (r) {
+      if (r.error) throw r.error; store("tickets", []); TK.msg = ""; });
+  }
+  function startAuth() {
+    if (!CFG.supabaseUrl || !CFG.supabaseAnonKey || !window.supabase) { renderAccount(); return; }
+    TK.sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, {auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true}});
+    TK.sb.auth.onAuthStateChange(function (ev, session) {
+      var u = session && session.user || null, changed = (u && u.id) !== (TK.user && TK.user.id);
+      TK.user = u; if (u) TK.sent = "";
+      if (!changed) return;
+      renderAccount();
+      setTimeout(function () { (u ? migrate() : Promise.resolve()).then(reload, fail); }, 0);
+    });
+    renderAccount();
+  }
+  if (CFG.supabaseUrl && CFG.supabaseAnonKey) {
+    var sc = document.createElement("script");
+    sc.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
+    sc.onload = startAuth; sc.onerror = function () { TK.msg = "Sign-in is unavailable right now; tickets are saved on this device."; renderAccount(); };
+    document.head.appendChild(sc);
+  }
+  renderAccount();
+  fillDates();
+
   setGame("eurojackpot");
   renderResults();
+  renderTickets();
 
 })();
 </script>
