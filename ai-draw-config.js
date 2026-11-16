@@ -3,6 +3,6 @@
    user can read and change only their own tickets).
    Leave both empty to keep tickets on the user's device only. */
 window.AI_DRAW_CONFIG = {
-  supabaseUrl: "",        // e.g. "https://abcdefghijkl.supabase.co"
-  supabaseAnonKey: ""     // Project Settings -> API -> "anon public" key
+  supabaseUrl: "https://nnejeqrlvrzyogsdrhcx.supabase.co",
+  supabaseAnonKey: "sb_publishable_dUPbSL7vE023ZkkpW6Foag_4T_JS4UP"   // publishable key (public by design)
 };
