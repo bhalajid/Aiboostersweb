@@ -339,6 +339,10 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
 .tk-small{font-size:12.5px!important;color:var(--grey)}
 .linkbtn{background:none;border:0;color:var(--copper-lt);font:inherit;font-size:13.5px;cursor:pointer;min-height:44px;padding:0;text-decoration:underline;text-underline-offset:3px}
 .res-src{margin-top:10px;font-size:12px;color:var(--grey);line-height:1.5}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.hdr-actions .btn{padding:9px 16px;min-height:44px}
+@media (max-width:480px){.hdr-apps{display:none}}
+@media (max-width:900px){.tk-side{order:-1}}
 @media (max-width:900px){.tk-grid{grid-template-columns:1fr}.tk-totals{grid-template-columns:1fr 1fr 1fr}}
 @media (max-width:420px){.tk-totals b{font-size:15px}}
 </style>
@@ -369,7 +373,7 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
         <b>ai<em>:</em>boosters</b>
       </a>
       <div class="navlinks"><a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="apps.html" class="on">Apps</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
-      <a href="apps.html" class="btn btn-ghost" style="padding:9px 16px">All apps</a>
+      <div class="hdr-actions"><a href="#tickets" class="btn btn-primary" id="hdr-acct">My tickets</a><a href="apps.html" class="btn btn-ghost hdr-apps">All apps</a></div>
     </nav>
   </div>
 </header>
@@ -1594,13 +1598,16 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
       h = "<div class='label'>Your account</div><h3>Check your email</h3><p>We sent a sign-in link to <b id='tk-email'></b>. Open it on this device to finish. " +
         "No email after a few minutes? Check spam, or try again.</p><button type='button' class='linkbtn' id='tk-retry'>Use a different email</button>";
     } else {
-      h = "<div class='label'>Your account</div><h3>Keep your tickets on every device</h3>" +
+      h = "<div class='label'>Sign in</div><h3>Keep your tickets on every device</h3>" +
+        "<p>No username or password. Enter your email and we send you a link: open it and you are signed in.</p>" +
         "<form id='tk-login' novalidate><div class='field'><label for='tk-mail'>Email</label><input type='email' id='tk-mail' autocomplete='email' required placeholder='you@example.com'></div>" +
         "<div class='actions'><button type='submit' class='btn btn-primary'" + (TK.busy ? " disabled" : "") + ">Email me a sign-in link</button></div></form>" +
-        "<p class='tk-small'>No password. We store only your email and the tickets you save, on EU servers, to show your results. Delete everything at any time. <a href='privacy.html#aidraw'>Privacy policy</a></p>";
+        "<p class='tk-small'>We store only your email and the tickets you save, on EU servers, to show your results. Delete everything at any time. <a href='privacy.html#aidraw'>Privacy policy</a></p>";
     }
     if (TK.msg) h += "<p class='tk-err' role='alert'>" + TK.msg.replace(/</g, "&lt;") + "</p>";
     box.innerHTML = h;
+    var hb = $("hdr-acct");
+    if (hb) hb.textContent = !(CFG.supabaseUrl && CFG.supabaseAnonKey) ? "My tickets" : TK.user ? "My account" : "Sign in";
     var em = $("tk-email"); if (em) em.textContent = TK.user ? TK.user.email : TK.sent;
     var f = $("tk-login");
     if (f) f.addEventListener("submit", function (e) {
@@ -1618,6 +1625,13 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
       TK.sb.rpc("delete_my_account").then(function (r) { if (r.error) return fail(r.error); TK.msg = "Your account and tickets were deleted."; TK.sb.auth.signOut(); });
     });
   }
+  var hdrBtn = $("hdr-acct");
+  if (hdrBtn) hdrBtn.addEventListener("click", function (e) {
+    if (!(CFG.supabaseUrl && CFG.supabaseAnonKey)) return;
+    e.preventDefault();
+    var box = $("tk-account"); box.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center"});
+    var m = $("tk-mail"); if (m) setTimeout(function () { m.focus({preventScroll: true}); }, 350);
+  });
   // move tickets saved on this device into the account after sign-in
   function migrate() {
     var local = load("tickets", []); if (!local.length) return Promise.resolve();
