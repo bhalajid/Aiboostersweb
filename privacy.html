@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIBoosters Consulting — Privacy policy</title>
+<meta name="description" content="How AIBoosters Consulting and AI Draw handle personal data: what is stored, where, for how long, and how to delete it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://aiboosters.guru/privacy.html">
+<meta name="theme-color" content="#0A0A0B">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 187.71 174.29'%3E%3Ccircle cx='12' cy='161.71' r='3' fill='%23C97A3C'/%3E%3Ccircle cx='21.64' cy='161.34' r='3.95' fill='%23C97A3C'/%3E%3Ccircle cx='33.39' cy='159.88' r='5.2' fill='%23C97A3C'/%3E%3Ccircle cx='47.73' cy='156.52' r='6.84' fill='%23C97A3C'/%3E%3Ccircle cx='65.05' cy='149.97' r='9' fill='%23C97A3C'/%3E%3Ccircle cx='85.34' cy='138.1' r='11.84' fill='%23C97A3C'/%3E%3Ccircle cx='107.49' cy='117.76' r='15.59' fill='%23C97A3C'/%3E%3Ccircle cx='127.81' cy='84.89' r='20.52' fill='%23C97A3C'/%3E%3Ccircle cx='151.71' cy='36' r='27' fill='%23C97A3C'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AIBoosters Consulting">
+<meta property="og:title" content="AIBoosters Consulting — Privacy policy">
+<meta property="og:description" content="How AIBoosters Consulting and AI Draw handle personal data: what is stored, where, for how long, and how to delete it.">
+<meta property="og:url" content="https://aiboosters.guru/privacy.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIBoosters Consulting — Privacy policy">
+<meta name="twitter:description" content="How AIBoosters Consulting and AI Draw handle personal data: what is stored, where, for how long, and how to delete it.">
+<style>
+:root{
+  /* Grounds are deliberately NEUTRAL (no blue bias). An earlier palette had
+     +10 to +31 more blue than red in every dark tone, which compounded with
+     the blue backlight bleed of cheap/uncalibrated laptop panels and made the
+     whole site read as navy/purple rather than near-black. */
+  --ink:#0A0A0B; --ink-2:#0E0E10; --surface:#16161A; --surface-2:#1F1F24;
+  --copper:#C97A3C; --copper-lt:#E9A063; --copper-dk:#8A4E20;
+  --copper-dim:rgba(201,122,60,.13); --copper-glow:rgba(201,122,60,.45);
+  --white:#F8FAFC; --grey:#A9A9B2; --grey-d:#7E7E88;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.055);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --radius:14px; --maxw:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--white);font-family:var(--font);
+  font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px}
+a{color:inherit;text-decoration:none}
+section{position:relative}
+::selection{background:var(--copper);color:var(--ink)}
+
+/* ambient grain + grid */
+body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%)}
+
+/* ---------- nav ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:300;padding:20px 0;
+  transition:background .35s ease,border-color .35s ease,padding .35s ease;
+  border-bottom:1px solid transparent}
+header.solid{background:rgba(10,10,11,.85);backdrop-filter:blur(16px) saturate(140%);
+  border-color:var(--line);padding:13px 0}
+nav{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.brand svg{width:32px;height:auto;filter:drop-shadow(0 0 10px var(--copper-glow))}
+.brand b{font-size:19px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.brand b em{font-style:normal;color:var(--copper)}
+.navlinks{display:flex;gap:30px;font-size:13.5px;color:var(--grey)}
+.navlinks a{position:relative;padding:4px 0;transition:color .2s}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--copper);transition:width .28s ease}
+.navlinks a:hover,.navlinks a.on{color:var(--white)}
+.navlinks a:hover::after,.navlinks a.on::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:550;
+  padding:11px 22px;border-radius:8px;border:1px solid transparent;white-space:nowrap;
+  cursor:pointer;transition:all .22s ease;font-family:inherit}
+.btn-primary{background:var(--copper);color:var(--ink);
+  box-shadow:0 6px 24px -8px var(--copper-glow)}
+.btn-primary:hover{background:var(--copper-lt);transform:translateY(-1px);
+  box-shadow:0 10px 30px -8px var(--copper-glow)}
+.btn-ghost{border-color:var(--line);color:var(--white);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{border-color:var(--copper);background:var(--copper-dim)}
+.navcta{display:none}
+@media(min-width:1000px){.navcta{display:inline-flex}}
+
+/* hamburger + collapsible nav */
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;
+  padding:8px;flex:none}
+.burger i{display:block;width:22px;height:1.5px;background:var(--white);transition:.28s ease}
+.burger.open i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.open i:nth-child(2){opacity:0}
+.burger.open i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media(max-width:1000px){
+  .burger{display:flex}
+  nav{flex-wrap:wrap}
+  .navlinks{order:3;flex-basis:100%;flex-direction:column;gap:0;
+    max-height:0;overflow:hidden;transition:max-height .35s ease,margin .35s ease;margin-top:0}
+  .navlinks.open{max-height:340px;margin-top:14px}
+  .navlinks a{padding:13px 2px;border-bottom:1px solid var(--line-2);font-size:15px}
+  .navlinks a::after{display:none}
+}
+
+/* ---------- accessibility ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:600;background:var(--copper);
+  color:var(--ink);padding:12px 20px;border-radius:0 0 8px 0;font-weight:600;font-size:14px}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:4px}
+.btn:focus-visible,.chip:focus-visible,.demo-tab:focus-visible{outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1!important;transform:none!important}
+  .nine-row{opacity:1!important;transform:none!important}
+  .nine-row .nc{transform:scale(1)!important}
+  .divider::after{width:100%!important}
+}
+
+/* ---------- scroll progress bar ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0%;z-index:500;
+  background:linear-gradient(90deg,var(--copper-dk),var(--copper),var(--copper-lt));
+  box-shadow:0 0 12px var(--copper-glow);transition:width .08s linear}
+
+/* ---------- animated section divider ---------- */
+.divider{position:relative;height:1px;background:var(--line-2);overflow:visible}
+.divider::after{content:"";position:absolute;left:50%;top:0;height:1px;width:0;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);
+  transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.divider.in::after{width:100%}
+.divider i{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;
+  background:var(--copper);transform:translate(-50%,-50%) scale(0);
+  box-shadow:0 0 14px var(--copper);transition:transform .6s cubic-bezier(.34,1.56,.64,1) .5s}
+.divider.in i{transform:translate(-50%,-50%) scale(1)}
+
+/* ---------- text scramble ---------- */
+.scramble{font-variant-ligatures:none}
+.scramble .sc-ghost{color:var(--copper);opacity:.85}
+
+/* ---------- typography ---------- */
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:16px;display:flex;align-items:center;gap:11px}
+.kicker::before{content:"";width:20px;height:1px;background:var(--copper);flex:none}
+h1{font-size:clamp(40px,5.4vw,74px);font-weight:600;letter-spacing:-.035em;line-height:1.03}
+h2{font-size:clamp(28px,3.2vw,44px);font-weight:600;letter-spacing:-.028em;line-height:1.12}
+.section-pad{padding:120px 0;position:relative;z-index:2}
+.section-head{max-width:680px;margin-bottom:60px}
+.section-head p{margin-top:16px;color:var(--grey);font-size:16.5px;font-weight:300;max-width:56ch}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- cards ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.card{background:var(--surface);padding:38px 34px;display:flex;flex-direction:column;
+  min-height:230px;position:relative;transition:background .3s ease}
+.card::after{content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),var(--copper-dim),transparent 60%);
+  transition:opacity .35s ease}
+.card:hover{background:var(--surface-2)}
+.card:hover::after{opacity:1}
+.card .num{font-family:var(--mono);font-size:11.5px;color:var(--copper);margin-bottom:22px;
+  letter-spacing:.1em}
+.card h3{font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:11px}
+.card h4{font-size:16.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:9px}
+.card p{font-size:14px;color:var(--grey);line-height:1.68;margin-top:auto;padding-top:6px;font-weight:300}
+@media(max-width:900px){.grid-3,.grid-2{grid-template-columns:1fr}}
+
+/* ---------- stat cards ---------- */
+.stat b{display:block;font-size:42px;font-weight:600;letter-spacing:-.03em;color:var(--copper);
+  margin-bottom:8px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--grey-d);letter-spacing:.02em}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:70px 0 44px;position:relative;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(201,122,60,.03))}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:44px}
+.foot-brand{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.foot-brand svg{width:26px;filter:drop-shadow(0 0 8px var(--copper-glow))}
+.foot-brand b{font-size:16.5px;font-weight:600}
+.foot-col h5{font-size:11px;font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--grey-d);margin-bottom:16px}
+.foot-col a,.foot-col p{display:block;font-size:13.5px;color:var(--grey);margin-bottom:10px;font-weight:300}
+.foot-col a:hover{color:var(--copper)}
+.foot-line{margin-top:52px;padding-top:26px;border-top:1px solid var(--line-2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--grey-d)}
+
+/* ---------- AI assistant ---------- */
+.ai-fab{position:fixed;bottom:28px;right:28px;z-index:400;width:58px;height:58px;border-radius:50%;
+  background:var(--copper);display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 12px 36px -8px var(--copper-glow);border:none;transition:transform .25s ease}
+.ai-fab:hover{transform:scale(1.08) rotate(90deg)}
+.ai-fab svg{width:24px;height:24px}
+.ai-fab::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid var(--copper);opacity:.5;animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:.6}100%{transform:scale(1.35);opacity:0}}
+.ai-panel{position:fixed;bottom:100px;right:28px;z-index:400;width:356px;max-width:calc(100vw - 40px);
+  background:rgba(22,22,26,.96);backdrop-filter:blur(20px);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -12px rgba(0,0,0,.75);
+  opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;transition:.28s cubic-bezier(.16,1,.3,1)}
+.ai-panel.open{opacity:1;transform:none;pointer-events:auto}
+.ai-head{padding:17px 19px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--copper);flex:none;
+  box-shadow:0 0 10px var(--copper);animation:breathe 2s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.35}}
+.ai-head b{font-size:13.5px;font-weight:600;display:block}
+.ai-head span{font-size:10.5px;color:var(--grey-d)}
+.ai-body{padding:17px 19px;max-height:290px;overflow-y:auto;display:flex;flex-direction:column;gap:11px}
+.ai-body::-webkit-scrollbar{width:4px}
+.ai-body::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+.ai-msg{font-size:13.5px;line-height:1.62;max-width:88%}
+.ai-msg.bot{color:var(--white);background:rgba(255,255,255,.05);padding:11px 14px;
+  border-radius:12px 12px 12px 3px;align-self:flex-start}
+.ai-msg.user{color:var(--ink);background:var(--copper);padding:11px 14px;
+  border-radius:12px 12px 3px 12px;align-self:flex-end;font-weight:450}
+.ai-suggest{display:flex;flex-wrap:wrap;gap:7px;padding:0 19px 15px}
+.chip{font-size:11.5px;padding:7px 13px;border-radius:20px;border:1px solid var(--line);
+  color:var(--grey);cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--copper);color:var(--white);background:var(--copper-dim)}
+.ai-foot{padding:12px 19px;border-top:1px solid var(--line);font-size:10.5px;color:var(--grey-d);text-align:center}
+.typing{display:inline-flex;gap:4px;padding:11px 14px}
+.typing i{width:5px;height:5px;border-radius:50%;background:var(--grey);animation:blink 1.3s infinite}
+.typing i:nth-child(2){animation-delay:.18s}
+.typing i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+
+
+@media(max-width:700px){
+  .wrap{padding:0 24px}
+  .section-pad{padding:80px 0}
+  .card{padding:28px 24px;min-height:auto}
+  .phero{padding:140px 0 70px}
+  .phero p{font-size:15.5px}
+  #pCanvas{opacity:.85}
+  .svc-detail{padding:32px 0}
+  .step{padding:32px 0}
+  .case{padding:28px 22px}
+  .case .metrics{gap:22px}
+  .contact-side{padding:26px}
+  .qr-mini{flex-direction:column;align-items:flex-start}
+}
+.phero{padding:190px 0 90px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.phero::before{content:"";position:absolute;top:-50%;right:-15%;width:70%;height:200%;
+  background:radial-gradient(circle,rgba(201,122,60,.09),transparent 62%);pointer-events:none}
+.phero h1{font-size:clamp(36px,4.6vw,62px);max-width:19ch}
+.phero p{margin-top:22px;color:var(--grey);font-size:17.5px;font-weight:300;max-width:60ch;line-height:1.75}
+#pCanvas{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.62}
+.phero .wrap{position:relative;z-index:3}
+
+.svc-detail{display:grid;grid-template-columns:76px 1fr;gap:30px;padding:46px 0;
+  border-bottom:1px solid var(--line-2);align-items:start}
+@media(max-width:760px){.svc-detail{grid-template-columns:1fr;gap:14px}}
+.svc-detail .idx{font-family:var(--mono);font-size:13px;color:var(--copper);padding-top:5px;
+  display:flex;align-items:center;gap:12px}
+.svc-detail .idx i{width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,var(--copper-lt),var(--copper));
+  box-shadow:0 0 12px var(--copper-glow);flex:none}
+.svc-detail h3{font-size:23px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+.svc-detail .body{color:var(--grey);font-size:15px;font-weight:300;line-height:1.78;max-width:68ch}
+.svc-detail ul{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.svc-detail li{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 13px;border:1px solid var(--line);border-radius:20px;color:var(--grey-d);
+  background:rgba(255,255,255,.02);transition:.22s}
+.svc-detail:hover li{border-color:rgba(201,122,60,.28);color:var(--grey)}
+
+.step{display:grid;grid-template-columns:110px 1fr;gap:32px;padding:44px 0;
+  border-bottom:1px solid var(--line-2);align-items:start}
+@media(max-width:760px){.step{grid-template-columns:1fr;gap:12px}}
+.step .ph{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--copper)}
+.step h3{font-size:21px;font-weight:600;letter-spacing:-.018em;margin-bottom:11px}
+.step p{color:var(--grey);font-size:15px;font-weight:300;line-height:1.78;max-width:66ch}
+.step .wk{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:11px;
+  color:var(--grey-d);padding:6px 12px;border:1px solid var(--line);border-radius:6px}
+
+.case{background:linear-gradient(150deg,var(--surface),var(--ink-2));border:1px solid var(--line);
+  border-radius:var(--radius);padding:40px;position:relative;overflow:hidden}
+.case::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);opacity:.5}
+.case .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--copper);margin-bottom:18px}
+.case h3{font-size:21px;font-weight:600;letter-spacing:-.018em;margin-bottom:14px;line-height:1.28}
+.case p{color:var(--grey);font-size:14.5px;font-weight:300;line-height:1.75}
+.case .metrics{display:flex;gap:34px;margin-top:26px;padding-top:24px;
+  border-top:1px solid var(--line-2);flex-wrap:wrap}
+.case .metrics div b{display:block;font-size:26px;font-weight:600;color:var(--copper);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.case .metrics div span{font-size:11.5px;color:var(--grey-d)}
+.placeholder-note{background:rgba(201,122,60,.06);border:1px dashed rgba(201,122,60,.3);
+  border-radius:var(--radius);padding:28px 32px;margin-top:44px}
+.placeholder-note h4{font-size:15px;font-weight:600;margin-bottom:9px;color:var(--copper)}
+.placeholder-note p{color:var(--grey);font-size:14px;font-weight:300;line-height:1.72;max-width:70ch}
+
+.contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.field{margin-bottom:20px}
+.field label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey-d);margin-bottom:9px}
+.field input,.field textarea,.field select{width:100%;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:9px;padding:14px 16px;color:var(--white);
+  font-family:inherit;font-size:14.5px;transition:.22s;outline:none}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--copper);
+  background:rgba(201,122,60,.05);box-shadow:0 0 0 3px rgba(201,122,60,.08)}
+.field textarea{min-height:130px;resize:vertical}
+.field select option{background:var(--surface);color:var(--white)}
+.contact-side{background:linear-gradient(150deg,var(--surface),var(--ink-2));
+  border:1px solid var(--line);border-radius:var(--radius);padding:36px}
+.contact-side h4{font-size:16px;font-weight:600;margin-bottom:20px}
+.contact-side .row{display:flex;gap:13px;padding:15px 0;border-bottom:1px solid var(--line-2);
+  align-items:flex-start}
+.contact-side .row:last-child{border:none}
+.contact-side .row i{color:var(--copper);font-size:15px;flex:none;font-style:normal}
+.contact-side .row div b{display:block;font-size:13.5px;font-weight:550;margin-bottom:3px}
+.contact-side .row div span{font-size:13px;color:var(--grey);font-weight:300}
+.qr-mini{margin-top:26px;padding-top:24px;border-top:1px solid var(--line-2);
+  display:flex;gap:18px;align-items:center}
+.qr-mini img{width:92px;height:92px;background:#fff;padding:7px;border-radius:9px;flex:none}
+.qr-mini p{font-size:12.5px;color:var(--grey-d);font-weight:300;line-height:1.65}
+.form-note{margin-top:16px;font-size:12.5px;color:var(--grey-d)}
+</style>
+<style>
+.phero{padding:170px 0 60px}
+.pp-date{font-family:var(--mono);font-size:12px!important;letter-spacing:.06em;color:var(--grey-d)!important;margin-top:14px!important}
+.pp{padding:56px 0 100px}
+.pp-body{max-width:820px}
+.pp-body h2{font-size:clamp(21px,2.2vw,26px);font-weight:600;margin:52px 0 14px;scroll-margin-top:100px;color:var(--white)}
+.pp-body h3{font-size:17px;font-weight:600;margin:28px 0 8px;color:var(--white)}
+.pp-body p,.pp-body li,.pp-body td,.pp-body th{color:var(--grey);font-size:16px;line-height:1.75;font-weight:400}
+.pp-body p{margin:0 0 14px}
+.pp-body b{color:var(--white);font-weight:600}
+.pp-body ul{margin:0 0 14px;padding-left:20px}
+.pp-body li{margin-bottom:8px}
+.pp-body a{color:var(--copper-lt);text-decoration:underline;text-underline-offset:3px}
+.pp-toc{display:flex;flex-wrap:wrap;gap:8px 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.pp-body .pp-toc a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-decoration:none;color:var(--grey);
+  border:1px solid var(--line);border-radius:999px;padding:10px 14px;min-height:44px;display:inline-flex;align-items:center}
+.pp-body .pp-toc a:hover{color:var(--white);border-color:var(--copper)}
+.pp-table{width:100%;border-collapse:collapse;margin:6px 0 18px}
+.pp-table th{text-align:left;color:var(--white);font-weight:600;font-size:14px;border-bottom:1px solid var(--line);padding:10px 12px 10px 0}
+.pp-table td{border-bottom:1px solid var(--line);padding:12px 12px 12px 0;vertical-align:top;font-size:15px}
+@media(max-width:700px){.pp-table thead{display:none}.pp-table tr{display:block;padding:10px 0;border-bottom:1px solid var(--line)}
+  .pp-table td{display:block;border:0;padding:2px 0}.pp-table td:first-child{color:var(--white)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark9" viewBox="0 0 187.71 174.29">
+    <circle cx="12.0" cy="161.71" r="3.0" fill="#C97A3C"/>
+    <circle cx="21.64" cy="161.34" r="3.95" fill="#C97A3C"/>
+    <circle cx="33.39" cy="159.88" r="5.2" fill="#C97A3C"/>
+    <circle cx="47.73" cy="156.52" r="6.84" fill="#C97A3C"/>
+    <circle cx="65.05" cy="149.97" r="9.0" fill="#C97A3C"/>
+    <circle cx="85.34" cy="138.1" r="11.84" fill="#C97A3C"/>
+    <circle cx="107.49" cy="117.76" r="15.59" fill="#C97A3C"/>
+    <circle cx="127.81" cy="84.89" r="20.52" fill="#C97A3C"/>
+    <circle cx="151.71" cy="36.0" r="27.0" fill="#C97A3C"/>
+  </symbol>
+</svg>
+<a href="#main" class="skip">Skip to content</a>
+<div class="progress" id="progressBar"></div>
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="brand">
+        <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
+        <b>ai<em>:</em>boosters</b>
+      </a>
+      <div class="navlinks" id="navLinks"><a href="index.html">Home</a><a href="services.html">Capabilities</a><a href="products.html">Products</a><a href="apps.html">Apps</a><a href="approach.html">Approach</a><a href="work.html">Work</a><a href="contact.html">Contact</a></div>
+      <a href="contact.html" class="btn btn-primary navcta">Book a briefing</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <i></i><i></i><i></i>
+      </button>
+    </nav>
+  </div>
+</header>
+<main id="main"><section class="phero">
+  <div class="wrap">
+    <div class="kicker">Privacy</div>
+    <h1>Privacy policy</h1>
+    <p>What we collect on aiboosters.guru and in AI Draw, why, where it is kept, and how you get it deleted. In plain words, without tracking, ads or selling data.</p>
+    <p class="pp-date">In force from 16 November 2026</p>
+  </div>
+</section>
+
+<section class="pp">
+  <div class="wrap pp-body">
+
+    <nav class="pp-toc" aria-label="On this page">
+      <a href="#who">Who is responsible</a>
+      <a href="#short">The short version</a>
+      <a href="#site">Visiting this website</a>
+      <a href="#contact">Contacting us</a>
+      <a href="#aidraw">AI Draw</a>
+      <a href="#providers">Service providers</a>
+      <a href="#rights">Your rights</a>
+      <a href="#changes">Changes</a>
+    </nav>
+
+    <h2 id="who">1. Who is responsible</h2>
+    <p>The controller under the EU General Data Protection Regulation (GDPR) is <b>AIBoosters Consulting</b>, Balaji Durai.
+      Email: <a href="mailto:balaji@aiboosters.guru">balaji@aiboosters.guru</a>. Write to this address for every privacy question or request.</p>
+
+    <h2 id="short">2. The short version</h2>
+    <ul>
+      <li>No analytics, no advertising, no tracking cookies, no profiling. We do not sell or share your data for marketing.</li>
+      <li>AI Draw works without an account. Then your tickets and settings stay in your browser and never reach us.</li>
+      <li>If you create an AI Draw account, we store your email address and the tickets you save, on servers in Frankfurt, Germany. You can delete the account and every ticket yourself, at any time, in one click.</li>
+    </ul>
+
+    <h2 id="site">3. Visiting this website</h2>
+    <p><b>Server logs.</b> When you open a page, our host Vercel processes your IP address, the time, the page requested, the referring page and your browser’s user-agent, to deliver the page and to protect the service against abuse. Legal basis: our legitimate interest in a secure, working website (Art. 6(1)(f) GDPR). These logs are kept for a short period by Vercel and are not combined with other data.</p>
+    <p><b>Fonts and scripts from other servers.</b> To display the pages, your browser loads fonts from Google Fonts (Google) and program libraries from cdnjs (Cloudflare) and jsDelivr. For this, your IP address and browser information reach those providers. We use no cookies of our own for this and receive no data from them. Legal basis: Art. 6(1)(f) GDPR (reliable, fast delivery of the site).</p>
+    <p><b>Preview assistant.</b> The chat panel on the main pages is a scripted preview that runs entirely in your browser. Nothing you type in it is sent anywhere.</p>
+    <p><b>Cookies.</b> We set no cookies. AI Draw saves data in your browser’s local storage, described in section 5.</p>
+
+    <h2 id="contact">4. Contacting us</h2>
+    <p>The contact page opens your own email program; nothing is sent through this website. When you email us, we use your address and message to answer and, if it comes to it, to prepare and run an engagement. Legal basis: steps before a contract and the contract itself (Art. 6(1)(b) GDPR), otherwise our legitimate interest in replying (Art. 6(1)(f)). We delete the correspondence when it is no longer needed, unless tax or commercial law requires us to keep it longer.</p>
+
+    <h2 id="aidraw">5. AI Draw</h2>
+    <p>AI Draw is for adults (18+). It works in two ways:</p>
+
+    <h3>Without an account</h3>
+    <p>Your saved tickets and your settings (country, budget, ticket fee) are kept in your browser’s local storage on your device. They are not sent to us. You remove them by deleting the ticket in AI Draw or by clearing your browser’s site data. Draw results come from a file on our own website; your browser does not contact any lottery operator.</p>
+
+    <h3>With an account</h3>
+    <p>You can sign in with your email address to keep your tickets on all your devices. There is no password: we send you a one-time sign-in link.</p>
+    <table class="pp-table">
+      <thead><tr><th scope="col">What</th><th scope="col">Why</th></tr></thead>
+      <tbody>
+        <tr><td>Email address</td><td>To send the sign-in link and identify your account</td></tr>
+        <tr><td>Tickets you save: game, draw date, numbers, Superzahl</td><td>To show your tickets and check them against the official results</td></tr>
+        <tr><td>Account dates (created, last sign-in) and technical sign-in records including IP address</td><td>To run the sign-in securely and prevent abuse</td></tr>
+        <tr><td>A sign-in token in your browser’s local storage</td><td>To keep you signed in on that device until you sign out</td></tr>
+      </tbody>
+    </table>
+    <p><b>Legal basis.</b> Providing the account you asked for (Art. 6(1)(b) GDPR); for the security records, our legitimate interest in protecting accounts (Art. 6(1)(f)). Storing the sign-in token on your device is strictly necessary for the service you requested.</p>
+    <p><b>Where.</b> Accounts and tickets are stored by our provider Supabase in its Frankfurt, Germany (EU) region. Every account can read and change only its own tickets; this is enforced by the database itself.</p>
+    <p><b>How long.</b> Until you delete them. If you sign in on a device that already holds tickets, those tickets are moved into your account.</p>
+    <p><b>Delete everything.</b> Signed in, open <a href="ai-draw.html#tickets">My tickets</a> and choose “Delete my account”. Your account and all its tickets are deleted at once. Copies in the provider’s backups are overwritten in the normal backup cycle. You can also ask us by email.</p>
+    <p><b>No decisions about you.</b> AI Draw does not profile you or make automated decisions with legal or similar effects. Its number suggestions are statistics for entertainment and never increase your chance of winning.</p>
+
+    <h2 id="providers">6. Service providers</h2>
+    <p>We use these providers, each bound by a data processing agreement or acting under its own privacy terms:</p>
+    <ul>
+      <li><b>Vercel Inc.</b>, USA: website hosting and delivery.</li>
+      <li><b>Supabase Inc.</b>, USA: AI Draw accounts, database and sign-in emails; data stored in Frankfurt, Germany.</li>
+      <li><b>Google</b> (Google Fonts), <b>Cloudflare Inc.</b> (cdnjs) and <b>jsDelivr</b>: delivery of fonts and program libraries.</li>
+    </ul>
+    <p>Where a provider can access data from outside the EU/EEA, the transfer is based on the EU–US Data Privacy Framework where the provider is certified, otherwise on the EU Standard Contractual Clauses (Art. 46 GDPR).</p>
+
+    <h2 id="rights">7. Your rights</h2>
+    <p>You have the right to access your data, to have it corrected or deleted, to restrict its processing, to receive it in a portable format, and to object to processing based on legitimate interest (Art. 15–21 GDPR). Email us and we answer within one month. You can also complain to a data protection supervisory authority, in particular the one where you live or work.</p>
+
+    <h2 id="changes">8. Changes</h2>
+    <p>If we change how we handle data, we update this page and the date at the top. For changes that affect AI Draw accounts, we tell you on the AI Draw page before they apply.</p>
+
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-col" style="max-width:300px">
+        <div class="foot-brand">
+          <svg viewBox="0 0 187.71 174.29" preserveAspectRatio="xMidYMid meet"><use href="#mark9"/></svg>
+          <b>ai:boosters</b>
+        </div>
+        <p style="color:var(--grey-d);font-size:13px">Enterprise AI transformation across platform
+        engineering, integration, and deployment. Europe and global remote.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Core capabilities</h5>
+        <a href="services.html">Platform Engineering</a>
+        <a href="services.html">AI Integration</a>
+        <a href="services.html">Deployment &amp; Development</a>
+        <a href="services.html">All nine capabilities</a>
+        <a href="products.html">Products &amp; frameworks</a>
+        <a href="apps.html">Apps</a>
+      </div>
+      <div class="foot-col">
+        <h5>Firm</h5>
+        <a href="approach.html">Our approach</a>
+        <a href="work.html">Work</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+      <div class="foot-col">
+        <h5>Direct</h5>
+        <a href="mailto:balaji@aiboosters.guru">balaji@aiboosters.guru</a>
+        <a href="https://aiboosters.guru">aiboosters.guru</a>
+      </div>
+    </div>
+    <div class="foot-line">
+      <span>We don't do it for you. We clear the way.</span>
+      <span>&copy; 2026 AIBoosters Consulting</span>
+    </div>
+  </div>
+</footer>
+<script>
+// nav solidify
+const hdr=document.getElementById('siteHeader');
+addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>40));
+
+// mobile nav
+(function(){
+  const b=document.getElementById('burger'),n=document.getElementById('navLinks');
+  if(!b||!n)return;
+  b.addEventListener('click',()=>{
+    const open=n.classList.toggle('open');
+    b.classList.toggle('open',open);
+    b.setAttribute('aria-expanded',open);
+    if(open)hdr.classList.add('solid');
+  });
+})();
+
+// scroll progress bar
+(function(){
+  const bar=document.getElementById('progressBar');if(!bar)return;
+  let tick=false;
+  function upd(){
+    const h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(h>0?(scrollY/h)*100:0)+'%';tick=false;
+  }
+  addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(upd);tick=true;}});
+  upd();
+})();
+
+</script>
+</body>
+</html>
