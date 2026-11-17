@@ -820,6 +820,19 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
     return d;
   }
   function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  // Draw times in German time (Europe/Berlin), minutes after midnight.
+  function drawMin(g, dateIso) {
+    if (g.key === "lotto649") return new Date(dateIso + "T12:00:00").getDay() === 3 ? 18 * 60 + 25 : 19 * 60 + 25;
+    return g.key === "euromillions" ? 21 * 60 + 5 : 20 * 60;
+  }
+  function berlinNow() {
+    try {
+      var p = {}; new Intl.DateTimeFormat("en-GB", {timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23"})
+        .formatToParts(new Date()).forEach(function (x) { p[x.type] = x.value; });
+      return {date: p.year + "-" + p.month + "-" + p.day, min: +p.hour * 60 + +p.minute};
+    } catch (e) { var d = new Date(); return {date: iso(d), min: d.getHours() * 60 + d.getMinutes()}; }
+  }
+  function hm(min) { return pad(Math.floor(min / 60)) + ":" + pad(min % 60); }
   function longDate(d) { return d.toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long", year: "numeric"}); }
 
   // ---- line patterns (feature definitions mirror engine/line_model.py exactly)
@@ -1403,6 +1416,24 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
   if (window.fetch) fetch("data/ai-draw-results.json", {cache: "no-cache"})
     .then(function (x) { if (!x.ok) throw new Error(x.status); return x.json(); })
     .then(applyResults).catch(function () { /* keep the built-in data */ });
+  // While a saved ticket's draw is done but its result or prize is not in yet, check again every 2 minutes,
+  // and flip "Draw tonight" to "Drawn" on time. Only while the page is visible.
+  function tkLive() { return TK.list.some(function (t) { return status(t).live; }); }
+  function tkToday() { var b = berlinNow().date; return TK.list.some(function (t) { return t.draw_date === b; }); }
+  function refreshResults() {
+    if (!window.fetch) return;
+    fetch("data/ai-draw-results.json?t=" + Date.now(), {cache: "no-store"})
+      .then(function (x) { if (!x.ok) throw new Error(x.status); return x.json(); })
+      .then(function (r) { if (!RES || r.updated !== RES.updated) applyResults(r); }).catch(function () {});
+  }
+  var tkTick = 0;
+  setInterval(function () {
+    if (document.visibilityState === "hidden") return;
+    tkTick++;
+    if (tkLive()) { if (tkTick % 2 === 0) refreshResults(); }
+    else if (tkToday()) renderTickets();
+  }, 60000);
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && tkLive()) refreshResults(); });
 
   // ================================================================ my tickets
   // A ticket = one line for one draw: {id, game, draw_date, main, extra, superzahl}.
@@ -1425,15 +1456,24 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
     if (!g.res) return {st: "wait", chip: "Results loading", text: "Results could not be loaded right now."};
     var d = drawOf(t), last = g.res.draws[0], oldest = g.res.draws[g.res.draws.length - 1];
     if (!d) {
-      if (t.draw_date > last.date) return {st: "wait", chip: t.draw_date === today ? "Draw tonight" : "Waiting for draw",
-        text: "Draw on <b>" + day(t.draw_date) + "</b>." + (t.draw_date <= today ? " Official results usually appear within a few hours." : "")};
+      if (t.draw_date > last.date) {
+        var bn = berlinNow(), dm = drawMin(g, t.draw_date), drawn = t.draw_date < bn.date || (t.draw_date === bn.date && bn.min >= dm);
+        if (drawn) return {st: "wait", live: true, chip: "Drawn \u00b7 checking",
+          text: "The draw took place on <b>" + day(t.draw_date) + "</b> at " + hm(dm) + " German time. AI Draw checks for the official numbers every few minutes; your result appears here by itself, no need to reload."};
+        return {st: "wait", chip: t.draw_date === bn.date ? "Draw tonight \u00b7 " + hm(dm) : "Waiting for draw",
+          text: "Draw on <b>" + day(t.draw_date) + "</b> at " + hm(dm) + " German time. Your result appears here shortly after the official numbers are out."};
+      }
       if (t.draw_date < oldest.date) return {st: "old", chip: "Too old to check", text: "AI Draw keeps about a year of results. Check this one with your lottery."};
       return {st: "old", chip: "No draw that day", text: "There was no " + g.name + " draw on " + day(t.draw_date) + ". Check the date on your ticket."};
     }
     var m = 0, e = 0, hitM = {}, hitE = {};
     t.main.forEach(function (n) { if (d.main.indexOf(n) >= 0) { m++; hitM[n] = 1; } });
     (t.extra || []).forEach(function (n) { if ((d.extra || []).indexOf(n) >= 0) { e++; hitE[n] = 1; } });
-    var out = {st: "lose", hitM: hitM, hitE: hitE, won: 0, d: d}, rows = d.prizes || [];
+    var out = {st: "lose", hitM: hitM, hitE: hitE, won: 0, d: d}, rows = d.prizes || [], pending = !rows.length;
+    if (pending) {   // official numbers are in, prize table is not: winning classes are still known from earlier draws
+      var tpl = g.res.draws.filter(function (x) { return x.prizes && x.prizes.length; })[0];
+      rows = tpl ? tpl.prizes.map(function (p) { return {cls: p.cls, m: p.m, e: p.e, sz: p.sz, prize: null}; }) : [];
+    }
     var what = g.key === "lotto649" ? m + " right" : m + " + " + e + " right";
     function amount(p) { return p.prize != null ? eur(p.prize) : p.cls === 1 ? "the jackpot" : "a prize (amount not published yet)"; }
     if (g.key === "lotto649") {
@@ -1455,7 +1495,10 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
       else { out.chip = "No win"; out.text = "<b>" + what + "</b>. " + (rows.length ? "Prizes start at " + (g.key === "eurojackpot" ? "2 + 1 or 1 + 2." : "2 + 0.") : "Prize table not published yet."); }
     }
     if (out.st === "win" && t.game === "euromillions") out.text += " Irish payout in euros; your country's amount can differ by a few cents.";
-    if (out.st === "win" && !d.complete) out.text += " Prize amounts are still being confirmed.";
+    if (pending && (out.st === "win" || out.st === "maybe")) {
+      out.live = true; if (out.st === "win") out.chip = "Winner \u00b7 amount soon";
+      out.text += " The amount appears here once the official prize table is published, usually within a few hours.";
+    } else if (out.st === "win" && !d.complete) { out.live = true; out.text += " Prize amounts are still being confirmed."; }
     return out;
   }
 
