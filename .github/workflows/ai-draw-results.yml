@@ -27,12 +27,15 @@ jobs:
           python-version: "3.12"
       - name: Fetch official results
         run: python scripts/ai-draw/update_results.py data/ai-draw-results.json
+      - name: Save lines before each draw, score them after (track record)
+        run: node scripts/ai-draw/track_record.js .
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/ai-draw-results.json; then echo "No new results."; exit 0; fi
+          git add -N data/ai-draw-track.json
+          if git diff --quiet -- data/ai-draw-results.json data/ai-draw-track.json; then echo "No new results."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ai-draw-results.json
-          git commit -m "AI Draw: official results update"
+          git add data/ai-draw-results.json data/ai-draw-track.json
+          git commit -m "AI Draw: official results and track record update"
           git pull --rebase --autostash
           git push

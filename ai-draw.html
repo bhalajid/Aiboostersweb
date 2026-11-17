@@ -341,6 +341,17 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
 .res-src{margin-top:10px;font-size:12px;color:var(--grey);line-height:1.5}
 .hdr-actions{display:flex;gap:8px;align-items:center}
 .hdr-actions .btn{padding:9px 16px;min-height:44px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tr-card .tbl{font-size:13px;margin-top:4px}
+.tr-card .tbl th,.tr-card .tbl td{padding:9px 6px}
+.tr-card .tbl td:nth-child(2){font-family:inherit;color:var(--grey)}
+.tr-card .tbl th:nth-child(2),.tr-card .tbl td:nth-child(2){text-align:right}
+.tr-card .tbl tr.ai td{color:var(--white)}
+.tr-lines{list-style:none;display:grid;gap:8px;margin-top:6px}
+.tr-lines .ball.sm{width:28px;height:28px;font-size:11.5px}
+.tr-sub{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:12px}
+.tr-hist li{display:block;font-size:13.5px;color:var(--grey);line-height:1.6}
+.tr-hist b{color:var(--white);font-weight:500}
 @media (max-width:480px){.hdr-apps{display:none}}
 @media (max-width:900px){.tk-side{order:-1}}
 @media (max-width:900px){.tk-grid{grid-template-columns:1fr}.tk-totals{grid-template-columns:1fr 1fr 1fr}}
@@ -567,6 +578,19 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
       <h2 id="res-h">Official results for <em>every game</em>.</h2>
       <p class="body">The most recent draws, straight from the official sources. Open a game for its previous draws.</p></div>
     <div class="res-grid" id="res-grid"></div>
+  </div>
+</section>
+
+<section class="band" id="track" aria-labelledby="tr-h">
+  <div class="wrap">
+    <div class="head"><div class="kicker">Track record</div>
+      <h2 id="tr-h">AI Draw against chance, <em>every draw</em>.</h2>
+      <p class="body">Before each draw we save AI Draw’s 10 lines for it and 10 random lines, then score both against the official result and prize table.
+        Saved lines are never changed, and each is published with the time it was saved, before the draw.
+        Both sets have exactly the same chance of winning. AI Draw aims for more draws with at least one prize and bigger prizes when it wins.
+        A few draws prove nothing either way: luck dominates, and it takes hundreds of draws before a difference means anything.</p></div>
+    <div class="res-grid" id="tr-grid"><p class="note">Loading the track record…</p></div>
+    <p class="note" style="margin-top:16px">Every saved line and score is in the public file <a href="data/ai-draw-track.json">data/ai-draw-track.json</a>. Line 1 of the AI Draw set is the line this page suggests for that draw.</p>
   </div>
 </section>
 
@@ -1411,11 +1435,72 @@ input[type=text]:focus-visible,input[type=email]:focus-visible{outline:2px solid
       g.latest = last.main; g.latestExtra = last.extra || []; g.latestDate = last.date;
       if (g.dataNote) g.dataNote = "";
     });
-    renderHero(heroKey); renderResults(); renderLines(); renderTickets(); fillDates();
+    renderHero(heroKey); renderResults(); renderLines(); renderTickets(); fillDates(); loadTrack();
+  }
+  // ================================================================ track record
+  // data/ai-draw-track.json: AI Draw's lines and random lines, saved before each draw and scored after it
+  // (scripts/ai-draw/track_record.js, run by the same job as the results).
+  var TR = null;
+  function loadTrack() {
+    if (!window.fetch) return;
+    fetch("data/ai-draw-track.json?t=" + Date.now(), {cache: "no-store"})
+      .then(function (x) { if (!x.ok) throw new Error(x.status); return x.json(); })
+      .then(function (t) { TR = t; renderTrack(); }).catch(function () { renderTrack(); });
+  }
+  function shortDay(isoDate) { return new Date(isoDate + "T12:00:00").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short", year: "numeric"}); }
+  function savedAt(ts) {
+    try { return new Date(ts).toLocaleString("en-GB", {timeZone: "Europe/Berlin", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"}) + " German time"; }
+    catch (e) { return ts; }
+  }
+  function renderTrack() {
+    var host = $("tr-grid"); if (!host) return;
+    host.innerHTML = "";
+    ["eurojackpot", "lotto649", "euromillions"].forEach(function (k) {
+      var g = GAMES[k], list = TR && TR.games && TR.games[k];
+      if (!g || !list || !list.length) return;
+      var done = list.filter(function (e) { return e.result; });
+      var waiting = list.filter(function (e) { return !e.result; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+      var amounts = done.every(function (e) { return e.result.amounts; });
+      function sum(set) {
+        var s = {p: 0, w: 0, spent: 0};
+        done.forEach(function (e) { s.p += e.result[set].prizes; s.w += e.result[set].won; s.spent += e.stake * e[set].length; });
+        return s;
+      }
+      function row(name, cls, s) {
+        return "<tr class='" + cls + "'><td>" + name + "</td><td>" + s.p + "</td><td>" + (amounts ? eur(s.w) : "–") + "</td><td>" + eur(s.spent) +
+          "</td><td>" + (amounts && s.spent ? "€" + (s.w / s.spent).toFixed(2) : "–") + "</td></tr>";
+      }
+      var card = document.createElement("div"); card.className = "res-card tr-card";
+      var h = "<div class='label'>" + g.name + "</div><h3>" + (done.length ? done.length + " draw" + (done.length === 1 ? "" : "s") + " scored" : "First draw not scored yet") + "</h3>";
+      if (done.length) {
+        h += "<div class='scroll'><table class='tbl'><caption class='sr-only'>" + g.name + ": AI Draw lines against random lines</caption>" +
+          "<thead><tr><th scope='col'>Lines</th><th scope='col'>Prizes</th><th scope='col'>Won</th><th scope='col'>Cost</th><th scope='col'>Back per €1</th></tr></thead><tbody>" +
+          row("AI Draw", "ai", sum("ai")) + row("Random", "", sum("random")) + "</tbody></table></div>";
+        if (!amounts) h += "<p class='note'>" + g.name + " prize amounts are not in our official source, so only prizes are counted.</p>";
+      }
+      var nx = waiting[0];
+      if (nx) {
+        var ln = function (l) { return "<li>" + resultLine(g, {main: l.main, euro: l.extra}) + "</li>"; };
+        h += "<div class='res-next'>Saved for <b>" + shortDay(nx.date) + "</b>: " + savedAt(nx.registered) + "</div>" +
+          "<details class='fold mini-fold'><summary>The saved lines</summary>" +
+          (nx.superzahl != null ? "<p class='note'>Ticket number ends in " + nx.superzahl + " (Superzahl), for both sets.</p>" : "") +
+          "<div class='tr-sub'>AI Draw</div><ul class='tr-lines'>" + nx.ai.map(ln).join("") + "</ul>" +
+          "<div class='tr-sub'>Random</div><ul class='tr-lines'>" + nx.random.map(ln).join("") + "</ul></details>";
+      }
+      if (done.length) {
+        var won = function (r) { return r.prizes + " prize" + (r.prizes === 1 ? "" : "s") + (r.prizes && amounts ? ", " + eur(r.won) : ""); };
+        h += "<details class='fold mini-fold'><summary>Draw by draw</summary><ul class='res-list tr-hist'>" +
+          done.slice(0, 12).map(function (e) {
+            return "<li><span class='res-date'>" + shortDay(e.date) + "</span><br>AI Draw: <b>" + won(e.result.ai) + "</b> · Random: <b>" + won(e.result.random) + "</b></li>";
+          }).join("") + "</ul></details>";
+      }
+      card.innerHTML = h; host.appendChild(card);
+    });
+    if (!host.children.length) host.innerHTML = "<p class='note'>The track record starts with the next draw of each game. Lines are saved before the draw and scored after it.</p>";
   }
   if (window.fetch) fetch("data/ai-draw-results.json", {cache: "no-cache"})
     .then(function (x) { if (!x.ok) throw new Error(x.status); return x.json(); })
-    .then(applyResults).catch(function () { /* keep the built-in data */ });
+    .then(applyResults).catch(function () { loadTrack(); /* keep the built-in data */ });
   // While a saved ticket's draw is done but its result or prize is not in yet, check again every 2 minutes,
   // and flip "Draw tonight" to "Drawn" on time. Only while the page is visible.
   function tkLive() { return TK.list.some(function (t) { return status(t).live; }); }
